@@ -1,14 +1,14 @@
 # Replace every value here for a new repository (docs/new-repo.md). Bucket names in the three
 # terraform.tfbackend files are <project id>-terraform-state and must match.
-gcp_provider_project_id = "myapp-root"
-gcp_provider_region     = "europe-west1"
-gcp_provider_zone       = "europe-west1-b"
-gcp_project_prefix      = "myapp"
+gcp_provider_project_id = "open-flat-pack-root"
+gcp_provider_region     = "europe-west2"
+gcp_provider_zone       = "europe-west2-b"
+gcp_project_prefix      = "open-flat-pack"
 gcp_projects            = ["stag", "prod"]
-github_repository_owner = "your-github-user"
-github_repository_name  = "your-repo"
+github_repository_owner = "edgorman"
+github_repository_name  = "open-flat-pack"
 
-site_name       = "My App"
+site_name       = "OpenFlatpack"
 cloudflare_zone = "example.com"
 frontend_hostnames = {
   stag = "staging.example.com"
