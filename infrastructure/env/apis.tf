@@ -5,3 +5,7 @@ resource "google_project_service" "run" {
   service = "run.googleapis.com"
 }
 
+resource "google_project_service" "aiplatform" {
+  project = var.gcp_project_id
+  service = "aiplatform.googleapis.com"
+}

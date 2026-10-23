@@ -65,3 +65,21 @@ variable "alert_rate_limited_count_threshold" {
   type        = number
   default     = 20
 }
+
+variable "model_name" {
+  description = "The Vertex AI model the backend sends prompts to, as publisher/model. It must be enabled once in Model Garden in this project (docs/new-repo.md)."
+  type        = string
+  default     = "deepseek-ai/deepseek-v4.1-flash-maas"
+}
+
+variable "model_location" {
+  description = "The Vertex AI location model_name is served from. DeepSeek's managed models are served from global, not from gcp_region."
+  type        = string
+  default     = "global"
+}
+
+variable "model_daily_call_limit" {
+  description = "The most model calls the backend makes per UTC day; past it, prompts are refused until midnight. This is the hard cap on model spend, since Google Cloud budgets only alert."
+  type        = number
+  default     = 500
+}

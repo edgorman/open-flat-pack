@@ -4,7 +4,7 @@ One model call turns a prompt into a layout. The model gets the whole catalogue,
 
 ## The model
 
-DeepSeek on Vertex AI (Model Garden, pay per token), as the cheapest model that does the job. The model name is configuration. The call asks for JSON output.
+DeepSeek V4.1 Flash on Vertex AI (Model Garden, pay per token, served from the `global` location), as the cheapest model that does the job. The model name, location and daily call limit are configuration. The call asks for JSON output.
 
 ## Input
 
@@ -37,4 +37,4 @@ If the layout fails validation, the errors go back to the model in the same conv
 
 ## API
 
-`POST /layouts` with `{ prompt, base_layout? }` answers with a valid layout, or 422 with the errors. It requires sign-in, so the existing rate limiting caps model spend. Nothing is stored.
+`POST /layouts` with `{ prompt, base_layout? }` answers with a valid layout, or 422 with the errors. It requires sign-in, so the existing rate limiting slows any one caller. Model spend has a hard cap: the backend counts its model calls per UTC day and, past the daily limit, answers 503 until midnight. Nothing else is stored.
