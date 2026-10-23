@@ -67,7 +67,7 @@ variable "alert_rate_limited_count_threshold" {
 }
 
 variable "model_name" {
-  description = "The Vertex AI model the backend sends prompts to, as publisher/model. It must be enabled once in Model Garden in this project (docs/new-repo.md)."
+  description = "The Vertex AI model the backend sends prompts to, as publisher/model."
   type        = string
   default     = "deepseek-ai/deepseek-v4.1-flash-maas"
 }
