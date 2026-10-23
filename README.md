@@ -1,4 +1,4 @@
-# webapp-template
+# OpenFlatpack
 
 [![Go](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go&logoColor=white)](services/backend)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](services/frontend)
@@ -9,9 +9,9 @@
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white)](infrastructure)
 [![moon](https://img.shields.io/badge/moon-2.5-6F53F3)](https://moonrepo.dev)
 
-A GitHub template for a small, cloud-deployed full-stack web app: a trunk-based monorepo with CI/CD and infrastructure-as-code already wired up, and services stripped down to sign-in, profiles and one example resource (`notes`) to copy or delete.
+Describe a piece of furniture in plain English and OpenFlatpack turns it into a layout built only from real IKEA KALLAX parts: a 3D blueprint preview and a parts list with article numbers, ready to buy. The design is in [`docs/design/`](docs/design/roadmap.md).
 
-**Starting a new project?** Click **Use this template**, then follow [`docs/new-repo.md`](docs/new-repo.md). Until its one manual bootstrap step, a new repository runs only the PR checks: every deploy job skips itself.
+It is a trunk-based monorepo with CI/CD and infrastructure-as-code wired up. Setting up the cloud side from scratch is [`docs/new-repo.md`](docs/new-repo.md); until its one manual bootstrap step, the repository runs only the PR checks and every deploy job skips itself.
 
 ## What's in here
 
@@ -22,6 +22,7 @@ A GitHub template for a small, cloud-deployed full-stack web app: a trunk-based 
 | `packages/protos` | Protobuf API contract; `buf generate` writes the Go and TypeScript types |
 | `infrastructure` | Terraform for the shared root, staging and prod environments (GCP, Cloudflare, GitHub) |
 | `.github` | Workflows and composite actions: PR checks, staging deploy on merge, release promotion to prod |
+| `docs/design` | What OpenFlatpack does: the v1 design and the roadmap |
 | `docs/decisions` | Why things are the way they are, one decision per file |
 
 Every merge to `main` deploys to staging; production releases are promoted from there. Nothing is ever applied or deployed by hand.

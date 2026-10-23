@@ -6,11 +6,8 @@
 
 repository:
   # General
-  name: webapp-template
-  description: Template for a full-stack web app - Go on Cloud Run, React on Cloudflare Pages, Terraform, moon, trunk-based CI/CD.
-  # A GitHub template repository, so "Use this template" creates new repositories from it. A
-  # repository made from it sets this back to false along with its own name (docs/new-repo.md).
-  is_template: true
+  name: open-flat-pack
+  description: OpenFlatpack - describe furniture in plain English, get a buildable IKEA KALLAX layout, 3D preview and parts list.
   private: false
   has_issues: true
   has_projects: false

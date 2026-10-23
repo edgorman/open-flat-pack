@@ -1,1 +1,1 @@
-bucket = "myapp-prod-terraform-state"
+bucket = "open-flat-pack-prod-terraform-state"
