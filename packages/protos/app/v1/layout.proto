@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package app.v1;
+
+option go_package = "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1";
+
+// Layout is the whole of a design: which catalogue parts go where. Prices, sizes and colours are
+// always read from the catalogue - see docs/design/v1/0003-prompting.md.
+message Layout {
+  Limits limits = 1;
+  repeated LayoutPart parts = 2;
+}
+
+// Limits are size limits read from the prompt, in mm. They only ever tighten the fixed limits
+// feasibility enforces (2500 mm high), never relax them. Unset where the prompt gave none.
+message Limits {
+  optional int32 max_width = 1;
+  optional int32 max_height = 2;
+}
+
+// LayoutPart places one catalogue part. Every part stands against the same wall, so there is no
+// depth coordinate.
+message LayoutPart {
+  string article = 1;
+  // The part's bottom-left corner in mm, seen from the front.
+  int32 x = 2;
+  int32 y = 3;
+}
+
+// Validation is the result of checking a layout against the catalogue - see
+// docs/design/v1/0004-feasibility.md. A layout is buildable when errors is empty. It is both part
+// of a `POST /layouts` response and the whole of its 422 body.
+message Validation {
+  repeated LayoutError errors = 1;
+  // Shown on the parts list, e.g. "Fix to the wall: this design is stacked."
+  repeated string notes = 2;
+}
+
+// LayoutError is one rule a layout breaks.
+message LayoutError {
+  // The offending part's index in Layout.parts. Unset for an error about the whole layout, such as
+  // its overall width.
+  optional int32 part = 1;
+  string message = 2;
+}

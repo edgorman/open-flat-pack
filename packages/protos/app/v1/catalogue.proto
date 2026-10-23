@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package app.v1;
+
+option go_package = "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1";
+
+// Catalogue is what `GET /catalogue` answers with: every part a design may use. The backend
+// embeds the hand-curated catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
+message Catalogue {
+  repeated Part parts = 1;
+}
+
+// Part is one catalogue entry, keyed by its IKEA article number. An article number identifies
+// exactly one version of a product, so an entry never changes meaning.
+message Part {
+  string article = 1;
+  string name = 2;
+  // As IKEA words it, e.g. "white, 77x77 cm".
+  string variant = 3;
+  // Drives the preview colour, e.g. "white".
+  string finish = 4;
+  Size size = 5;
+  // As seen on checked_on.
+  double price_gbp = 6;
+  // The IKEA UK product page.
+  string url = 7;
+  // When a person last confirmed the fields above, as YYYY-MM-DD.
+  string checked_on = 8;
+  // Slot names this part may sit in or on, e.g. "cube", or "floor" for the built-in floor.
+  repeated string rests_on = 9;
+  // Slots this part provides to others.
+  repeated Slot offers = 10;
+}
+
+// Size is a part's bounding box in mm: width and height as seen from the front, and depth.
+message Size {
+  int32 w = 1;
+  int32 h = 2;
+  int32 d = 3;
+}
+
+// Slot is a named rectangle on a part that other parts rest in or on, in mm relative to the
+// part's bottom-left corner, seen from the front.
+message Slot {
+  // What a resting part lists in its rests_on, e.g. "cube", "top" or "base".
+  string name = 1;
+  // "cell" (a resting part fills it exactly, one part per cell) or "surface" (a resting part sits
+  // wholly on it, possibly spanning several at the same height) - a plain string rather than an
+  // enum, see the "Contract Layer" section of `packages/protos/AGENTS.md`.
+  string kind = 2;
+  int32 x = 3;
+  int32 y = 4;
+  int32 w = 5;
+  int32 h = 6;
+}
