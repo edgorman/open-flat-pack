@@ -1,4 +1,4 @@
-# Dedicated runtime identity scoped to Firestore alone, not the default compute service account.
+# Dedicated runtime identity scoped to Firestore and model calls, not the default compute service account.
 resource "google_service_account" "backend_runtime" {
   project      = var.gcp_project_id
   account_id   = "backend-runtime"
@@ -11,6 +11,12 @@ resource "google_project_iam_member" "backend_runtime_datastore_user" {
   member  = "serviceAccount:${google_service_account.backend_runtime.email}"
 }
 
+resource "google_project_iam_member" "backend_runtime_aiplatform_user" {
+  project = var.gcp_project_id
+  role    = "roles/aiplatform.user"
+  member  = "serviceAccount:${google_service_account.backend_runtime.email}"
+}
+
 # CI needs actAs to attach this service account below; no role in github_cicd.tf covers it.
 resource "google_service_account_iam_member" "backend_runtime_actas" {
   service_account_id = google_service_account.backend_runtime.name
@@ -19,7 +25,7 @@ resource "google_service_account_iam_member" "backend_runtime_actas" {
 }
 
 resource "google_cloud_run_v2_service" "backend" {
-  depends_on = [google_project_service.run]
+  depends_on = [google_project_service.run, google_project_service.aiplatform]
 
   project  = var.gcp_project_id
   name     = "backend-${var.environment}"
@@ -53,6 +59,21 @@ resource "google_cloud_run_v2_service" "backend" {
       env {
         name  = "GOOGLE_CLIENT_ID"
         value = var.google_client_id
+      }
+
+      env {
+        name  = "MODEL_NAME"
+        value = var.model_name
+      }
+
+      env {
+        name  = "MODEL_LOCATION"
+        value = var.model_location
+      }
+
+      env {
+        name  = "MODEL_DAILY_CALL_LIMIT"
+        value = var.model_daily_call_limit
       }
     }
   }

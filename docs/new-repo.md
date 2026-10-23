@@ -52,6 +52,8 @@ Commit steps 1-3's edits on a branch and open a pull request. Now that the varia
 
 The merge applies staging's infrastructure, builds and deploys the backend and frontend, runs the smoke test against `STAGING_URL`, and cuts a pre-release. The first prod deploy is promoting that pre-release to a release (see `.github/AGENTS.md`).
 
+Then enable the model the backend calls (`model_name` in `infrastructure/env/variables.tf`) once in each environment project; Terraform can't do this. In the console for `<prefix>-stag`, open Vertex AI Model Garden, find the model's card (DeepSeek V4.1 Flash) and click **Enable**. Do the same for `<prefix>-prod` before promoting a release that calls the model. Until then `POST /layouts` fails with a permission error.
+
 ## 7. Make it yours
 
 - Replace or delete the `notes` example (`services/backend/README.md`'s "Adding a resource" lists every place it lives), and the frontend pages built on it.
