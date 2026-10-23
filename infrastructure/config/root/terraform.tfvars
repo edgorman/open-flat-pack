@@ -17,7 +17,7 @@ site_name = "OpenFlatpack"
 # project) and set here; see services/frontend/README.md. Not a secret - the ID-token flow this
 # app uses has no client secret, and the ID itself ships in the frontend bundle and every
 # browser's network tab regardless.
-google_client_id = ""
+google_client_id = "62455553858-vbj0jb6tvq5vq39rvq2354pnudf2vuj7.apps.googleusercontent.com"
 
 # The following are sensitive/unknown initially and thus have no default
 # github_provider_token
