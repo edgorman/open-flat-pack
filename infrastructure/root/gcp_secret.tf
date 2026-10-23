@@ -1,5 +1,7 @@
 # Stores the GitHub PAT so CI can re-apply this module after the one-time manual bootstrap.
 resource "google_secret_manager_secret" "github_provider_token" {
+  depends_on = [google_project_service.project_services]
+
   project   = var.gcp_provider_project_id
   secret_id = "github_provider_token"
 
@@ -23,6 +25,8 @@ resource "google_secret_manager_secret_iam_member" "github_actions_secret_access
 # Same bootstrap pattern, except workflows read these from Secret Manager directly rather than
 # from a GitHub Actions secret.
 resource "google_secret_manager_secret" "cloudflare_account_id" {
+  depends_on = [google_project_service.project_services]
+
   project   = var.gcp_provider_project_id
   secret_id = "cloudflare_account_id"
 
@@ -44,6 +48,8 @@ resource "google_secret_manager_secret_iam_member" "github_actions_cloudflare_ac
 }
 
 resource "google_secret_manager_secret" "cloudflare_api_token" {
+  depends_on = [google_project_service.project_services]
+
   project   = var.gcp_provider_project_id
   secret_id = "cloudflare_api_token"
 
