@@ -7,7 +7,7 @@ Repo-wide rules for Claude Code, other coding agents and contributors. Each area
 - `infrastructure/AGENTS.md` - GCP projects, IAM/WIF, artifact stores and retention, monitoring.
 - `.github/AGENTS.md` - moon, CI/CD, versioning, deploys, releases, rollback.
 
-Rules are short; the reasoning behind each is a decision record in [`docs/decisions/`](docs/decisions/README.md). New to the repository? Start with [`docs/start-here.md`](docs/start-here.md). Made a new repository from this template? Follow [`docs/new-repo.md`](docs/new-repo.md).
+Rules are short; the reasoning behind each is a decision record in [`docs/decisions/`](docs/decisions/README.md). New to the repository? Start with [`docs/start-here.md`](docs/start-here.md). The product design is in [`docs/design/`](docs/design/roadmap.md); setting up the cloud side from scratch is [`docs/new-repo.md`](docs/new-repo.md).
 
 Claude Code reads these files through its built-in [`agents-md`](https://github.com/anthropics/claude-code/tree/main/mods/agents-md) plugin, which loads `AGENTS.md` where it would load `CLAUDE.md`, but only while the project has no `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md`.
 

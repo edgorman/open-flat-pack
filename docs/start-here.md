@@ -1,6 +1,6 @@
 # Start here
 
-From a fresh clone to an open pull request. None of it needs GCP access. (Setting up a new repository from the template, GCP and all, is [`new-repo.md`](new-repo.md).)
+From a fresh clone to an open pull request. None of it needs GCP access. (Setting up the cloud side from scratch, GCP and all, is [`new-repo.md`](new-repo.md).)
 
 ## 1. Clone and install the toolchain
 

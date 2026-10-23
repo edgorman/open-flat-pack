@@ -4,8 +4,8 @@
 gcp_project_id      = "open-flat-pack-stag"
 gcp_region          = "europe-west2"
 environment         = "stag"
-backend_cors_origin = "https://staging.example.com"
+backend_cors_origin = "https://open-flat-pack-stag.pages.dev"
 
-# Where the monitoring alerts in infrastructure/env/monitoring.tf are sent. This grants nothing -
-# it is an address to notify, not an account to admit.
-alert_notification_emails = ["alerts@example.com"]
+# Where the monitoring alerts in infrastructure/env/monitoring.tf are sent. Empty: the alerts still
+# show in the Cloud Monitoring console, nobody is emailed.
+alert_notification_emails = []
