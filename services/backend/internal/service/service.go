@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	appv1 "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository"
 )
 
@@ -31,6 +32,8 @@ type Service struct {
 	notes    repository.NoteRepository
 	users    repository.UserRepository
 	verifier repository.TokenVerifier
+	// catalogue is loaded and checked once at startup (see internal/catalogue).
+	catalogue *appv1.Catalogue
 	// The rate limiters live on the Service rather than being built in Handler(), so a budget is
 	// spent by the service that served the request rather than by the handler tree - two calls to
 	// Handler() must not hand a caller two budgets. See ratelimit.go for what each one bounds.
@@ -43,12 +46,14 @@ func New(
 	notes repository.NoteRepository,
 	users repository.UserRepository,
 	verifier repository.TokenVerifier,
+	catalogue *appv1.Catalogue,
 ) *Service {
 	return &Service{
 		cfg:           cfg,
 		notes:         notes,
 		users:         users,
 		verifier:      verifier,
+		catalogue:     catalogue,
 		ipLimiter:     newRateLimiter(requestsPerIP),
 		callerLimiter: newRateLimiter(requestsPerCaller),
 	}
@@ -81,6 +86,7 @@ func (s *Service) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", s.Debug)
 	mux.HandleFunc("/debug", s.Debug)
+	mux.HandleFunc("GET /catalogue", s.GetCatalogue)
 	// The example resource. A new one is registered the same way: reads optional, writes authed,
 	// and a line for each action in entity/access.go's policy table.
 	mux.Handle("GET /notes", optional(s.ListNotes))

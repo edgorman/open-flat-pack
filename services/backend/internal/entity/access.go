@@ -22,8 +22,9 @@ package entity
 type Resource string
 
 const (
-	ResourceUser Resource = "user"
-	ResourceNote Resource = "note"
+	ResourceUser      Resource = "user"
+	ResourceNote      Resource = "note"
+	ResourceCatalogue Resource = "catalogue"
 )
 
 // Action is one thing that can be done to a resource. These four are the whole vocabulary, and
@@ -80,6 +81,10 @@ var policy = map[Resource]map[Action]Access{
 		ActionCreate: AccessPrivate,
 		ActionUpdate: AccessPrivate,
 		ActionDelete: AccessPrivate,
+	},
+	// The parts catalogue is the same for everybody and owned by nobody.
+	ResourceCatalogue: {
+		ActionRead: AccessPublic,
 	},
 }
 

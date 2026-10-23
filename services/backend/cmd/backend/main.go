@@ -15,6 +15,7 @@ import (
 
 	fs "cloud.google.com/go/firestore"
 
+	"github.com/edgorman/webapp-template/services/backend/internal/catalogue"
 	"github.com/edgorman/webapp-template/services/backend/internal/logging"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository/devauth"
@@ -48,6 +49,11 @@ func run() error {
 		return err
 	}
 
+	parts, err := catalogue.Load()
+	if err != nil {
+		return err
+	}
+
 	ctx := context.Background()
 
 	client, err := fs.NewClient(ctx, fs.DetectProjectID)
@@ -65,6 +71,7 @@ func run() error {
 		firestore.NewNoteRepository(client),
 		firestore.NewUserRepository(client),
 		verifier,
+		parts,
 	)
 
 	// The server is built explicitly rather than handed to http.ListenAndServe, which supplies a
