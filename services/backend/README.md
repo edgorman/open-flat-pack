@@ -22,6 +22,7 @@ JSON:
 | Route                    | Auth     | What                                                          |
 | ------------------------ | -------- | ------------------------------------------------------------- |
 | `GET /health`, `/debug`  | none     | The Debug Endpoint Contract above                             |
+| `GET /catalogue`         | none     | Every part a design may use; cacheable for an hour            |
 | `GET /notes`             | optional | One page of the notes the caller may read, newest first       |
 | `GET /notes/{id}`        | optional | One note, if the caller may read it                           |
 | `POST /notes`            | required | Create a note owned by the caller                             |
@@ -41,6 +42,7 @@ non-2xx response is an `ErrorResponse`. `GET /notes` takes `limit` and `startAft
 ```
 cmd/backend/          Entrypoint: reads config, builds adapters, hands them to the service
 internal/
+  catalogue/          The embedded parts catalogue, checked at startup
   entity/             Domain types and their rules - no I/O, no HTTP, no persistence tags
   repository/         Interfaces for everything external, plus ErrNotFound
     devauth/          Development-token TokenVerifier for running locally (ENVIRONMENT=local only)

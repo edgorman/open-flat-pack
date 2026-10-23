@@ -237,7 +237,7 @@ func newTestService(notes repository.NoteRepository, users repository.UserReposi
 			// Quiet by default; a test asserting on what is logged points this at a buffer.
 			Logger: slog.New(slog.DiscardHandler),
 		},
-		notes, users, fakeVerifier{uid: "caller"},
+		notes, users, fakeVerifier{uid: "caller"}, testCatalogue,
 	)
 }
 
