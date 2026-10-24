@@ -8,7 +8,7 @@ Every part is a rectangle (its `size.w` by `size.h` at its `x`, `y`), and every 
 
 1. **Known parts.** Every `article` is in the catalogue.
 2. **Supported.** Every part rests on a slot type listed in its `rests_on`:
-   - on a **cell**, its rectangle matches the cell exactly (within 2 mm), and no other part uses that cell;
+   - on a **cell**, its position is the cell's bottom-left corner, and no other part uses that cell. Its size isn't compared with the cell's: the slot name already says it fits;
    - on a **surface**, its bottom edge is at the surface's height and its whole width is covered by surfaces of that type at that height. A stacked frame can't overhang, and one frame can span two frames below it.
 3. **No collisions.** No two parts overlap, except a part and the part whose cell it sits in.
 4. **Height.** The tallest point is at most 2500 mm, and at most `limits.max_height` if that is lower.
