@@ -27,7 +27,7 @@ How parts go together is data in the catalogue. A slot is a named rectangle on a
 
 The code knows two kinds of slot:
 
-- **cell** - a part resting here must fill it exactly, and a cell holds at most one part. A KALLAX frame offers one `cube` cell per compartment; an insert, door, drawer set or box rests on `cube`.
+- **cell** - a part resting here sits at the cell's bottom-left corner, and a cell holds at most one part. A KALLAX frame offers one `cube` cell per compartment; an insert, door, drawer set or box rests on `cube`.
 - **surface** - a part resting here must sit wholly on it, and may span several surfaces at the same height. A frame offers a `top` surface, on which another frame can stand. An underframe offers a `base` surface, on which a frame can stand.
 
 `floor` is a built-in surface at height 0 with no width limit.
@@ -41,6 +41,10 @@ For KALLAX:
 | Legs, underframe | `floor` | one `base` surface |
 
 Legs and underframes rest only on the floor, so they can only go under the bottom level.
+
+IKEA publishes outer sizes only, rounded to whole centimetres, so cube cells are worked out from a frame's size rather than measured. A KALLAX frame is a grid of 335 mm cells with 15 mm dividers, and its outer panels take up the rest, so a 770 mm wide frame has 2 columns with 42 mm outer panels. Cells only need to be accurate enough to place parts in the preview; a few millimetres out is invisible.
+
+Entries start from `services/backend/scripts/scrape-catalogue`, which prints candidates from IKEA UK's search, including the cells and `rests_on` above. A person checks each one before it goes in the file.
 
 A new range is added as new entries, with new slot names where it needs them (say `shelf` or `door`), as long as each slot is a cell or a surface.
 

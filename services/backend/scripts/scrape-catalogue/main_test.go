@@ -1,6 +1,7 @@
 package main
 
 import (
+	"slices"
 	"testing"
 
 	"google.golang.org/protobuf/proto"
@@ -19,6 +20,19 @@ func TestSize(t *testing.T) {
 	} {
 		if got := size(measure); !proto.Equal(got, want) {
 			t.Errorf("size(%q) = %v, want %v", measure, got, want)
+		}
+	}
+}
+
+func TestCells(t *testing.T) {
+	for length, want := range map[int32][]int32{
+		410:  {37},
+		770:  {42, 392},
+		1470: {42, 392, 742, 1092},
+		1820: {42, 392, 742, 1092, 1442},
+	} {
+		if got := cells(length); !slices.Equal(got, want) {
+			t.Errorf("cells(%d) = %v, want %v", length, got, want)
 		}
 	}
 }

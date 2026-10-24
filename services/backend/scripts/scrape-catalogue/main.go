@@ -9,9 +9,9 @@
 // fetched. The queries default to the v1 ranges, and -filter keeps only products whose name
 // matches it.
 //
-// What a candidate fills: article, name, variant, finish, price and URL as IKEA lists them, and a
-// size read from IKEA's measure text (w x h, or w x d x h, rounded to mm). A person still confirms
-// all of these, measures the slots, and sets checked_on and rests_on.
+// What a candidate fills: article, name, variant, finish, price and URL as IKEA lists them, a size
+// read from IKEA's measure text (w x h, or w x d x h, in mm), and rests_on and offers for the part
+// types KALLAX uses (see slots). A person still checks all of these and sets checked_on.
 package main
 
 import (
@@ -154,7 +154,7 @@ func search(q string) ([]product, error) {
 }
 
 func candidate(p product) *appv1.Part {
-	return &appv1.Part{
+	part := &appv1.Part{
 		Article:  p.ItemNo,
 		Name:     p.Name + " " + strings.ToLower(p.TypeName),
 		Variant:  strings.Trim(p.ValidDesignText+", "+p.Measure, ", "),
@@ -163,6 +163,49 @@ func candidate(p product) *appv1.Part {
 		PriceGbp: p.SalesPrice.Numeral,
 		Url:      p.PipURL,
 	}
+	part.RestsOn, part.Offers = slots(part.Name, part.Size)
+	return part
+}
+
+// KALLAX cube geometry. IKEA publishes outer sizes only, so a frame is taken to be a grid of
+// cells with dividers between them, and its outer panels take up the rest.
+const (
+	cellMM    = 335
+	dividerMM = 15
+)
+
+// slots gives a part's rests_on and offers from its name, per docs/design/v1/0002-catalogue.md.
+// A part it doesn't recognise, or one without a size, gets neither, for a person to fill in.
+func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
+	switch {
+	case size == nil:
+		return nil, nil
+	case name == "KALLAX shelving unit":
+		var offers []*appv1.Slot
+		for _, y := range cells(size.H) {
+			for _, x := range cells(size.W) {
+				offers = append(offers, &appv1.Slot{Name: "cube", Kind: "cell", X: x, Y: y, W: cellMM, H: cellMM})
+			}
+		}
+		offers = append(offers, &appv1.Slot{Name: "top", Kind: "surface", Y: size.H, W: size.W})
+		return []string{"floor", "top", "base"}, offers
+	case name == "KALLAX underframe":
+		return []string{"floor"}, []*appv1.Slot{{Name: "base", Kind: "surface", Y: size.H, W: size.W}}
+	case strings.Contains(name, "insert") || strings.Contains(name, "box"):
+		return []string{"cube"}, nil
+	}
+	return nil, nil
+}
+
+// cells gives the offsets of the cells along one side of a frame that long, in mm.
+func cells(length int32) []int32 {
+	n := length / (cellMM + dividerMM)
+	outer := (length - n*cellMM - (n-1)*dividerMM) / 2
+	var offsets []int32
+	for i := range n {
+		offsets = append(offsets, outer+i*(cellMM+dividerMM))
+	}
+	return offsets
 }
 
 // size reads IKEA's measure text, e.g. "77x147 cm" (w x h) or "33x38x33 cm" (w x d x h), in mm.
