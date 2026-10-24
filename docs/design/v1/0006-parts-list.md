@@ -6,13 +6,11 @@ Computed in the browser from the layout and the catalogue by grouping parts by a
 
 | Column | From |
 | --- | --- |
-| Part | `name` and `variant`, linked to `url` on IKEA UK |
+| Part | `name`, `finish` and size in cm, linked to `https://www.ikea.com/gb/en/p/-<article>/` |
 | Article number | `article`, formatted as IKEA does (`802.758.87`) |
 | Quantity | Count in the layout |
-| Unit price | `price_gbp` |
-| Line total | Quantity × unit price |
 
-Below the table: the grand total, the build notes from [feasibility](0004-feasibility.md#build-notes), and the note "Prices from our catalogue, last checked <oldest `checked_on` in the list>. They may be out of date; check on IKEA before buying."
+Below the table: the build notes from [feasibility](0004-feasibility.md#build-notes). The catalogue holds no prices, so the list shows none; IKEA shows the current price on each product page and in the shopping list.
 
 ## Buying
 

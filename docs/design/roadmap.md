@@ -1,6 +1,6 @@
 # Roadmap
 
-OpenFlatpack turns a sentence like "a 2-metre-wide white bookcase with record storage and two drawers" into a buildable arrangement of real IKEA parts, a 3D preview and a parts list with prices and links.
+OpenFlatpack turns a sentence like "a 2-metre-wide white bookcase with record storage and two drawers" into a buildable arrangement of real IKEA parts, a 3D preview and a parts list with links to IKEA.
 
 ## v1
 
@@ -10,7 +10,7 @@ Designed in [`v1/`](v1/0001-overview.md).
 - IKEA UK only.
 - A prompt becomes a layout through one model call, checked against physical rules, with stacking up to 2.5 m.
 - A 3D blueprint preview in the browser.
-- A parts list with catalogue prices, product links and a copyable list of article numbers.
+- A parts list with product links and a copyable list of article numbers.
 - A public gallery of designs that anyone can fork.
 
 ## v2

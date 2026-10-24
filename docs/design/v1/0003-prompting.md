@@ -9,7 +9,7 @@ DeepSeek V4.1 Flash on Vertex AI (Model Garden, pay per token, served from the `
 ## Input
 
 - A fixed system prompt explaining the [slot model](0002-catalogue.md#slots) and the output format.
-- The catalogue, minus fields the model doesn't need such as `url`.
+- The catalogue.
 - The user's prompt.
 - When changing an existing design, that design's layout.
 

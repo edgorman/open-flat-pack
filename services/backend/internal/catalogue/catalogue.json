@@ -1,340 +1,185 @@
 {
   "parts": [
     {
-      "article": "30219281",
-      "name": "DRÖNA box",
-      "variant": "black, 33x38x33 cm",
-      "finish": "black",
-      "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-black-30219281/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
-    },
-    {
       "article": "10625714",
       "name": "DRÖNA box",
-      "variant": "black/off-white, 33x38x33 cm",
       "finish": "black/off-white",
       "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-black-off-white-10625714/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "30219281",
+      "name": "DRÖNA box",
+      "finish": "black",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
     },
     {
       "article": "00580810",
       "name": "DRÖNA box",
-      "variant": "blue, 33x38x33 cm",
       "finish": "blue",
       "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-blue-00580810/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "00566545",
       "name": "DRÖNA box",
-      "variant": "dark blue/white, 33x38x33 cm",
       "finish": "dark blue/white",
       "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-dark-blue-white-00566545/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "10443974",
       "name": "DRÖNA box",
-      "variant": "dark grey, 33x38x33 cm",
       "finish": "dark grey",
       "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-dark-grey-10443974/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "80478390",
       "name": "DRÖNA box",
-      "variant": "dotted/beige, 33x38x33 cm",
       "finish": "dotted/beige",
       "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-dotted-beige-80478390/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "40217955",
       "name": "DRÖNA box",
-      "variant": "white, 33x38x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 380 },
-      "price_gbp": 3,
-      "url": "https://www.ikea.com/gb/en/p/droena-box-white-40217955/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "80401292",
       "name": "KALLAX insert for bottles",
-      "variant": "white, 33x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 15,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-for-bottles-white-80401292/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "20423720",
       "name": "KALLAX insert with 1 shelf",
-      "variant": "white, 33x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 9,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-1-shelf-white-20423720/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "90286649",
       "name": "KALLAX insert with 2 drawers",
-      "variant": "black-brown, 33x33 cm",
       "finish": "black-brown",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-2-drawers-black-brown-90286649/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "40653319",
       "name": "KALLAX insert with 2 drawers",
-      "variant": "brown walnut effect, 33x33 cm",
       "finish": "brown walnut effect",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-2-drawers-brown-walnut-effect-40653319/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "00314642",
       "name": "KALLAX insert with 2 drawers",
-      "variant": "high-gloss white, 33x33 cm",
       "finish": "high-gloss white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 22,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-2-drawers-high-gloss-white-00314642/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "10592803",
       "name": "KALLAX insert with 2 drawers",
-      "variant": "wave shaped/light grey-blue, 33x33 cm",
       "finish": "wave shaped/light grey-blue",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-2-drawers-wave-shaped-light-grey-blue-10592803/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "50324511",
       "name": "KALLAX insert with 2 drawers",
-      "variant": "white stained oak effect, 33x33 cm",
       "finish": "white stained oak effect",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-2-drawers-white-stained-oak-effect-50324511/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "70286645",
       "name": "KALLAX insert with 2 drawers",
-      "variant": "white, 33x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-2-drawers-white-70286645/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "40423719",
       "name": "KALLAX insert with 4 shelves",
-      "variant": "white, 33x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-4-shelves-white-40423719/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "60278170",
       "name": "KALLAX insert with door",
-      "variant": "black-brown, 33x33 cm",
       "finish": "black-brown",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 10,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-black-brown-60278170/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "80653317",
       "name": "KALLAX insert with door",
-      "variant": "brown walnut effect, 33x33 cm",
       "finish": "brown walnut effect",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 10,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-brown-walnut-effect-80653317/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "40314640",
       "name": "KALLAX insert with door",
-      "variant": "high-gloss white, 33x33 cm",
       "finish": "high-gloss white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 15,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-high-gloss-white-40314640/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "20611132",
       "name": "KALLAX insert with door",
-      "variant": "pine/woven poplar, 33x33 cm",
       "finish": "pine/woven poplar",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-pine-woven-poplar-20611132/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "60592805",
       "name": "KALLAX insert with door",
-      "variant": "wave shaped/light grey-blue, 33x33 cm",
       "finish": "wave shaped/light grey-blue",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 12,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-wave-shaped-light-grey-blue-60592805/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "30324507",
       "name": "KALLAX insert with door",
-      "variant": "white stained oak effect, 33x33 cm",
       "finish": "white stained oak effect",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 10,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-white-stained-oak-effect-30324507/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "20278167",
       "name": "KALLAX insert with door",
-      "variant": "white, 33x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 10,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-door-white-20278167/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "70340299",
       "name": "KALLAX insert with glass door",
-      "variant": "white, 33x33 cm",
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-glass-door-white-70340299/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     },
     {
       "article": "00423721",
       "name": "KALLAX insert with mirror door",
-      "variant": "33x33 cm",
       "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 22,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-mirror-door-00423721/",
-      "rests_on": ["cube"],
-      "finish": "mirror",
-      "checked_on": "2026-10-24",
-      "offers": []
-    },
-    {
-      "article": "20409936",
-      "name": "KALLAX shelving unit",
-      "variant": "black-brown, 112x147 cm",
-      "finish": "black-brown",
-      "size": { "w": 1120, "h": 1470, "d": 390 },
-      "price_gbp": 89,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-20409936/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
-      ],
-      "checked_on": "2026-10-24"
+      "rests_on": [ "cube" ]
     },
     {
       "article": "10275862",
       "name": "KALLAX shelving unit",
-      "variant": "black-brown, 147x147 cm",
       "finish": "black-brown",
       "size": { "w": 1470, "h": 1470, "d": 390 },
-      "price_gbp": 99,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-10275862/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -353,18 +198,94 @@
         { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
+    },
+    {
+      "article": "20275885",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "20409936",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "40275846",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "40311873",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "60275812",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
     },
     {
       "article": "70301542",
       "name": "KALLAX shelving unit",
-      "variant": "black-brown, 182x182 cm",
       "finish": "black-brown",
       "size": { "w": 1820, "h": 1820, "d": 390 },
-      "price_gbp": 149,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-70301542/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -392,51 +313,25 @@
         { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "40275846",
-      "name": "KALLAX shelving unit",
-      "variant": "black-brown, 42x147 cm",
-      "finish": "black-brown",
-      "size": { "w": 420, "h": 1470, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-40275846/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "70309840",
       "name": "KALLAX shelving unit",
-      "variant": "black-brown, 42x41 cm",
       "finish": "black-brown",
       "size": { "w": 420, "h": 410, "d": 390 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-70309840/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 410, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "70522421",
       "name": "KALLAX shelving unit",
-      "variant": "black-brown, 77x112 cm",
       "finish": "black-brown",
       "size": { "w": 770, "h": 1120, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-70522421/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -445,74 +340,28 @@
         { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
-      "article": "20275885",
+      "article": "20653320",
       "name": "KALLAX shelving unit",
-      "variant": "black-brown, 77x147 cm",
-      "finish": "black-brown",
-      "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 49,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-20275885/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "40311873",
-      "name": "KALLAX shelving unit",
-      "variant": "black-brown, 77x41 cm",
-      "finish": "black-brown",
-      "size": { "w": 770, "h": 410, "d": 390 },
-      "price_gbp": 25,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-40311873/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "60275812",
-      "name": "KALLAX shelving unit",
-      "variant": "black-brown, 77x77 cm",
-      "finish": "black-brown",
+      "finish": "brown walnut effect",
       "size": { "w": 770, "h": 770, "d": 390 },
-      "price_gbp": 29,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-black-brown-60275812/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 770, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "60653323",
       "name": "KALLAX shelving unit",
-      "variant": "brown walnut effect, 112x147 cm",
       "finish": "brown walnut effect",
       "size": { "w": 1120, "h": 1470, "d": 390 },
-      "price_gbp": 89,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-brown-walnut-effect-60653323/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -527,36 +376,28 @@
         { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "80653322",
       "name": "KALLAX shelving unit",
-      "variant": "brown walnut effect, 42x147 cm",
       "finish": "brown walnut effect",
       "size": { "w": 420, "h": 1470, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-brown-walnut-effect-80653322/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "90653326",
       "name": "KALLAX shelving unit",
-      "variant": "brown walnut effect, 77x147 cm",
       "finish": "brown walnut effect",
       "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 49,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-brown-walnut-effect-90653326/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -567,36 +408,14 @@
         { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "20653320",
-      "name": "KALLAX shelving unit",
-      "variant": "brown walnut effect, 77x77 cm",
-      "finish": "brown walnut effect",
-      "size": { "w": 770, "h": 770, "d": 390 },
-      "price_gbp": 29,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-brown-walnut-effect-20653320/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "20604141",
       "name": "KALLAX shelving unit",
-      "variant": "brown-red, 147x39x77 cm",
       "finish": "brown-red",
       "size": { "w": 1470, "h": 770, "d": 390 },
-      "price_gbp": 59,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-brown-red-20604141/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -607,202 +426,105 @@
         { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 770, "w": 1470 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "70477937",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 112x147 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 1120, "h": 1470, "d": 390 },
-      "price_gbp": 89,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-70477937/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "80477932",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 147x147 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 1470, "h": 1470, "d": 390 },
-      "price_gbp": 99,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-80477932/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "90477936",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 182x182 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 1820, "h": 1820, "d": 390 },
-      "price_gbp": 149,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-90477936/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "40477934",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 42x147 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 420, "h": 1470, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-40477934/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "60477933",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 42x41 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 420, "h": 410, "d": 390 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-60477933/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "40346924",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 77x147 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 49,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-40346924/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "10477935",
-      "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 77x41 cm",
-      "finish": "grey/wood effect",
-      "size": { "w": 770, "h": 410, "d": 390 },
-      "price_gbp": 25,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-10477935/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "00477931",
       "name": "KALLAX shelving unit",
-      "variant": "grey/wood effect, 77x77 cm",
       "finish": "grey/wood effect",
       "size": { "w": 770, "h": 770, "d": 390 },
-      "price_gbp": 29,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-grey-wood-effect-00477931/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 770, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
-      "article": "20305745",
+      "article": "10477935",
       "name": "KALLAX shelving unit",
-      "variant": "high-gloss white, 147x147 cm",
-      "finish": "high-gloss white",
+      "finish": "grey/wood effect",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "40346924",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "40477934",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "60477933",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
+      ]
+    },
+    {
+      "article": "70477937",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "80477932",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
       "size": { "w": 1470, "h": 1470, "d": 390 },
-      "price_gbp": 129,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-high-gloss-white-20305745/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -821,18 +543,49 @@
         { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
+    },
+    {
+      "article": "90477936",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 1820, "h": 1820, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
+      ]
     },
     {
       "article": "10305741",
       "name": "KALLAX shelving unit",
-      "variant": "high-gloss white, 77x147 cm",
       "finish": "high-gloss white",
       "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 59,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-high-gloss-white-10305741/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -843,200 +596,66 @@
         { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
+    },
+    {
+      "article": "20305745",
+      "name": "KALLAX shelving unit",
+      "finish": "high-gloss white",
+      "size": { "w": 1470, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
+      ]
     },
     {
       "article": "20395878",
       "name": "KALLAX shelving unit",
-      "variant": "high-gloss white, 77x41 cm",
       "finish": "high-gloss white",
       "size": { "w": 770, "h": 410, "d": 390 },
-      "price_gbp": 29,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-high-gloss-white-20395878/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 410, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "50305739",
       "name": "KALLAX shelving unit",
-      "variant": "high-gloss white, 77x77 cm",
       "finish": "high-gloss white",
       "size": { "w": 770, "h": 770, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-high-gloss-white-50305739/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 770, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "40409935",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 112x147 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 1120, "h": 1470, "d": 390 },
-      "price_gbp": 89,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-40409935/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "10324513",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 147x147 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 1470, "h": 1470, "d": 390 },
-      "price_gbp": 99,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-10324513/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "90324509",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 182x182 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 1820, "h": 1820, "d": 390 },
-      "price_gbp": 149,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-90324509/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "40324516",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 42x147 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 420, "h": 1470, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-40324516/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "80395875",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 42x41 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 420, "h": 410, "d": 390 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-80395875/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "50522417",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 77x112 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 770, "h": 1120, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-50522417/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "00324518",
       "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 77x147 cm",
       "finish": "white stained oak effect",
       "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 49,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-00324518/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -1047,78 +666,14 @@
         { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
-      "article": "40395877",
+      "article": "10324513",
       "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 77x41 cm",
       "finish": "white stained oak effect",
-      "size": { "w": 770, "h": 410, "d": 390 },
-      "price_gbp": 25,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-40395877/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "60324520",
-      "name": "KALLAX shelving unit",
-      "variant": "white stained oak effect, 77x77 cm",
-      "finish": "white stained oak effect",
-      "size": { "w": 770, "h": 770, "d": 390 },
-      "price_gbp": 29,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-stained-oak-effect-60324520/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "10409932",
-      "name": "KALLAX shelving unit",
-      "variant": "white, 112x147 cm",
-      "finish": "white",
-      "size": { "w": 1120, "h": 1470, "d": 390 },
-      "price_gbp": 89,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-10409932/",
-      "rests_on": ["floor", "top", "base"],
-      "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
-        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
-      ],
-      "checked_on": "2026-10-24"
-    },
-    {
-      "article": "30275861",
-      "name": "KALLAX shelving unit",
-      "variant": "white, 147x147 cm",
-      "finish": "white",
       "size": { "w": 1470, "h": 1470, "d": 390 },
-      "price_gbp": 99,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-30275861/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -1137,18 +692,103 @@
         { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
-      "article": "70301537",
+      "article": "40324516",
       "name": "KALLAX shelving unit",
-      "variant": "white, 182x182 cm",
-      "finish": "white",
+      "finish": "white stained oak effect",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "40395877",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "40409935",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "50522417",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 1120, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
+      ]
+    },
+    {
+      "article": "60324520",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "80395875",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
+      ]
+    },
+    {
+      "article": "90324509",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
       "size": { "w": 1820, "h": 1820, "d": 390 },
-      "price_gbp": 149,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-70301537/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -1176,71 +816,136 @@
         { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "00275848",
       "name": "KALLAX shelving unit",
-      "variant": "white, 42x147 cm",
       "finish": "white",
       "size": { "w": 420, "h": 1470, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-00275848/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
-      "article": "20301554",
+      "article": "10409932",
       "name": "KALLAX shelving unit",
-      "variant": "white, 42x41 cm",
       "finish": "white",
-      "size": { "w": 420, "h": 410, "d": 390 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-20301554/",
-      "rests_on": ["floor", "top", "base"],
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
-        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
-      ],
-      "checked_on": "2026-10-24"
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
     },
     {
-      "article": "90522420",
+      "article": "20275814",
       "name": "KALLAX shelving unit",
-      "variant": "white, 77x112 cm",
       "finish": "white",
-      "size": { "w": 770, "h": 1120, "d": 390 },
-      "price_gbp": 39,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-90522420/",
-      "rests_on": ["floor", "top", "base"],
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "20301554",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
+      ]
+    },
+    {
+      "article": "30275861",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 1470, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
+      ]
+    },
+    {
+      "article": "70301537",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 1820, "h": 1820, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
+      ]
     },
     {
       "article": "80275887",
       "name": "KALLAX shelving unit",
-      "variant": "white, 77x147 cm",
       "finish": "white",
       "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 49,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-80275887/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
@@ -1251,110 +956,82 @@
         { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "90301555",
       "name": "KALLAX shelving unit",
-      "variant": "white, 77x41 cm",
       "finish": "white",
       "size": { "w": 770, "h": 410, "d": 390 },
-      "price_gbp": 25,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-90301555/",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
         { "name": "top", "kind": "surface", "y": 410, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
-      "article": "20275814",
+      "article": "90522420",
       "name": "KALLAX shelving unit",
-      "variant": "white, 77x77 cm",
       "finish": "white",
-      "size": { "w": 770, "h": 770, "d": 390 },
-      "price_gbp": 29,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-20275814/",
-      "rests_on": ["floor", "top", "base"],
+      "size": { "w": 770, "h": 1120, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
         { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
         { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
-        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
-      ],
-      "checked_on": "2026-10-24"
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
+      ]
     },
     {
       "article": "00501889",
       "name": "KALLAX underframe",
-      "variant": "black, 146x39x18 cm",
       "finish": "black",
       "size": { "w": 1460, "h": 180, "d": 390 },
-      "price_gbp": 20,
-      "url": "https://www.ikea.com/gb/en/p/kallax-underframe-black-00501889/",
-      "rests_on": ["floor"],
+      "rests_on": [ "floor" ],
       "offers": [
         { "name": "base", "kind": "surface", "y": 180, "w": 1460 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "30495599",
       "name": "KALLAX underframe",
-      "variant": "black, 76x39x18 cm",
       "finish": "black",
       "size": { "w": 760, "h": 180, "d": 390 },
-      "price_gbp": 15,
-      "url": "https://www.ikea.com/gb/en/p/kallax-underframe-black-30495599/",
-      "rests_on": ["floor"],
+      "rests_on": [ "floor" ],
       "offers": [
         { "name": "base", "kind": "surface", "y": 180, "w": 760 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "40501892",
       "name": "KALLAX underframe",
-      "variant": "white, 146x39x18 cm",
       "finish": "white",
       "size": { "w": 1460, "h": 180, "d": 390 },
-      "price_gbp": 20,
-      "url": "https://www.ikea.com/gb/en/p/kallax-underframe-white-40501892/",
-      "rests_on": ["floor"],
+      "rests_on": [ "floor" ],
       "offers": [
         { "name": "base", "kind": "surface", "y": 180, "w": 1460 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "90495596",
       "name": "KALLAX underframe",
-      "variant": "white, 76x39x18 cm",
       "finish": "white",
       "size": { "w": 760, "h": 180, "d": 390 },
-      "price_gbp": 15,
-      "url": "https://www.ikea.com/gb/en/p/kallax-underframe-white-90495596/",
-      "rests_on": ["floor"],
+      "rests_on": [ "floor" ],
       "offers": [
         { "name": "base", "kind": "surface", "y": 180, "w": 760 }
-      ],
-      "checked_on": "2026-10-24"
+      ]
     },
     {
       "article": "00526875",
       "name": "KUGGIS storage box with lid",
-      "variant": "white, 32x32x32 cm",
       "finish": "white",
       "size": { "w": 320, "h": 320, "d": 320 },
-      "price_gbp": 19,
-      "url": "https://www.ikea.com/gb/en/p/kuggis-storage-box-with-lid-white-00526875/",
-      "rests_on": ["cube"],
-      "checked_on": "2026-10-24",
-      "offers": []
+      "rests_on": [ "cube" ]
     }
   ]
 }

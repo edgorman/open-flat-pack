@@ -1,7 +1,7 @@
-// Command scrape-catalogue prints candidate catalogue entries from IKEA UK's product search, for a
-// person to check and copy into internal/catalogue/catalogue.json. It is a dev-time helper and
-// never runs in the service. See docs/design/v1/0002-catalogue.md.
+// Command scrape-catalogue prints the parts catalogue from IKEA UK's product search. It is a
+// dev-time tool and never runs in the service. See docs/design/v1/0002-catalogue.md.
 //
+//	go run ./scripts/scrape-catalogue > internal/catalogue/catalogue.json
 //	go run ./scripts/scrape-catalogue [-filter REGEXP] [QUERY...]
 //
 // Each query is one request to the search API that www.ikea.com's own search page calls
@@ -9,9 +9,10 @@
 // fetched. The queries default to the v1 ranges, and -filter keeps only products whose name
 // matches it.
 //
-// What a candidate fills: article, name, variant, finish, price and URL as IKEA lists them, a size
-// read from IKEA's measure text (w x h, or w x d x h, in mm), and rests_on and offers for the part
-// types KALLAX uses (see slots). A person still checks all of these and sets checked_on.
+// Each entry keeps facts only: the article number, range and type, colour, a size read from IKEA's
+// measure text (w x h, or w x d x h, in mm), and rests_on and offers for the part types KALLAX uses
+// (see slots). A product that fits none of those types is left out. Prices and page text are not
+// kept.
 package main
 
 import (
@@ -36,6 +37,11 @@ import (
 
 const searchURL = "https://sik.search.blue.cdtapps.com/gb/en/search-result-page"
 
+var (
+	leaf  = regexp.MustCompile(`[{\[][^{}\[\]]*[}\]]`) // an object or array holding no other
+	space = regexp.MustCompile(`\s*\n\s*`)
+)
+
 // product is the part of a search result this command reads. A result also lists its other
 // colours under gprDescription.variants, each with the same fields.
 type product struct {
@@ -45,11 +51,7 @@ type product struct {
 	TypeName        string `json:"typeName"`
 	ValidDesignText string `json:"validDesignText"`
 	Measure         string `json:"itemMeasureReferenceText"`
-	PipURL          string `json:"pipUrl"`
-	SalesPrice      struct {
-		Numeral float64 `json:"numeral"`
-	} `json:"salesPrice"`
-	GprDescription struct {
+	GprDescription  struct {
 		Variants []product `json:"variants"`
 	} `json:"gprDescription"`
 }
@@ -80,8 +82,11 @@ func run(queries []string, filter *regexp.Regexp) error {
 		for _, p := range products {
 			for _, v := range append([]product{p}, p.GprDescription.Variants...) {
 				// SPR items are bundles of other articles; the catalogue lists the articles.
-				if v.ItemType == "ART" && filter.MatchString(v.Name) {
-					parts[v.ItemNo] = candidate(v)
+				if v.ItemType != "ART" || !filter.MatchString(v.Name) {
+					continue
+				}
+				if part := entry(v); part.RestsOn != nil {
+					parts[v.ItemNo] = part
 				}
 			}
 		}
@@ -93,7 +98,7 @@ func run(queries []string, filter *regexp.Regexp) error {
 	}
 	sort.Slice(catalogue.Parts, func(i, j int) bool {
 		a, b := catalogue.Parts[i], catalogue.Parts[j]
-		return a.Name+a.Variant < b.Name+b.Variant
+		return a.Name+a.Finish+a.Article < b.Name+b.Finish+b.Article
 	})
 
 	// protojson output is deliberately unstable, so re-indent it for a diffable file.
@@ -105,8 +110,11 @@ func run(queries []string, filter *regexp.Regexp) error {
 	if err := json.Indent(&out, raw, "", "  "); err != nil {
 		return err
 	}
-	out.WriteByte('\n')
-	_, err = out.WriteTo(os.Stdout)
+	// One line per slot, size and rests_on keeps the file short enough to review.
+	flat := leaf.ReplaceAllFunc(out.Bytes(), func(b []byte) []byte {
+		return space.ReplaceAll(b, []byte(" "))
+	})
+	_, err = os.Stdout.Write(append(flat, '\n'))
 	return err
 }
 
@@ -153,17 +161,23 @@ func search(q string) ([]product, error) {
 	return products, nil
 }
 
-func candidate(p product) *appv1.Part {
+func entry(p product) *appv1.Part {
 	part := &appv1.Part{
-		Article:  p.ItemNo,
-		Name:     p.Name + " " + strings.ToLower(p.TypeName),
-		Variant:  strings.Trim(p.ValidDesignText+", "+p.Measure, ", "),
-		Finish:   p.ValidDesignText,
-		Size:     size(p.Measure),
-		PriceGbp: p.SalesPrice.Numeral,
-		Url:      p.PipURL,
+		Article: p.ItemNo,
+		Name:    p.Name + " " + strings.ToLower(p.TypeName),
+		Finish:  p.ValidDesignText,
+		Size:    size(p.Measure),
 	}
 	part.RestsOn, part.Offers = slots(part.Name, part.Size)
+	// Search gives frames and inserts as w x h only; their product pages list these depths.
+	if part.Size != nil && part.Size.D == 0 {
+		switch {
+		case part.Name == "KALLAX shelving unit":
+			part.Size.D = 390
+		case strings.HasPrefix(part.Name, "KALLAX insert"):
+			part.Size.D = 370
+		}
+	}
 	return part
 }
 
@@ -175,7 +189,7 @@ const (
 )
 
 // slots gives a part's rests_on and offers from its name, per docs/design/v1/0002-catalogue.md.
-// A part it doesn't recognise, or one without a size, gets neither, for a person to fill in.
+// A part it doesn't recognise, one without a size, or a box too small for a cube gets neither.
 func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 	switch {
 	case size == nil:
@@ -191,7 +205,7 @@ func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 		return []string{"floor", "top", "base"}, offers
 	case name == "KALLAX underframe":
 		return []string{"floor"}, []*appv1.Slot{{Name: "base", Kind: "surface", Y: size.H, W: size.W}}
-	case strings.Contains(name, "insert") || strings.Contains(name, "box"):
+	case (strings.Contains(name, "insert") || strings.Contains(name, "box")) && size.W >= 300 && size.H >= 300:
 		return []string{"cube"}, nil
 	}
 	return nil, nil

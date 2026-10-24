@@ -11,7 +11,7 @@ export const protobufPackage = "app.v1";
 
 /**
  * Catalogue is what `GET /catalogue` answers with: every part a design may use. The backend
- * embeds the hand-curated catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
+ * embeds the catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
  */
 export interface Catalogue {
   parts: Part[];
@@ -19,24 +19,18 @@ export interface Catalogue {
 
 /**
  * Part is one catalogue entry, keyed by its IKEA article number. An article number identifies
- * exactly one version of a product, so an entry never changes meaning.
+ * exactly one version of a product, so an entry never changes meaning. It holds no prices or page
+ * text: the product page is https://www.ikea.com/gb/en/p/-<article>/.
  */
 export interface Part {
   article: string;
+  /** Range and type, e.g. "KALLAX shelving unit". */
   name: string;
-  /** As IKEA words it, e.g. "white, 77x77 cm". */
-  variant: string;
   /** Drives the preview colour, e.g. "white". */
   finish: string;
   size?:
     | Size
     | undefined;
-  /** As seen on checked_on. */
-  priceGbp: number;
-  /** The IKEA UK product page. */
-  url: string;
-  /** When a person last confirmed the fields above, as YYYY-MM-DD. */
-  checkedOn: string;
   /** Slot names this part may sit in or on, e.g. "cube", or "floor" for the built-in floor. */
   restsOn: string[];
   /** Slots this part provides to others. */
@@ -137,18 +131,7 @@ export const Catalogue: MessageFns<Catalogue> = {
 };
 
 function createBasePart(): Part {
-  return {
-    article: "",
-    name: "",
-    variant: "",
-    finish: "",
-    size: undefined,
-    priceGbp: 0,
-    url: "",
-    checkedOn: "",
-    restsOn: [],
-    offers: [],
-  };
+  return { article: "", name: "", finish: "", size: undefined, restsOn: [], offers: [] };
 }
 
 export const Part: MessageFns<Part> = {
@@ -159,23 +142,11 @@ export const Part: MessageFns<Part> = {
     if (message.name !== "") {
       writer.uint32(18).string(message.name);
     }
-    if (message.variant !== "") {
-      writer.uint32(26).string(message.variant);
-    }
     if (message.finish !== "") {
       writer.uint32(34).string(message.finish);
     }
     if (message.size !== undefined) {
       Size.encode(message.size, writer.uint32(42).fork()).join();
-    }
-    if (message.priceGbp !== 0) {
-      writer.uint32(49).double(message.priceGbp);
-    }
-    if (message.url !== "") {
-      writer.uint32(58).string(message.url);
-    }
-    if (message.checkedOn !== "") {
-      writer.uint32(66).string(message.checkedOn);
     }
     for (const v of message.restsOn) {
       writer.uint32(74).string(v!);
@@ -215,14 +186,6 @@ export const Part: MessageFns<Part> = {
             message.name = reader.string();
             continue;
           }
-          case 3: {
-            if (tag !== 26) {
-              break;
-            }
-
-            message.variant = reader.string();
-            continue;
-          }
           case 4: {
             if (tag !== 34) {
               break;
@@ -237,30 +200,6 @@ export const Part: MessageFns<Part> = {
             }
 
             message.size = Size.decode(reader, reader.uint32());
-            continue;
-          }
-          case 6: {
-            if (tag !== 49) {
-              break;
-            }
-
-            message.priceGbp = reader.double();
-            continue;
-          }
-          case 7: {
-            if (tag !== 58) {
-              break;
-            }
-
-            message.url = reader.string();
-            continue;
-          }
-          case 8: {
-            if (tag !== 66) {
-              break;
-            }
-
-            message.checkedOn = reader.string();
             continue;
           }
           case 9: {
@@ -295,28 +234,14 @@ export const Part: MessageFns<Part> = {
     return {
       article: isSet(object.article) ? globalThis.String(object.article) : "",
       name: isSet(object.name) ? globalThis.String(object.name) : "",
-      variant: isSet(object.variant) ? globalThis.String(object.variant) : "",
       finish: isSet(object.finish) ? globalThis.String(object.finish) : "",
       size: isSet(object.size) ? Size.fromJSON(object.size) : undefined,
-      priceGbp: isSet(object.priceGbp)
-        ? globalThis.Number(object.priceGbp)
-        : isSet(object.price_gbp)
-        ? globalThis.Number(object.price_gbp)
-        : 0,
-      url: isSet(object.url) ? globalThis.String(object.url) : "",
-      checkedOn: isSet(object.checkedOn)
-        ? globalThis.String(object.checkedOn)
-        : isSet(object.checked_on)
-        ? globalThis.String(object.checked_on)
-        : "",
       restsOn: globalThis.Array.isArray(object?.restsOn)
         ? object.restsOn.map((e: any) => globalThis.String(e))
         : globalThis.Array.isArray(object?.rests_on)
         ? object.rests_on.map((e: any) => globalThis.String(e))
         : [],
-      offers: globalThis.Array.isArray(object?.offers)
-        ? object.offers.map((e: any) => Slot.fromJSON(e))
-        : [],
+      offers: globalThis.Array.isArray(object?.offers) ? object.offers.map((e: any) => Slot.fromJSON(e)) : [],
     };
   },
 
@@ -328,23 +253,11 @@ export const Part: MessageFns<Part> = {
     if (message.name !== "") {
       obj.name = message.name;
     }
-    if (message.variant !== "") {
-      obj.variant = message.variant;
-    }
     if (message.finish !== "") {
       obj.finish = message.finish;
     }
     if (message.size !== undefined) {
       obj.size = Size.toJSON(message.size);
-    }
-    if (message.priceGbp !== 0) {
-      obj.priceGbp = floatToJson(message.priceGbp);
-    }
-    if (message.url !== "") {
-      obj.url = message.url;
-    }
-    if (message.checkedOn !== "") {
-      obj.checkedOn = message.checkedOn;
     }
     if (message.restsOn?.length) {
       obj.restsOn = message.restsOn;
@@ -362,12 +275,8 @@ export const Part: MessageFns<Part> = {
     const message = createBasePart();
     message.article = object.article ?? "";
     message.name = object.name ?? "";
-    message.variant = object.variant ?? "";
     message.finish = object.finish ?? "";
     message.size = (object.size !== undefined && object.size !== null) ? Size.fromPartial(object.size) : undefined;
-    message.priceGbp = object.priceGbp ?? 0;
-    message.url = object.url ?? "";
-    message.checkedOn = object.checkedOn ?? "";
     message.restsOn = object.restsOn?.map((e) => e) || [];
     message.offers = object.offers?.map((e) => Slot.fromPartial(e)) || [];
     return message;
@@ -623,10 +532,6 @@ export const Slot: MessageFns<Slot> = {
     return message;
   },
 };
-
-function floatToJson(value: number | null | undefined): number | string | null | undefined {
-  return typeof value === "number" && !globalThis.Number.isFinite(value) ? globalThis.String(value) : value;
-}
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
