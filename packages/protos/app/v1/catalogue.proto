@@ -14,19 +14,16 @@ message Catalogue {
 // exactly one version of a product, so an entry never changes meaning. It holds no prices or page
 // text: the product page is https://www.ikea.com/gb/en/p/-<article>/.
 message Part {
-  reserved 3, 6, 7, 8;
-  reserved "variant", "price_gbp", "url", "checked_on";
-
   string article = 1;
   // Range and type, e.g. "KALLAX shelving unit".
   string name = 2;
   // Drives the preview colour, e.g. "white".
-  string finish = 4;
-  Size size = 5;
+  string finish = 3;
+  Size size = 4;
   // Slot names this part may sit in or on, e.g. "cube", or "floor" for the built-in floor.
-  repeated string rests_on = 9;
+  repeated string rests_on = 5;
   // Slots this part provides to others.
-  repeated Slot offers = 10;
+  repeated Slot offers = 6;
 }
 
 // Size is a part's bounding box in mm: width and height as seen from the front, and depth.

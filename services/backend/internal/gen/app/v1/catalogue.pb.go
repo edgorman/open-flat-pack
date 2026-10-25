@@ -76,12 +76,12 @@ type Part struct {
 	// Range and type, e.g. "KALLAX shelving unit".
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// Drives the preview colour, e.g. "white".
-	Finish string `protobuf:"bytes,4,opt,name=finish,proto3" json:"finish,omitempty"`
-	Size   *Size  `protobuf:"bytes,5,opt,name=size,proto3" json:"size,omitempty"`
+	Finish string `protobuf:"bytes,3,opt,name=finish,proto3" json:"finish,omitempty"`
+	Size   *Size  `protobuf:"bytes,4,opt,name=size,proto3" json:"size,omitempty"`
 	// Slot names this part may sit in or on, e.g. "cube", or "floor" for the built-in floor.
-	RestsOn []string `protobuf:"bytes,9,rep,name=rests_on,json=restsOn,proto3" json:"rests_on,omitempty"`
+	RestsOn []string `protobuf:"bytes,5,rep,name=rests_on,json=restsOn,proto3" json:"rests_on,omitempty"`
 	// Slots this part provides to others.
-	Offers        []*Slot `protobuf:"bytes,10,rep,name=offers,proto3" json:"offers,omitempty"`
+	Offers        []*Slot `protobuf:"bytes,6,rep,name=offers,proto3" json:"offers,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -315,16 +315,14 @@ const file_app_v1_catalogue_proto_rawDesc = "" +
 	"\n" +
 	"\x16app/v1/catalogue.proto\x12\x06app.v1\"/\n" +
 	"\tCatalogue\x12\"\n" +
-	"\x05parts\x18\x01 \x03(\v2\f.app.v1.PartR\x05parts\"\xec\x01\n" +
+	"\x05parts\x18\x01 \x03(\v2\f.app.v1.PartR\x05parts\"\xaf\x01\n" +
 	"\x04Part\x12\x18\n" +
 	"\aarticle\x18\x01 \x01(\tR\aarticle\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
-	"\x06finish\x18\x04 \x01(\tR\x06finish\x12 \n" +
-	"\x04size\x18\x05 \x01(\v2\f.app.v1.SizeR\x04size\x12\x19\n" +
-	"\brests_on\x18\t \x03(\tR\arestsOn\x12$\n" +
-	"\x06offers\x18\n" +
-	" \x03(\v2\f.app.v1.SlotR\x06offersJ\x04\b\x03\x10\x04J\x04\b\x06\x10\aJ\x04\b\a\x10\bJ\x04\b\b\x10\tR\avariantR\tprice_gbpR\x03urlR\n" +
-	"checked_on\"0\n" +
+	"\x06finish\x18\x03 \x01(\tR\x06finish\x12 \n" +
+	"\x04size\x18\x04 \x01(\v2\f.app.v1.SizeR\x04size\x12\x19\n" +
+	"\brests_on\x18\x05 \x03(\tR\arestsOn\x12$\n" +
+	"\x06offers\x18\x06 \x03(\v2\f.app.v1.SlotR\x06offers\"0\n" +
 	"\x04Size\x12\f\n" +
 	"\x01w\x18\x01 \x01(\x05R\x01w\x12\f\n" +
 	"\x01h\x18\x02 \x01(\x05R\x01h\x12\f\n" +

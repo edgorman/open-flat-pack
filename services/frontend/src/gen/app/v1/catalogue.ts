@@ -143,16 +143,16 @@ export const Part: MessageFns<Part> = {
       writer.uint32(18).string(message.name);
     }
     if (message.finish !== "") {
-      writer.uint32(34).string(message.finish);
+      writer.uint32(26).string(message.finish);
     }
     if (message.size !== undefined) {
-      Size.encode(message.size, writer.uint32(42).fork()).join();
+      Size.encode(message.size, writer.uint32(34).fork()).join();
     }
     for (const v of message.restsOn) {
-      writer.uint32(74).string(v!);
+      writer.uint32(42).string(v!);
     }
     for (const v of message.offers) {
-      Slot.encode(v!, writer.uint32(82).fork()).join();
+      Slot.encode(v!, writer.uint32(50).fork()).join();
     }
     return writer;
   },
@@ -186,12 +186,20 @@ export const Part: MessageFns<Part> = {
             message.name = reader.string();
             continue;
           }
+          case 3: {
+            if (tag !== 26) {
+              break;
+            }
+
+            message.finish = reader.string();
+            continue;
+          }
           case 4: {
             if (tag !== 34) {
               break;
             }
 
-            message.finish = reader.string();
+            message.size = Size.decode(reader, reader.uint32());
             continue;
           }
           case 5: {
@@ -199,19 +207,11 @@ export const Part: MessageFns<Part> = {
               break;
             }
 
-            message.size = Size.decode(reader, reader.uint32());
-            continue;
-          }
-          case 9: {
-            if (tag !== 74) {
-              break;
-            }
-
             message.restsOn.push(reader.string());
             continue;
           }
-          case 10: {
-            if (tag !== 82) {
+          case 6: {
+            if (tag !== 50) {
               break;
             }
 
