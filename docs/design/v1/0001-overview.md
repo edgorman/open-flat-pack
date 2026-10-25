@@ -1,6 +1,6 @@
 # 1. Overview
 
-OpenFlatpack turns a sentence like "a 2-metre-wide white bookcase with record storage and two drawers" into a buildable arrangement of real IKEA parts, a 3D preview and a parts list with prices and links.
+OpenFlatpack turns a sentence like "a 2-metre-wide white bookcase with record storage and two drawers" into a buildable arrangement of real IKEA parts, a 3D preview and a parts list with links to IKEA.
 
 The guiding rule is to keep everything as simple as possible: what v1 does is exactly what these documents describe. What comes after v1 is in the [roadmap](../roadmap.md).
 

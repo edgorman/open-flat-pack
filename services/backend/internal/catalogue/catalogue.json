@@ -1,94 +1,1037 @@
 {
   "parts": [
     {
-      "article": "80275887",
-      "name": "KALLAX shelving unit",
-      "variant": "white, 77x147 cm",
+      "article": "10625714",
+      "name": "DRÖNA box",
+      "finish": "black/off-white",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "30219281",
+      "name": "DRÖNA box",
+      "finish": "black",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "00580810",
+      "name": "DRÖNA box",
+      "finish": "blue",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "00566545",
+      "name": "DRÖNA box",
+      "finish": "dark blue/white",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "10443974",
+      "name": "DRÖNA box",
+      "finish": "dark grey",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "80478390",
+      "name": "DRÖNA box",
+      "finish": "dotted/beige",
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "40217955",
+      "name": "DRÖNA box",
       "finish": "white",
-      "size": { "w": 770, "h": 1470, "d": 390 },
-      "price_gbp": 49.00,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-80275887/",
-      "checked_on": "2026-10-23",
-      "rests_on": ["floor", "top", "base"],
+      "size": { "w": 330, "h": 330, "d": 380 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "80401292",
+      "name": "KALLAX insert for bottles",
+      "finish": "white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "20423720",
+      "name": "KALLAX insert with 1 shelf",
+      "finish": "white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "90286649",
+      "name": "KALLAX insert with 2 drawers",
+      "finish": "black-brown",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "40653319",
+      "name": "KALLAX insert with 2 drawers",
+      "finish": "brown walnut effect",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "00314642",
+      "name": "KALLAX insert with 2 drawers",
+      "finish": "high-gloss white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "10592803",
+      "name": "KALLAX insert with 2 drawers",
+      "finish": "wave shaped/light grey-blue",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "50324511",
+      "name": "KALLAX insert with 2 drawers",
+      "finish": "white stained oak effect",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "70286645",
+      "name": "KALLAX insert with 2 drawers",
+      "finish": "white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "40423719",
+      "name": "KALLAX insert with 4 shelves",
+      "finish": "white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "60278170",
+      "name": "KALLAX insert with door",
+      "finish": "black-brown",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "80653317",
+      "name": "KALLAX insert with door",
+      "finish": "brown walnut effect",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "40314640",
+      "name": "KALLAX insert with door",
+      "finish": "high-gloss white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "20611132",
+      "name": "KALLAX insert with door",
+      "finish": "pine/woven poplar",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "60592805",
+      "name": "KALLAX insert with door",
+      "finish": "wave shaped/light grey-blue",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "30324507",
+      "name": "KALLAX insert with door",
+      "finish": "white stained oak effect",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "20278167",
+      "name": "KALLAX insert with door",
+      "finish": "white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "70340299",
+      "name": "KALLAX insert with glass door",
+      "finish": "white",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "00423721",
+      "name": "KALLAX insert with mirror door",
+      "size": { "w": 330, "h": 330, "d": 370 },
+      "rests_on": [ "cube" ]
+    },
+    {
+      "article": "10275862",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 1470, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
-        { "name": "cube", "kind": "cell", "x": 45, "y": 45, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 45, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 45, "y": 395, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 395, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 45, "y": 745, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 745, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 45, "y": 1095, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 1095, "w": 330, "h": 330 },
-        { "name": "top", "kind": "surface", "x": 0, "y": 1470, "w": 770, "h": 0 }
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
+      ]
+    },
+    {
+      "article": "20275885",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "20409936",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "40275846",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "40311873",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "60275812",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "70301542",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 1820, "h": 1820, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
+      ]
+    },
+    {
+      "article": "70309840",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
+      ]
+    },
+    {
+      "article": "70522421",
+      "name": "KALLAX shelving unit",
+      "finish": "black-brown",
+      "size": { "w": 770, "h": 1120, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
+      ]
+    },
+    {
+      "article": "20653320",
+      "name": "KALLAX shelving unit",
+      "finish": "brown walnut effect",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "60653323",
+      "name": "KALLAX shelving unit",
+      "finish": "brown walnut effect",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "80653322",
+      "name": "KALLAX shelving unit",
+      "finish": "brown walnut effect",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "90653326",
+      "name": "KALLAX shelving unit",
+      "finish": "brown walnut effect",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "20604141",
+      "name": "KALLAX shelving unit",
+      "finish": "brown-red",
+      "size": { "w": 1470, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 1470 }
+      ]
+    },
+    {
+      "article": "00477931",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "10477935",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "40346924",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "40477934",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "60477933",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
+      ]
+    },
+    {
+      "article": "70477937",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "80477932",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 1470, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
+      ]
+    },
+    {
+      "article": "90477936",
+      "name": "KALLAX shelving unit",
+      "finish": "grey/wood effect",
+      "size": { "w": 1820, "h": 1820, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
+      ]
+    },
+    {
+      "article": "10305741",
+      "name": "KALLAX shelving unit",
+      "finish": "high-gloss white",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "20305745",
+      "name": "KALLAX shelving unit",
+      "finish": "high-gloss white",
+      "size": { "w": 1470, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
+      ]
+    },
+    {
+      "article": "20395878",
+      "name": "KALLAX shelving unit",
+      "finish": "high-gloss white",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "50305739",
+      "name": "KALLAX shelving unit",
+      "finish": "high-gloss white",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "00324518",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "10324513",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 1470, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
+      ]
+    },
+    {
+      "article": "40324516",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "40395877",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "40409935",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "50522417",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 1120, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
+      ]
+    },
+    {
+      "article": "60324520",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "80395875",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
+      ]
+    },
+    {
+      "article": "90324509",
+      "name": "KALLAX shelving unit",
+      "finish": "white stained oak effect",
+      "size": { "w": 1820, "h": 1820, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
+      ]
+    },
+    {
+      "article": "00275848",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 420, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 420 }
+      ]
+    },
+    {
+      "article": "10409932",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 1120, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1120 }
+      ]
+    },
+    {
+      "article": "20275814",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 770, "h": 770, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 770, "w": 770 }
+      ]
+    },
+    {
+      "article": "20301554",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 420, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 420 }
       ]
     },
     {
       "article": "30275861",
       "name": "KALLAX shelving unit",
-      "variant": "white, 147x147 cm",
       "finish": "white",
       "size": { "w": 1470, "h": 1470, "d": 390 },
-      "price_gbp": 99.00,
-      "url": "https://www.ikea.com/gb/en/p/kallax-shelving-unit-white-30275861/",
-      "checked_on": "2026-10-23",
-      "rests_on": ["floor", "top", "base"],
+      "rests_on": [ "floor", "top", "base" ],
       "offers": [
-        { "name": "cube", "kind": "cell", "x": 45, "y": 45, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 45, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 745, "y": 45, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 1095, "y": 45, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 45, "y": 395, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 395, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 745, "y": 395, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 1095, "y": 395, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 45, "y": 745, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 745, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 745, "y": 745, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 1095, "y": 745, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 45, "y": 1095, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 395, "y": 1095, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 745, "y": 1095, "w": 330, "h": 330 },
-        { "name": "cube", "kind": "cell", "x": 1095, "y": 1095, "w": 330, "h": 330 },
-        { "name": "top", "kind": "surface", "x": 0, "y": 1470, "w": 1470, "h": 0 }
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 1470 }
       ]
     },
     {
-      "article": "70340299",
-      "name": "KALLAX insert with glass door",
-      "variant": "white, 33x33 cm",
+      "article": "70301537",
+      "name": "KALLAX shelving unit",
       "finish": "white",
-      "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19.00,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-glass-door-white-70340299/",
-      "checked_on": "2026-10-23",
-      "rests_on": ["cube"],
-      "offers": []
+      "size": { "w": 1820, "h": 1820, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 742, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1092, "y": 1442, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 1442, "y": 1442, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1820, "w": 1820 }
+      ]
     },
     {
-      "article": "40423719",
-      "name": "KALLAX insert with 4 shelves",
-      "variant": "white, 33x33 cm",
+      "article": "80275887",
+      "name": "KALLAX shelving unit",
       "finish": "white",
-      "size": { "w": 330, "h": 330, "d": 370 },
-      "price_gbp": 19.00,
-      "url": "https://www.ikea.com/gb/en/p/kallax-insert-with-4-shelves-white-40423719/",
-      "checked_on": "2026-10-23",
-      "rests_on": ["cube"],
-      "offers": []
+      "size": { "w": 770, "h": 1470, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 1092, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 1092, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1470, "w": 770 }
+      ]
+    },
+    {
+      "article": "90301555",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 770, "h": 410, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 37, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 37, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 410, "w": 770 }
+      ]
+    },
+    {
+      "article": "90522420",
+      "name": "KALLAX shelving unit",
+      "finish": "white",
+      "size": { "w": 770, "h": 1120, "d": 390 },
+      "rests_on": [ "floor", "top", "base" ],
+      "offers": [
+        { "name": "cube", "kind": "cell", "x": 42, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 42, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 392, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 42, "y": 742, "w": 335, "h": 335 },
+        { "name": "cube", "kind": "cell", "x": 392, "y": 742, "w": 335, "h": 335 },
+        { "name": "top", "kind": "surface", "y": 1120, "w": 770 }
+      ]
+    },
+    {
+      "article": "00501889",
+      "name": "KALLAX underframe",
+      "finish": "black",
+      "size": { "w": 1460, "h": 180, "d": 390 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "base", "kind": "surface", "y": 180, "w": 1460 }
+      ]
+    },
+    {
+      "article": "30495599",
+      "name": "KALLAX underframe",
+      "finish": "black",
+      "size": { "w": 760, "h": 180, "d": 390 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "base", "kind": "surface", "y": 180, "w": 760 }
+      ]
+    },
+    {
+      "article": "40501892",
+      "name": "KALLAX underframe",
+      "finish": "white",
+      "size": { "w": 1460, "h": 180, "d": 390 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "base", "kind": "surface", "y": 180, "w": 1460 }
+      ]
     },
     {
       "article": "90495596",
       "name": "KALLAX underframe",
-      "variant": "white, 76x39x18 cm",
       "finish": "white",
       "size": { "w": 760, "h": 180, "d": 390 },
-      "price_gbp": 15.00,
-      "url": "https://www.ikea.com/gb/en/p/kallax-underframe-white-90495596/",
-      "checked_on": "2026-10-23",
-      "rests_on": ["floor"],
+      "rests_on": [ "floor" ],
       "offers": [
-        { "name": "base", "kind": "surface", "x": 0, "y": 180, "w": 760, "h": 0 }
+        { "name": "base", "kind": "surface", "y": 180, "w": 760 }
       ]
+    },
+    {
+      "article": "00526875",
+      "name": "KUGGIS storage box with lid",
+      "finish": "white",
+      "size": { "w": 320, "h": 320, "d": 320 },
+      "rests_on": [ "cube" ]
     }
   ]
 }

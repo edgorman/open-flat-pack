@@ -5,31 +5,25 @@ package app.v1;
 option go_package = "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1";
 
 // Catalogue is what `GET /catalogue` answers with: every part a design may use. The backend
-// embeds the hand-curated catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
+// embeds the catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
 message Catalogue {
   repeated Part parts = 1;
 }
 
 // Part is one catalogue entry, keyed by its IKEA article number. An article number identifies
-// exactly one version of a product, so an entry never changes meaning.
+// exactly one version of a product, so an entry never changes meaning. It holds no prices or page
+// text: the product page is https://www.ikea.com/gb/en/p/-<article>/.
 message Part {
   string article = 1;
+  // Range and type, e.g. "KALLAX shelving unit".
   string name = 2;
-  // As IKEA words it, e.g. "white, 77x77 cm".
-  string variant = 3;
   // Drives the preview colour, e.g. "white".
-  string finish = 4;
-  Size size = 5;
-  // As seen on checked_on.
-  double price_gbp = 6;
-  // The IKEA UK product page.
-  string url = 7;
-  // When a person last confirmed the fields above, as YYYY-MM-DD.
-  string checked_on = 8;
+  string finish = 3;
+  Size size = 4;
   // Slot names this part may sit in or on, e.g. "cube", or "floor" for the built-in floor.
-  repeated string rests_on = 9;
+  repeated string rests_on = 5;
   // Slots this part provides to others.
-  repeated Slot offers = 10;
+  repeated Slot offers = 6;
 }
 
 // Size is a part's bounding box in mm: width and height as seen from the front, and depth.

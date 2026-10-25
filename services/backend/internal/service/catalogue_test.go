@@ -10,9 +10,9 @@ import (
 )
 
 var testCatalogue = &appv1.Catalogue{Parts: []*appv1.Part{{
-	Article:  "80275887",
-	PriceGbp: 49,
-	RestsOn:  []string{"floor"},
+	Article: "80275887",
+	Finish:  "white",
+	RestsOn: []string{"floor"},
 }}}
 
 // Anybody may read the catalogue, signed in or not, and may cache it.
@@ -29,15 +29,15 @@ func TestGetCatalogue(t *testing.T) {
 	// Spelled out rather than decoded into appv1.Catalogue, so a renamed wire field fails here.
 	var body struct {
 		Parts []struct {
-			Article  string   `json:"article"`
-			PriceGbp float64  `json:"priceGbp"`
-			RestsOn  []string `json:"restsOn"`
+			Article string   `json:"article"`
+			Finish  string   `json:"finish"`
+			RestsOn []string `json:"restsOn"`
 		} `json:"parts"`
 	}
 	if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
 		t.Fatal(err)
 	}
-	if len(body.Parts) != 1 || body.Parts[0].Article != "80275887" || body.Parts[0].PriceGbp != 49 || body.Parts[0].RestsOn[0] != "floor" {
+	if len(body.Parts) != 1 || body.Parts[0].Article != "80275887" || body.Parts[0].Finish != "white" || body.Parts[0].RestsOn[0] != "floor" {
 		t.Errorf("body = %+v", body)
 	}
 }

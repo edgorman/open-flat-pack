@@ -22,7 +22,7 @@ const (
 )
 
 // Catalogue is what `GET /catalogue` answers with: every part a design may use. The backend
-// embeds the hand-curated catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
+// embeds the catalogue file and serves it as-is - see docs/design/v1/0002-catalogue.md.
 type Catalogue struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Parts         []*Part                `protobuf:"bytes,1,rep,name=parts,proto3" json:"parts,omitempty"`
@@ -68,26 +68,20 @@ func (x *Catalogue) GetParts() []*Part {
 }
 
 // Part is one catalogue entry, keyed by its IKEA article number. An article number identifies
-// exactly one version of a product, so an entry never changes meaning.
+// exactly one version of a product, so an entry never changes meaning. It holds no prices or page
+// text: the product page is https://www.ikea.com/gb/en/p/-<article>/.
 type Part struct {
 	state   protoimpl.MessageState `protogen:"open.v1"`
 	Article string                 `protobuf:"bytes,1,opt,name=article,proto3" json:"article,omitempty"`
-	Name    string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	// As IKEA words it, e.g. "white, 77x77 cm".
-	Variant string `protobuf:"bytes,3,opt,name=variant,proto3" json:"variant,omitempty"`
+	// Range and type, e.g. "KALLAX shelving unit".
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// Drives the preview colour, e.g. "white".
-	Finish string `protobuf:"bytes,4,opt,name=finish,proto3" json:"finish,omitempty"`
-	Size   *Size  `protobuf:"bytes,5,opt,name=size,proto3" json:"size,omitempty"`
-	// As seen on checked_on.
-	PriceGbp float64 `protobuf:"fixed64,6,opt,name=price_gbp,json=priceGbp,proto3" json:"price_gbp,omitempty"`
-	// The IKEA UK product page.
-	Url string `protobuf:"bytes,7,opt,name=url,proto3" json:"url,omitempty"`
-	// When a person last confirmed the fields above, as YYYY-MM-DD.
-	CheckedOn string `protobuf:"bytes,8,opt,name=checked_on,json=checkedOn,proto3" json:"checked_on,omitempty"`
+	Finish string `protobuf:"bytes,3,opt,name=finish,proto3" json:"finish,omitempty"`
+	Size   *Size  `protobuf:"bytes,4,opt,name=size,proto3" json:"size,omitempty"`
 	// Slot names this part may sit in or on, e.g. "cube", or "floor" for the built-in floor.
-	RestsOn []string `protobuf:"bytes,9,rep,name=rests_on,json=restsOn,proto3" json:"rests_on,omitempty"`
+	RestsOn []string `protobuf:"bytes,5,rep,name=rests_on,json=restsOn,proto3" json:"rests_on,omitempty"`
 	// Slots this part provides to others.
-	Offers        []*Slot `protobuf:"bytes,10,rep,name=offers,proto3" json:"offers,omitempty"`
+	Offers        []*Slot `protobuf:"bytes,6,rep,name=offers,proto3" json:"offers,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -136,13 +130,6 @@ func (x *Part) GetName() string {
 	return ""
 }
 
-func (x *Part) GetVariant() string {
-	if x != nil {
-		return x.Variant
-	}
-	return ""
-}
-
 func (x *Part) GetFinish() string {
 	if x != nil {
 		return x.Finish
@@ -155,27 +142,6 @@ func (x *Part) GetSize() *Size {
 		return x.Size
 	}
 	return nil
-}
-
-func (x *Part) GetPriceGbp() float64 {
-	if x != nil {
-		return x.PriceGbp
-	}
-	return 0
-}
-
-func (x *Part) GetUrl() string {
-	if x != nil {
-		return x.Url
-	}
-	return ""
-}
-
-func (x *Part) GetCheckedOn() string {
-	if x != nil {
-		return x.CheckedOn
-	}
-	return ""
 }
 
 func (x *Part) GetRestsOn() []string {
@@ -349,20 +315,14 @@ const file_app_v1_catalogue_proto_rawDesc = "" +
 	"\n" +
 	"\x16app/v1/catalogue.proto\x12\x06app.v1\"/\n" +
 	"\tCatalogue\x12\"\n" +
-	"\x05parts\x18\x01 \x03(\v2\f.app.v1.PartR\x05parts\"\x97\x02\n" +
+	"\x05parts\x18\x01 \x03(\v2\f.app.v1.PartR\x05parts\"\xaf\x01\n" +
 	"\x04Part\x12\x18\n" +
 	"\aarticle\x18\x01 \x01(\tR\aarticle\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x18\n" +
-	"\avariant\x18\x03 \x01(\tR\avariant\x12\x16\n" +
-	"\x06finish\x18\x04 \x01(\tR\x06finish\x12 \n" +
-	"\x04size\x18\x05 \x01(\v2\f.app.v1.SizeR\x04size\x12\x1b\n" +
-	"\tprice_gbp\x18\x06 \x01(\x01R\bpriceGbp\x12\x10\n" +
-	"\x03url\x18\a \x01(\tR\x03url\x12\x1d\n" +
-	"\n" +
-	"checked_on\x18\b \x01(\tR\tcheckedOn\x12\x19\n" +
-	"\brests_on\x18\t \x03(\tR\arestsOn\x12$\n" +
-	"\x06offers\x18\n" +
-	" \x03(\v2\f.app.v1.SlotR\x06offers\"0\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x16\n" +
+	"\x06finish\x18\x03 \x01(\tR\x06finish\x12 \n" +
+	"\x04size\x18\x04 \x01(\v2\f.app.v1.SizeR\x04size\x12\x19\n" +
+	"\brests_on\x18\x05 \x03(\tR\arestsOn\x12$\n" +
+	"\x06offers\x18\x06 \x03(\v2\f.app.v1.SlotR\x06offers\"0\n" +
 	"\x04Size\x12\f\n" +
 	"\x01w\x18\x01 \x01(\x05R\x01w\x12\f\n" +
 	"\x01h\x18\x02 \x01(\x05R\x01h\x12\f\n" +

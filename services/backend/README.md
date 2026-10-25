@@ -49,6 +49,8 @@ internal/
     firestore/        Firestore implementations of the Note and User repositories
     google/           Google Identity Services implementation of TokenVerifier
   service/            HTTP server: routes, middleware, and logic spanning more than one entity
+scripts/
+  scrape-catalogue/   Dev-time helper: prints candidate catalogue entries from IKEA UK's search
 ```
 
 Dependencies point inward: `service` and `repository` both know `entity`, `entity` knows nothing
