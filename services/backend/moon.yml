@@ -7,9 +7,9 @@ tags: ['go']
 dependsOn: ['packages/protos']
 
 fileGroups:
-  # internal/catalogue/catalogue.json is go:embed-ed, so editing it alone must still test and
-  # republish the image.
-  sources: ['**/*.go', 'internal/catalogue/*.json', 'go.mod', 'go.sum']
+  # definitions/catalogue/*.json is go:embed-ed, so editing it alone must still test and republish
+  # the image.
+  sources: ['**/*.go', 'definitions/**/*.json', 'go.mod', 'go.sum']
 
 tasks:
   format:

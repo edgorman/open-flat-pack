@@ -1,7 +1,7 @@
 // Command scrape-catalogue prints the parts catalogue from IKEA UK's product search. It is a
 // dev-time tool and never runs in the service. See docs/design/v1/0002-catalogue.md.
 //
-//	go run ./scripts/scrape-catalogue > internal/catalogue/catalogue.json
+//	go run ./scripts/scrape-catalogue > definitions/catalogue/$(date +%F).json
 //	go run ./scripts/scrape-catalogue [-filter REGEXP] [QUERY...]
 //
 // Each query is one request to the search API that www.ikea.com's own search page calls

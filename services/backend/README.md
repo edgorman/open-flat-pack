@@ -41,8 +41,10 @@ non-2xx response is an `ErrorResponse`. `GET /notes` takes `limit` and `startAft
 
 ```
 cmd/backend/          Entrypoint: reads config, builds adapters, hands them to the service
+definitions/
+  catalogue/          The parts catalogue, one YYYY-MM-DD.json per scrape (the newest is used)
 internal/
-  catalogue/          The embedded parts catalogue, checked at startup
+  catalogue/          Loads and checks the embedded catalogue at startup
   entity/             Domain types and their rules - no I/O, no HTTP, no persistence tags
   repository/         Interfaces for everything external, plus ErrNotFound
     devauth/          Development-token TokenVerifier for running locally (ENVIRONMENT=local only)
