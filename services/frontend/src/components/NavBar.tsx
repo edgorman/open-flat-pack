@@ -40,6 +40,9 @@ export function NavBar() {
       <Link to="/" className="nav-brand">
         <span className="nav-brand-main">{config.siteName}</span>
       </Link>
+      <Link to="/designs" className="btn btn-ghost">
+        Gallery
+      </Link>
       <Link to="/design" className="btn btn-secondary">
         Design
       </Link>

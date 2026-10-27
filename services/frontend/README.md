@@ -13,6 +13,10 @@ boundary, runtime config - around the backend's example **notes** resource:
 - **Design** (`/design`) — a prompt box that calls `POST /layouts` and shows the result as the 3D
   blueprint preview (lazy-loaded, so Three.js stays out of the main bundle) and parts list. The
   next prompt refines the layout on screen by sending it as `baseLayout`. Requires sign-in.
+- **Gallery** (`/designs`) — every published design, newest first, with "Load more" paging through
+  `GET /designs`.
+- **Design page** (`/designs/:id`) — one published design: prompt, author, preview and parts list,
+  plus a link to the design it was forked from, or "original deleted" when that one is gone.
 - **Account panel** (the account button in the nav bar) — sign in or out, and change the username
   the backend generated at first sign-in.
 
