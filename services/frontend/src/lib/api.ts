@@ -11,11 +11,13 @@ import type { ListNotesParams, Note, NotePage, NoteRequest } from '../gen/app/v1
 import type { ErrorResponse } from '../gen/app/v1/error'
 import type { Catalogue } from '../gen/app/v1/catalogue'
 import type { CreateLayoutRequest, CreateLayoutResponse } from '../gen/app/v1/layout'
+import type { Design, DesignPage, ListDesignsParams } from '../gen/app/v1/design'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
 export type { Note, NotePage, ListNotesParams, NoteRequest } from '../gen/app/v1/note'
 export type { Catalogue, Part } from '../gen/app/v1/catalogue'
 export type { Layout, LayoutPart, Validation } from '../gen/app/v1/layout'
+export type { Design, DesignPage } from '../gen/app/v1/design'
 
 /**
  * "public" or "private" - what a note's `visibility` actually holds, kept as a union here because
@@ -47,6 +49,11 @@ export function errorMessage(error: unknown, fallback: string): string {
 /** The path a note lives at in the app. The id is escaped: it arrives from the API. */
 export function notePath(note: Pick<Note, 'id'>): string {
   return `/note/${encodeURIComponent(note.id)}`
+}
+
+/** The path a design lives at, in the app and the API alike. The id is escaped: it arrives from the API. */
+export function designPath(id: string): string {
+  return `/designs/${encodeURIComponent(id)}`
 }
 
 /**
@@ -99,14 +106,14 @@ async function send<T>(
   return response.json() as Promise<T>
 }
 
-/** The API path for a page of `GET /notes`, carrying only the params a caller actually set. */
-function notesListPath(params: ListNotesParams = {}): string {
+/** The API path for a page of a newest-first list, carrying only the params a caller actually set. */
+function listPath(path: string, params: ListNotesParams | ListDesignsParams = {}): string {
   const query = new URLSearchParams()
   if (params.limit !== undefined) query.set('limit', String(params.limit))
   if (params.startAfter) query.set('startAfter', params.startAfter)
 
   const search = query.toString()
-  return search ? `/notes?${search}` : '/notes'
+  return search ? `${path}?${search}` : path
 }
 
 function noteApiPath(id: string): string {
@@ -119,7 +126,7 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
     return send<T>(baseUrl, authHeaders, method, path, body, onUnauthorized)
   }
   return {
-    listNotes: (params?: ListNotesParams) => request<NotePage>('GET', notesListPath(params)),
+    listNotes: (params?: ListNotesParams) => request<NotePage>('GET', listPath('/notes', params)),
     getNote: (id: string) => request<Note>('GET', noteApiPath(id)),
     createNote: (note: NoteRequest) => request<Note>('POST', '/notes', note),
     updateNote: (id: string, note: NoteRequest) => request<Note>('PUT', noteApiPath(id), note),
@@ -137,6 +144,9 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
     // Can take several seconds: the model may be called up to three times. A 422 carries the
     // remaining errors as a Validation in ApiError.body.
     createLayout: (req: CreateLayoutRequest) => request<CreateLayoutResponse>('POST', '/layouts', req),
+
+    listDesigns: (params?: ListDesignsParams) => request<DesignPage>('GET', listPath('/designs', params)),
+    getDesign: (id: string) => request<Design>('GET', designPath(id)),
   }
 }
 
