@@ -556,3 +556,16 @@ a {
 .site-footer a {
   color: inherit;
 }
+
+/* — parts list — */
+.parts-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+.parts-list th,
+.parts-list td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-divider);
+  text-align: left;
+}

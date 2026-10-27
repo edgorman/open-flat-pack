@@ -24,3 +24,8 @@ export function snippetFrom(body: string, max = 160): string {
 export function releaseUrl(githubRepo: string, tag: string): string {
   return `https://github.com/${githubRepo}/releases/tag/${tag}`
 }
+
+/** An IKEA article number as IKEA prints it, e.g. "80275887" -> "802.758.87". */
+export function formatArticle(article: string): string {
+  return article.replace(/^(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3')
+}
