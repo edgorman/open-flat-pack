@@ -366,6 +366,8 @@ a {
 }
 .panel-identity-email {
   font-size: 12px;
+  padding: 0 2px;
+  background: var(--paper);
 }
 /* Pinned to the very bottom of the drawer regardless of what's above it (signed in or out) -
    .panel-drawer is itself a column flexbox filling the viewport height, so margin-top: auto
@@ -555,4 +557,24 @@ a {
 }
 .site-footer a {
   color: inherit;
+}
+
+/* The 3D preview (components/Preview.tsx): a canvas with its dimension labels laid over it. */
+.blueprint {
+  position: relative;
+  height: min(70vh, 640px);
+  overflow: hidden;
+}
+
+.blueprint-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blueprint-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0 2px;
+  background: var(--paper);
 }

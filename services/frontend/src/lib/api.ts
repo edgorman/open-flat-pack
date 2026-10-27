@@ -9,9 +9,12 @@
 import type { CurrentUser, UpdateCurrentUserRequest, User } from '../gen/app/v1/user'
 import type { ListNotesParams, Note, NotePage, NoteRequest } from '../gen/app/v1/note'
 import type { ErrorResponse } from '../gen/app/v1/error'
+import type { Catalogue } from '../gen/app/v1/catalogue'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
 export type { Note, NotePage, ListNotesParams, NoteRequest } from '../gen/app/v1/note'
+export type { Catalogue, Part } from '../gen/app/v1/catalogue'
+export type { Layout, LayoutPart } from '../gen/app/v1/layout'
 
 /**
  * "public" or "private" - what a note's `visibility` actually holds, kept as a union here because
@@ -125,6 +128,8 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
     getCurrentUser: () => request<CurrentUser>('GET', '/users/me'),
     putUser: (user: Partial<UpdateCurrentUserRequest>) => request<CurrentUser>('PUT', '/users/me', user),
     deleteUser: () => request<void>('DELETE', '/users/me'),
+
+    getCatalogue: () => request<Catalogue>('GET', '/catalogue'),
   }
 }
 
