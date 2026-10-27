@@ -17,6 +17,11 @@ import (
 // MaxHeight is the tallest a design may be, in mm. A prompt's limits only ever lower it.
 const MaxHeight = 2500
 
+// Overhang is how much of a part's width, in mm, may stick out past the surfaces it rests on.
+// IKEA rounds sizes to whole centimetres, and a KALLAX underframe is listed 10 mm narrower than
+// the frame it's made for.
+const Overhang = 10
+
 // StackedNote is the build note for a design with a part standing on another part's top.
 const StackedNote = "Fix to the wall: this design is stacked."
 
@@ -161,7 +166,8 @@ func cellAt(slots []slot, restsOn []string, r rect, self int) int {
 	return -1
 }
 
-// surfaceUnder is the name in restsOn of the surfaces that cover r's whole bottom edge, or "".
+// surfaceUnder is the name in restsOn of the surfaces that cover r's bottom edge, all but Overhang
+// mm of it, or "".
 // floor is a built-in surface at height 0 with no width limit.
 func surfaceUnder(slots []slot, restsOn []string, r rect, self int) string {
 	for _, name := range restsOn {
@@ -174,16 +180,18 @@ func surfaceUnder(slots []slot, restsOn []string, r rect, self int) string {
 				spans = append(spans, [2]int32{s.x, s.x + s.w})
 			}
 		}
+		// Merge touching spans into runs; a gap under the part splits them, so only one run can
+		// hold it.
 		slices.SortFunc(spans, func(a, b [2]int32) int { return int(a[0] - b[0]) })
-		covered := r.x
-		for _, span := range spans {
-			if span[0] > covered {
-				break
+		for i := 0; i < len(spans); i++ {
+			run := spans[i]
+			for i+1 < len(spans) && spans[i+1][0] <= run[1] {
+				i++
+				run[1] = max(run[1], spans[i][1])
 			}
-			covered = max(covered, span[1])
-		}
-		if covered >= r.x+r.w {
-			return name
+			if r.w-(min(run[1], r.x+r.w)-max(run[0], r.x)) <= Overhang {
+				return name
+			}
 		}
 	}
 	return ""

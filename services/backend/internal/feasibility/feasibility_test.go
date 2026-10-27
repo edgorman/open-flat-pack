@@ -23,6 +23,8 @@ var catalogue = &appv1.Catalogue{Parts: []*appv1.Part{
 	{Article: "insert", Name: "KALLAX insert", Size: &appv1.Size{W: 330, H: 330}, RestsOn: []string{"cube"}},
 	{Article: "legs", Name: "KALLAX legs", Size: &appv1.Size{W: 770, H: 100}, RestsOn: []string{"floor"},
 		Offers: []*appv1.Slot{{Name: "base", Kind: "surface", Y: 100, W: 770}}},
+	{Article: "underframe", Name: "KALLAX underframe", Size: &appv1.Size{W: 760, H: 180}, RestsOn: []string{"floor"},
+		Offers: []*appv1.Slot{{Name: "base", Kind: "surface", Y: 180, W: 760}}},
 }}
 
 func at(article string, x, y int32) *appv1.LayoutPart {
@@ -56,6 +58,11 @@ func TestValidate(t *testing.T) {
 			stacked: true},
 		{name: "overhang", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("4x2", 0, 770)},
 			want: []string{"part 1 (KALLAX shelving unit) is not supported"}},
+		{name: "frame 10 mm wider than its underframe", parts: []*appv1.LayoutPart{at("underframe", 5, 0), at("2x2", 0, 180)}},
+		{name: "overhang past the tolerance", parts: []*appv1.LayoutPart{at("underframe", 11, 0), at("2x2", 0, 180)},
+			want: []string{"part 1 (KALLAX shelving unit) is not supported"}},
+		{name: "gap under a frame", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 775, 0), at("4x2", 0, 770)},
+			want: []string{"part 2 (KALLAX shelving unit) is not supported"}},
 		{name: "legs under a stacked unit", parts: []*appv1.LayoutPart{at("legs", 0, 0), at("2x2", 0, 100), at("2x2", 0, 870)},
 			stacked: true},
 		{name: "frame on legs is not stacked", parts: []*appv1.LayoutPart{at("legs", 0, 0), at("2x2", 0, 100)}},
