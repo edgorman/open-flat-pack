@@ -27,12 +27,14 @@ interface Options {
   route?: string
   /** The route pattern matched against `route`, for pages that read useParams(). Defaults to `route`. */
   path?: string
+  /** History state the page reads from its location, as a link's `state` would set it. */
+  state?: unknown
 }
 
 /** Renders a page or component inside a fake AppContext and a router, without real auth/fetch wiring. */
-export function renderWithApp(ui: ReactElement, { context, route = '/', path = route }: Options = {}) {
+export function renderWithApp(ui: ReactElement, { context, route = '/', path = route, state }: Options = {}) {
   return render(
-    <MemoryRouter initialEntries={[route]}>
+    <MemoryRouter initialEntries={[{ pathname: route, state }]}>
       <AppContext.Provider value={fakeAppContext(context)}>
         <Routes>
           <Route path={path} element={ui} />

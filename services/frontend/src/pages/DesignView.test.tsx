@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { resetCatalogue } from '../hooks/useCatalogue'
-import { ApiError, type Api, type Catalogue, type Design } from '../lib/api'
+import { ApiError, type Api, type Catalogue, type CurrentUser, type Design } from '../lib/api'
 import { renderWithApp } from '../testUtils'
 import { DesignView } from './DesignView'
 
@@ -20,9 +21,10 @@ const design = (overrides: Partial<Design> = {}): Design => ({
   ...overrides,
 })
 
-function renderDesign(getDesign: Api['getDesign']) {
-  const api = { getDesign, getCatalogue: vi.fn().mockResolvedValue(catalogue) } as unknown as Api
-  return renderWithApp(<DesignView />, { context: { api }, route: '/designs/d1', path: '/designs/:id' })
+function renderDesign(getDesign: Api['getDesign'], extra: Partial<Api> = {}, username = '') {
+  const api = { getDesign, getCatalogue: vi.fn().mockResolvedValue(catalogue), ...extra } as unknown as Api
+  const profile = username ? ({ username } as CurrentUser) : null
+  return renderWithApp(<DesignView />, { context: { api, profile }, route: '/designs/d1', path: '/designs/:id' })
 }
 
 describe('DesignView', () => {
@@ -54,5 +56,24 @@ describe('DesignView', () => {
   it('says not found for a 404', async () => {
     renderDesign(vi.fn().mockRejectedValue(new ApiError(404, 'design not found')))
     expect(await screen.findByText('Design not found.')).toBeInTheDocument()
+  })
+
+  it('offers a fork to anyone but delete only to the owner', async () => {
+    renderDesign(vi.fn().mockResolvedValue(design()), {}, 'someone-else')
+    expect(await screen.findByRole('link', { name: 'Fork' })).toHaveAttribute('href', '/design')
+    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument()
+  })
+
+  it('deletes after the owner confirms', async () => {
+    const deleteDesign = vi.fn().mockResolvedValue(undefined)
+    const confirm = vi.spyOn(window, 'confirm').mockReturnValueOnce(false).mockReturnValueOnce(true)
+    renderDesign(vi.fn().mockResolvedValue(design()), { deleteDesign }, 'calm-smiling-kestrel')
+
+    const button = await screen.findByRole('button', { name: 'Delete' })
+    await userEvent.click(button)
+    expect(deleteDesign).not.toHaveBeenCalled()
+    await userEvent.click(button)
+    expect(deleteDesign).toHaveBeenCalledWith('d1')
+    confirm.mockRestore()
   })
 })
