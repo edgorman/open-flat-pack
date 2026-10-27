@@ -1,11 +1,8 @@
 package service
 
 import (
-	"context"
 	"errors"
 	"net/http"
-	"strconv"
-	"time"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 
@@ -27,29 +24,6 @@ func noteMessage(note entity.Note, author string) *appv1.Note {
 		CreatedAt:      timestamppb.New(note.CreatedAt),
 		UpdatedAt:      timestamppb.New(note.UpdatedAt),
 	}
-}
-
-// usernamesFor resolves the username behind each uid, looking up each distinct one once, so a feed
-// dominated by one author costs one read rather than one per row. A missing profile is an empty
-// username rather than a failed request: writing a note never required one.
-func (s *Service) usernamesFor(ctx context.Context, uids []string) (map[string]string, error) {
-	usernames := make(map[string]string)
-	for _, uid := range uids {
-		if _, resolved := usernames[uid]; resolved {
-			continue
-		}
-
-		user, err := s.users.Get(ctx, uid)
-		if errors.Is(err, repository.ErrNotFound) {
-			usernames[uid] = ""
-			continue
-		}
-		if err != nil {
-			return nil, err
-		}
-		usernames[uid] = user.Username
-	}
-	return usernames, nil
 }
 
 // writeNote answers with a single note and its author.
@@ -115,38 +89,9 @@ func (s *Service) requireNotePermission(w http.ResponseWriter, r *http.Request, 
 	return note, true
 }
 
-// listNotesDefaultLimit is the page size ListNotes applies when a caller sends no `limit`.
-const listNotesDefaultLimit = 20
-
-// parseNoteListParams reads ListNotes' paging out of the query string: `limit` bounds the page and
-// `startAfter` (an RFC3339 timestamp) continues one. A malformed one is a 400 rather than silently
-// ignored.
-func parseNoteListParams(r *http.Request) (repository.ListParams, error) {
-	query := r.URL.Query()
-	params := repository.ListParams{Limit: listNotesDefaultLimit}
-
-	if raw := query.Get("limit"); raw != "" {
-		limit, err := strconv.Atoi(raw)
-		if err != nil || limit <= 0 {
-			return repository.ListParams{}, errors.New("limit must be a positive integer")
-		}
-		params.Limit = limit
-	}
-
-	if raw := query.Get("startAfter"); raw != "" {
-		startAfter, err := time.Parse(time.RFC3339Nano, raw)
-		if err != nil {
-			return repository.ListParams{}, errors.New("startAfter must be an RFC3339 timestamp")
-		}
-		params.StartAfter = startAfter
-	}
-
-	return params, nil
-}
-
 // ListNotes returns one page of the notes the caller may read, newest first.
 func (s *Service) ListNotes(w http.ResponseWriter, r *http.Request) {
-	params, err := parseNoteListParams(r)
+	params, err := parseListParams(r)
 	if err != nil {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return

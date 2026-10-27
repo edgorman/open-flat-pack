@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package app.v1;
+
+import "app/v1/layout.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1";
+
+// Design is a published layout as a client sees it - see docs/design/v1/0007-gallery.md. Every
+// design is public and never changes once published; the owner's uid has no field here.
+message Design {
+  string id = 1;
+  // The owner's username, resolved on read. Empty for a design whose owner holds no profile.
+  string author_username = 2;
+  string prompt = 3;
+  Layout layout = 4;
+  // The id of the design this was forked from, or empty. That design may since have been deleted.
+  string forked_from = 5;
+  google.protobuf.Timestamp created_at = 6;
+  // The layout's build notes, worked out again on every read.
+  repeated string notes = 7;
+}
+
+// DesignPage is one page of `GET /designs`, newest first. A caller continues by sending the
+// createdAt of the last design here back as ListDesignsParams.start_after.
+message DesignPage {
+  repeated Design designs = 1;
+  bool has_more = 2;
+}
+
+// ListDesignsParams is what `GET /designs` pages by, read from the query string.
+message ListDesignsParams {
+  optional int32 limit = 1;
+  optional string start_after = 2;
+}
+
+// CreateDesignRequest is the body of `POST /designs`. The layout is validated again before it is
+// saved, and an unbuildable one is a 422 carrying its Validation.
+message CreateDesignRequest {
+  string prompt = 1;
+  Layout layout = 2;
+  string forked_from = 3;
+}

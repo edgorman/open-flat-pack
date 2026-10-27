@@ -17,9 +17,6 @@ const (
 	// layoutRetries is how many times a failed layout goes back to the model before the caller
 	// gets the remaining errors.
 	layoutRetries = 2
-	// maxPromptLength and maxBaseParts bound what one request can make the model read.
-	maxPromptLength = 2000
-	maxBaseParts    = 200
 	// layoutWriteTimeout replaces the server's 30 s write timeout for this route, which can make
 	// three model calls in a row.
 	layoutWriteTimeout = 3 * time.Minute
@@ -44,10 +41,10 @@ func (s *Service) CreateLayout(w http.ResponseWriter, r *http.Request) {
 	case prompt == "":
 		writeError(w, http.StatusBadRequest, "prompt is required")
 		return
-	case utf8.RuneCountInString(prompt) > maxPromptLength:
+	case utf8.RuneCountInString(prompt) > entity.MaxPromptLength:
 		writeError(w, http.StatusBadRequest, "prompt is too long")
 		return
-	case len(req.BaseLayout.GetParts()) > maxBaseParts:
+	case len(req.BaseLayout.GetParts()) > entity.MaxLayoutParts:
 		writeError(w, http.StatusBadRequest, "baseLayout has too many parts")
 		return
 	}

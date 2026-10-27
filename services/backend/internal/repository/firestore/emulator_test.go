@@ -135,6 +135,59 @@ func TestEmulatorNote_DeleteOwned(t *testing.T) {
 	}
 }
 
+func TestEmulatorDesign(t *testing.T) {
+	ctx := context.Background()
+	designs := NewDesignRepository(newClient(t))
+	layout := entity.Layout{Parts: []entity.PlacedPart{{Article: "80275887", X: 0, Y: 0}}}
+	create := func(owner, prompt string) entity.Design {
+		t.Helper()
+		created, err := designs.Create(ctx, entity.Design{OwnerID: owner, Prompt: prompt, Layout: layout})
+		if err != nil {
+			t.Fatalf("Create(%s): %v", prompt, err)
+		}
+		return created
+	}
+	prompts := func(page []entity.Design) []string {
+		out := make([]string, 0, len(page))
+		for _, design := range page {
+			out = append(out, design.Prompt)
+		}
+		return out
+	}
+
+	one := create("ann", "one")
+	create("bob", "two")
+	create("ann", "three")
+
+	got, err := designs.Get(ctx, one.ID)
+	if err != nil || got.OwnerID != "ann" || !slices.Equal(got.Layout.Parts, layout.Parts) {
+		t.Fatalf("Get = %+v, %v; want the created design", got, err)
+	}
+
+	first, hasMore, err := designs.List(ctx, repository.ListParams{Limit: 2})
+	if err != nil || !slices.Equal(prompts(first), []string{"three", "two"}) || !hasMore {
+		t.Fatalf("first page = %v (hasMore %v, err %v), want [three two] with more", prompts(first), hasMore, err)
+	}
+	second, hasMore, err := designs.List(ctx, repository.ListParams{Limit: 2, StartAfter: first[1].CreatedAt})
+	if err != nil || !slices.Equal(prompts(second), []string{"one"}) || hasMore {
+		t.Fatalf("second page = %v (hasMore %v, err %v), want [one] and no more", prompts(second), hasMore, err)
+	}
+
+	if err := designs.Delete(ctx, one.ID); err != nil {
+		t.Fatalf("Delete: %v", err)
+	}
+	if err := designs.Delete(ctx, one.ID); !errors.Is(err, repository.ErrNotFound) {
+		t.Errorf("repeated Delete = %v, want ErrNotFound", err)
+	}
+	if err := designs.DeleteOwned(ctx, "ann"); err != nil {
+		t.Fatalf("DeleteOwned: %v", err)
+	}
+	left, _, err := designs.List(ctx, repository.ListParams{})
+	if err != nil || !slices.Equal(prompts(left), []string{"two"}) {
+		t.Errorf("List after deletes = %v, %v; want [two]", prompts(left), err)
+	}
+}
+
 func TestEmulatorUser(t *testing.T) {
 	ctx := context.Background()
 	users := NewUserRepository(newClient(t))
