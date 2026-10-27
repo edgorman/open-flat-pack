@@ -43,13 +43,15 @@ type Conversation struct {
 // Start opens a conversation for prompt. base is the layout of the design being changed, or nil
 // for a new design.
 func Start(chat Chat, catalogue *appv1.Catalogue, prompt string, base *appv1.Layout) (*Conversation, error) {
-	parts, err := protojson.Marshal(catalogue)
+	// Proto names, so the catalogue reads like the snake_case the system prompt describes.
+	marshal := protojson.MarshalOptions{UseProtoNames: true}
+	parts, err := marshal.Marshal(catalogue)
 	if err != nil {
 		return nil, err
 	}
 	request := "Request: " + prompt
 	if base != nil {
-		layout, err := protojson.Marshal(base)
+		layout, err := marshal.Marshal(base)
 		if err != nil {
 			return nil, err
 		}

@@ -26,6 +26,9 @@ var (
 	// which is every write. It is deliberately tighter than the per-IP budget above: an account is
 	// harder to come by than an address, so a lower ceiling costs a real user nothing.
 	requestsPerCaller = rateLimit{burst: 20, every: 3 * time.Second}
+	// layoutsPerCaller bounds POST /layouts, which calls the model up to three times a request.
+	// MODEL_DAILY_CALL_LIMIT caps the total; this stops one account spending it.
+	layoutsPerCaller = rateLimit{burst: 5, every: time.Minute}
 )
 
 // rateLimitSweepInterval is how often idle buckets are dropped. See rateLimiter.sweep.

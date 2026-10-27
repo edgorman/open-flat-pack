@@ -14,7 +14,7 @@ How parts fit together:
 - Each catalogue part has a size ("w" wide, "h" high, "d" deep) and lists in "rests_on" the slot names it may sit in or on.
 - "offers" lists slots a part provides to others, each a rectangle relative to the part's bottom-left corner. A slot's position in the design is the part's x and y plus the slot's x and y.
 - A "cell" slot holds exactly one part, placed at the cell's bottom-left corner. For example, an insert that rests on "cube" goes at a frame's x plus the cube's x, and the frame's y plus the cube's y.
-- A "surface" slot is a ledge: a part resting on it has its y at the surface's height, and its whole width must be on surfaces of that name at that height. It can't overhang, but it may span several surfaces side by side.
+- A "surface" slot is a ledge: a part resting on it has its y at the surface's height, and its width must be on surfaces of that name at that height. It may span several surfaces side by side, and may stick out past them by at most 10 mm in all.
 - "floor" is a surface at y = 0 with no width limit.
 
 Rules:

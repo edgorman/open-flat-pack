@@ -23,6 +23,7 @@ JSON:
 | ------------------------ | -------- | ------------------------------------------------------------- |
 | `GET /health`, `/debug`  | none     | The Debug Endpoint Contract above                             |
 | `GET /catalogue`         | none     | Every part a design may use; cacheable for an hour            |
+| `POST /layouts`          | required | Turn a prompt into a buildable layout; 422 with the errors if the model can't, 503 past the daily call limit |
 | `GET /notes`             | optional | One page of the notes the caller may read, newest first       |
 | `GET /notes/{id}`        | optional | One note, if the caller may read it                           |
 | `POST /notes`            | required | Create a note owned by the caller                             |
@@ -46,9 +47,11 @@ definitions/
 internal/
   catalogue/          Loads and checks the embedded catalogue at startup
   entity/             Domain types and their rules - no I/O, no HTTP, no persistence tags
+  feasibility/        Checks a layout against the catalogue: errors and build notes
+  model/              One conversation with the design model on Vertex AI, and its system prompt
   repository/         Interfaces for everything external, plus ErrNotFound
     devauth/          Development-token TokenVerifier for running locally (ENVIRONMENT=local only)
-    firestore/        Firestore implementations of the Note and User repositories
+    firestore/        Firestore implementations of the repositories (notes, users, model calls)
     google/           Google Identity Services implementation of TokenVerifier
   service/            HTTP server: routes, middleware, and logic spanning more than one entity
 scripts/
@@ -115,6 +118,7 @@ Every request is metered by a token bucket before it reaches a handler
 | ----------- | --------------------------- | ---------------------------- | ------------------------------------------------- |
 | Per client  | client address              | 60 at once, +1 per second    | every route, signed in or not                     |
 | Per account | the uid in a verified token | 20 at once, +1 per 3 seconds | every route behind `requireAuth` - so every write |
+| Layouts     | the uid in a verified token | 5 at once, +1 per minute     | `POST /layouts`, which calls the model            |
 
 Only the address is known before a credential has been checked, so it is the only thing that can
 bound an anonymous flood; only the account survives a caller changing address. A route that calls
@@ -184,6 +188,9 @@ The emulator doesn't enforce composite indexes, so a query missing one still onl
 | `DEV_AUTH`            | `true` accepts the development token instead of Google ID tokens. Refused unless `ENVIRONMENT=local`. |
 | `CORS_ALLOWED_ORIGIN` | Origin allowed to call this API from a browser (the frontend's URL). Unset disables CORS headers entirely. |
 | `GOOGLE_CLIENT_ID`    | OAuth 2.0 client ID that ID tokens must be minted for. Set by Terraform from the `GOOGLE_CLIENT_ID` GitHub Actions variable; unset means no request can authenticate. |
+| `MODEL_NAME`          | Vertex AI model `POST /layouts` calls, as `publisher/model`. Unset turns designing off (503), so running locally needs no Vertex credentials. Set by Terraform. |
+| `MODEL_LOCATION`      | Vertex AI location `MODEL_NAME` is served from. Defaults to `global`. |
+| `MODEL_DAILY_CALL_LIMIT` | Most model calls per UTC day, counted in Firestore (`modelCalls/<day>`); past it `POST /layouts` answers 503 until midnight. Defaults to `0`. |
 
 `commit` is not an env var — it's baked into the binary at build time via
 `-ldflags "-X main.commit=..."` (see `Dockerfile`), since the same image is promoted unmodified

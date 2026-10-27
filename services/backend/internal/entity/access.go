@@ -25,6 +25,7 @@ const (
 	ResourceUser      Resource = "user"
 	ResourceNote      Resource = "note"
 	ResourceCatalogue Resource = "catalogue"
+	ResourceLayout    Resource = "layout"
 )
 
 // Action is one thing that can be done to a resource. These four are the whole vocabulary, and
@@ -85,6 +86,11 @@ var policy = map[Resource]map[Action]Access{
 	// The parts catalogue is the same for everybody and owned by nobody.
 	ResourceCatalogue: {
 		ActionRead: AccessPublic,
+	},
+	// Generating a layout calls the model, which costs money, so it takes an account. Nothing is
+	// stored: the layout is the caller's own until they publish it as a design.
+	ResourceLayout: {
+		ActionCreate: AccessPrivate,
 	},
 }
 

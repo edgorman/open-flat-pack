@@ -12,7 +12,7 @@ import (
 	appv1 "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1"
 )
 
-var catalogue = &appv1.Catalogue{Parts: []*appv1.Part{{Article: "60275812", Name: "KALLAX shelving unit"}}}
+var catalogue = &appv1.Catalogue{Parts: []*appv1.Part{{Article: "60275812", Name: "KALLAX shelving unit", RestsOn: []string{"floor"}}}}
 
 // fake answers with replies in order and records each conversation it was sent.
 func fake(replies ...string) (Chat, *[][]Message) {
@@ -55,7 +55,7 @@ func TestConversation(t *testing.T) {
 		t.Fatalf("second call sent %d messages, want 4", len(second))
 	}
 	for i, want := range []struct{ role, contains string }{
-		{"system", `"article":"60275812"`},
+		{"system", `"rests_on":["floor"]`},
 		{"user", "Request: a white bookcase"},
 		{"assistant", "not json"},
 		{"user", "not a layout"},

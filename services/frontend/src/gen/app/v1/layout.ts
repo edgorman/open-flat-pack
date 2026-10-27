@@ -59,6 +59,25 @@ export interface LayoutError {
   message: string;
 }
 
+/**
+ * CreateLayoutRequest is the body of `POST /layouts`: a prompt, and the layout of the design being
+ * changed when there is one - see docs/design/v1/0003-prompting.md#api.
+ */
+export interface CreateLayoutRequest {
+  prompt: string;
+  baseLayout?: Layout | undefined;
+}
+
+/**
+ * CreateLayoutResponse is a `POST /layouts` 200: a buildable layout and its build notes. The
+ * validation's errors are always empty here; a layout that is still unbuildable after the retries
+ * is a 422 carrying the Validation alone.
+ */
+export interface CreateLayoutResponse {
+  layout?: Layout | undefined;
+  validation?: Validation | undefined;
+}
+
 function createBaseLayout(): Layout {
   return { limits: undefined, parts: [] };
 }
@@ -506,6 +525,186 @@ export const LayoutError: MessageFns<LayoutError> = {
     const message = createBaseLayoutError();
     message.part = object.part ?? undefined;
     message.message = object.message ?? "";
+    return message;
+  },
+};
+
+function createBaseCreateLayoutRequest(): CreateLayoutRequest {
+  return { prompt: "", baseLayout: undefined };
+}
+
+export const CreateLayoutRequest: MessageFns<CreateLayoutRequest> = {
+  encode(message: CreateLayoutRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.prompt !== "") {
+      writer.uint32(10).string(message.prompt);
+    }
+    if (message.baseLayout !== undefined) {
+      Layout.encode(message.baseLayout, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateLayoutRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const previousRecursionDepth = (reader as any).__tsProtoDecodeDepth ?? 0;
+    if (previousRecursionDepth >= 100) {
+      throw new globalThis.Error("protobuf decode recursion limit exceeded");
+    }
+    (reader as any).__tsProtoDecodeDepth = previousRecursionDepth + 1;
+    try {
+      const end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseCreateLayoutRequest();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1: {
+            if (tag !== 10) {
+              break;
+            }
+
+            message.prompt = reader.string();
+            continue;
+          }
+          case 2: {
+            if (tag !== 18) {
+              break;
+            }
+
+            message.baseLayout = Layout.decode(reader, reader.uint32());
+            continue;
+          }
+        }
+        if ((tag & 7) === 4 || tag === 0) {
+          break;
+        }
+        reader.skip(tag & 7);
+      }
+      return message;
+    } finally {
+      (reader as any).__tsProtoDecodeDepth = previousRecursionDepth;
+    }
+  },
+
+  fromJSON(object: any): CreateLayoutRequest {
+    return {
+      prompt: isSet(object.prompt) ? globalThis.String(object.prompt) : "",
+      baseLayout: isSet(object.baseLayout)
+        ? Layout.fromJSON(object.baseLayout)
+        : isSet(object.base_layout)
+        ? Layout.fromJSON(object.base_layout)
+        : undefined,
+    };
+  },
+
+  toJSON(message: CreateLayoutRequest): unknown {
+    const obj: any = {};
+    if (message.prompt !== "") {
+      obj.prompt = message.prompt;
+    }
+    if (message.baseLayout !== undefined) {
+      obj.baseLayout = Layout.toJSON(message.baseLayout);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateLayoutRequest>, I>>(base?: I): CreateLayoutRequest {
+    return CreateLayoutRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateLayoutRequest>, I>>(object: I): CreateLayoutRequest {
+    const message = createBaseCreateLayoutRequest();
+    message.prompt = object.prompt ?? "";
+    message.baseLayout = (object.baseLayout !== undefined && object.baseLayout !== null)
+      ? Layout.fromPartial(object.baseLayout)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseCreateLayoutResponse(): CreateLayoutResponse {
+  return { layout: undefined, validation: undefined };
+}
+
+export const CreateLayoutResponse: MessageFns<CreateLayoutResponse> = {
+  encode(message: CreateLayoutResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.layout !== undefined) {
+      Layout.encode(message.layout, writer.uint32(10).fork()).join();
+    }
+    if (message.validation !== undefined) {
+      Validation.encode(message.validation, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): CreateLayoutResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const previousRecursionDepth = (reader as any).__tsProtoDecodeDepth ?? 0;
+    if (previousRecursionDepth >= 100) {
+      throw new globalThis.Error("protobuf decode recursion limit exceeded");
+    }
+    (reader as any).__tsProtoDecodeDepth = previousRecursionDepth + 1;
+    try {
+      const end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseCreateLayoutResponse();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1: {
+            if (tag !== 10) {
+              break;
+            }
+
+            message.layout = Layout.decode(reader, reader.uint32());
+            continue;
+          }
+          case 2: {
+            if (tag !== 18) {
+              break;
+            }
+
+            message.validation = Validation.decode(reader, reader.uint32());
+            continue;
+          }
+        }
+        if ((tag & 7) === 4 || tag === 0) {
+          break;
+        }
+        reader.skip(tag & 7);
+      }
+      return message;
+    } finally {
+      (reader as any).__tsProtoDecodeDepth = previousRecursionDepth;
+    }
+  },
+
+  fromJSON(object: any): CreateLayoutResponse {
+    return {
+      layout: isSet(object.layout) ? Layout.fromJSON(object.layout) : undefined,
+      validation: isSet(object.validation) ? Validation.fromJSON(object.validation) : undefined,
+    };
+  },
+
+  toJSON(message: CreateLayoutResponse): unknown {
+    const obj: any = {};
+    if (message.layout !== undefined) {
+      obj.layout = Layout.toJSON(message.layout);
+    }
+    if (message.validation !== undefined) {
+      obj.validation = Validation.toJSON(message.validation);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CreateLayoutResponse>, I>>(base?: I): CreateLayoutResponse {
+    return CreateLayoutResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<CreateLayoutResponse>, I>>(object: I): CreateLayoutResponse {
+    const message = createBaseCreateLayoutResponse();
+    message.layout = (object.layout !== undefined && object.layout !== null)
+      ? Layout.fromPartial(object.layout)
+      : undefined;
+    message.validation = (object.validation !== undefined && object.validation !== null)
+      ? Validation.fromPartial(object.validation)
+      : undefined;
     return message;
   },
 };

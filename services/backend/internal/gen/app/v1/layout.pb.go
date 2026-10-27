@@ -303,6 +303,115 @@ func (x *LayoutError) GetMessage() string {
 	return ""
 }
 
+// CreateLayoutRequest is the body of `POST /layouts`: a prompt, and the layout of the design being
+// changed when there is one - see docs/design/v1/0003-prompting.md#api.
+type CreateLayoutRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Prompt        string                 `protobuf:"bytes,1,opt,name=prompt,proto3" json:"prompt,omitempty"`
+	BaseLayout    *Layout                `protobuf:"bytes,2,opt,name=base_layout,json=baseLayout,proto3" json:"base_layout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateLayoutRequest) Reset() {
+	*x = CreateLayoutRequest{}
+	mi := &file_app_v1_layout_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateLayoutRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLayoutRequest) ProtoMessage() {}
+
+func (x *CreateLayoutRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_v1_layout_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLayoutRequest.ProtoReflect.Descriptor instead.
+func (*CreateLayoutRequest) Descriptor() ([]byte, []int) {
+	return file_app_v1_layout_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CreateLayoutRequest) GetPrompt() string {
+	if x != nil {
+		return x.Prompt
+	}
+	return ""
+}
+
+func (x *CreateLayoutRequest) GetBaseLayout() *Layout {
+	if x != nil {
+		return x.BaseLayout
+	}
+	return nil
+}
+
+// CreateLayoutResponse is a `POST /layouts` 200: a buildable layout and its build notes. The
+// validation's errors are always empty here; a layout that is still unbuildable after the retries
+// is a 422 carrying the Validation alone.
+type CreateLayoutResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Layout        *Layout                `protobuf:"bytes,1,opt,name=layout,proto3" json:"layout,omitempty"`
+	Validation    *Validation            `protobuf:"bytes,2,opt,name=validation,proto3" json:"validation,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateLayoutResponse) Reset() {
+	*x = CreateLayoutResponse{}
+	mi := &file_app_v1_layout_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateLayoutResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateLayoutResponse) ProtoMessage() {}
+
+func (x *CreateLayoutResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_v1_layout_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateLayoutResponse.ProtoReflect.Descriptor instead.
+func (*CreateLayoutResponse) Descriptor() ([]byte, []int) {
+	return file_app_v1_layout_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CreateLayoutResponse) GetLayout() *Layout {
+	if x != nil {
+		return x.Layout
+	}
+	return nil
+}
+
+func (x *CreateLayoutResponse) GetValidation() *Validation {
+	if x != nil {
+		return x.Validation
+	}
+	return nil
+}
+
 var File_app_v1_layout_proto protoreflect.FileDescriptor
 
 const file_app_v1_layout_proto_rawDesc = "" +
@@ -330,7 +439,16 @@ const file_app_v1_layout_proto_rawDesc = "" +
 	"\vLayoutError\x12\x17\n" +
 	"\x04part\x18\x01 \x01(\x05H\x00R\x04part\x88\x01\x01\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessageB\a\n" +
-	"\x05_partBPZNgithub.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1b\x06proto3"
+	"\x05_part\"^\n" +
+	"\x13CreateLayoutRequest\x12\x16\n" +
+	"\x06prompt\x18\x01 \x01(\tR\x06prompt\x12/\n" +
+	"\vbase_layout\x18\x02 \x01(\v2\x0e.app.v1.LayoutR\n" +
+	"baseLayout\"r\n" +
+	"\x14CreateLayoutResponse\x12&\n" +
+	"\x06layout\x18\x01 \x01(\v2\x0e.app.v1.LayoutR\x06layout\x122\n" +
+	"\n" +
+	"validation\x18\x02 \x01(\v2\x12.app.v1.ValidationR\n" +
+	"validationBPZNgithub.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1b\x06proto3"
 
 var (
 	file_app_v1_layout_proto_rawDescOnce sync.Once
@@ -344,23 +462,28 @@ func file_app_v1_layout_proto_rawDescGZIP() []byte {
 	return file_app_v1_layout_proto_rawDescData
 }
 
-var file_app_v1_layout_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_app_v1_layout_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_app_v1_layout_proto_goTypes = []any{
-	(*Layout)(nil),      // 0: app.v1.Layout
-	(*Limits)(nil),      // 1: app.v1.Limits
-	(*LayoutPart)(nil),  // 2: app.v1.LayoutPart
-	(*Validation)(nil),  // 3: app.v1.Validation
-	(*LayoutError)(nil), // 4: app.v1.LayoutError
+	(*Layout)(nil),               // 0: app.v1.Layout
+	(*Limits)(nil),               // 1: app.v1.Limits
+	(*LayoutPart)(nil),           // 2: app.v1.LayoutPart
+	(*Validation)(nil),           // 3: app.v1.Validation
+	(*LayoutError)(nil),          // 4: app.v1.LayoutError
+	(*CreateLayoutRequest)(nil),  // 5: app.v1.CreateLayoutRequest
+	(*CreateLayoutResponse)(nil), // 6: app.v1.CreateLayoutResponse
 }
 var file_app_v1_layout_proto_depIdxs = []int32{
 	1, // 0: app.v1.Layout.limits:type_name -> app.v1.Limits
 	2, // 1: app.v1.Layout.parts:type_name -> app.v1.LayoutPart
 	4, // 2: app.v1.Validation.errors:type_name -> app.v1.LayoutError
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0, // 3: app.v1.CreateLayoutRequest.base_layout:type_name -> app.v1.Layout
+	0, // 4: app.v1.CreateLayoutResponse.layout:type_name -> app.v1.Layout
+	3, // 5: app.v1.CreateLayoutResponse.validation:type_name -> app.v1.Validation
+	6, // [6:6] is the sub-list for method output_type
+	6, // [6:6] is the sub-list for method input_type
+	6, // [6:6] is the sub-list for extension type_name
+	6, // [6:6] is the sub-list for extension extendee
+	0, // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_app_v1_layout_proto_init() }
@@ -376,7 +499,7 @@ func file_app_v1_layout_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_v1_layout_proto_rawDesc), len(file_app_v1_layout_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
