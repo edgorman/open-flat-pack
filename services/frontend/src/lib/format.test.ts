@@ -1,4 +1,4 @@
-import { releaseUrl, snippetFrom } from './format'
+import { formatArticle, releaseUrl, snippetFrom } from './format'
 
 describe('releaseUrl', () => {
   it("links to the tag's GitHub Releases page", () => {
@@ -15,5 +15,11 @@ describe('snippetFrom', () => {
     const snippet = snippetFrom('a'.repeat(200), 10)
     expect(snippet).toHaveLength(10)
     expect(snippet.endsWith('…')).toBe(true)
+  })
+})
+
+describe('formatArticle', () => {
+  it('dots an article number the way IKEA prints it', () => {
+    expect(formatArticle('80275887')).toBe('802.758.87')
   })
 })
