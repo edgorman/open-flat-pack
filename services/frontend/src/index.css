@@ -366,8 +366,6 @@ a {
 }
 .panel-identity-email {
   font-size: 12px;
-  padding: 0 2px;
-  background: var(--paper);
 }
 /* Pinned to the very bottom of the drawer regardless of what's above it (signed in or out) -
    .panel-drawer is itself a column flexbox filling the viewport height, so margin-top: auto
@@ -577,4 +575,17 @@ a {
   font-size: 12px;
   padding: 0 2px;
   background: var(--paper);
+}
+
+/* — parts list — */
+.parts-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+.parts-list th,
+.parts-list td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-divider);
+  text-align: left;
 }
