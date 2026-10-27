@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	appv1 "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1"
+	"github.com/edgorman/webapp-template/services/backend/internal/model"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository"
 )
 
@@ -20,6 +21,8 @@ type Config struct {
 	// AllowedOrigin is the frontend origin permitted to call this API from a browser. Empty
 	// disables CORS headers entirely.
 	AllowedOrigin string
+	// ModelDailyCallLimit is the most model calls POST /layouts makes per UTC day.
+	ModelDailyCallLimit int
 	// Logger is where the service writes what an operator reads - failures it answers the caller
 	// about only vaguely. Nil means slog.Default(), which cmd/backend points at Cloud Logging's
 	// JSON shape.
@@ -34,11 +37,15 @@ type Service struct {
 	verifier repository.TokenVerifier
 	// catalogue is loaded and checked once at startup (see internal/catalogue).
 	catalogue *appv1.Catalogue
+	// chat is the design model; nil means POST /layouts answers 503.
+	chat       model.Chat
+	modelCalls repository.ModelCallCounter
 	// The rate limiters live on the Service rather than being built in Handler(), so a budget is
 	// spent by the service that served the request rather than by the handler tree - two calls to
 	// Handler() must not hand a caller two budgets. See ratelimit.go for what each one bounds.
 	ipLimiter     *rateLimiter
 	callerLimiter *rateLimiter
+	layoutLimiter *rateLimiter
 }
 
 func New(
@@ -47,6 +54,8 @@ func New(
 	users repository.UserRepository,
 	verifier repository.TokenVerifier,
 	catalogue *appv1.Catalogue,
+	chat model.Chat,
+	modelCalls repository.ModelCallCounter,
 ) *Service {
 	return &Service{
 		cfg:           cfg,
@@ -54,8 +63,11 @@ func New(
 		users:         users,
 		verifier:      verifier,
 		catalogue:     catalogue,
+		chat:          chat,
+		modelCalls:    modelCalls,
 		ipLimiter:     newRateLimiter(requestsPerIP),
 		callerLimiter: newRateLimiter(requestsPerCaller),
+		layoutLimiter: newRateLimiter(layoutsPerCaller),
 	}
 }
 
@@ -87,6 +99,8 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("/health", s.Debug)
 	mux.HandleFunc("/debug", s.Debug)
 	mux.HandleFunc("GET /catalogue", s.GetCatalogue)
+	// Each request can make several paid model calls, so it has a tighter budget of its own.
+	mux.Handle("POST /layouts", authed(rateLimited(s.layoutLimiter, callerKey, s.CreateLayout)))
 	// The example resource. A new one is registered the same way: reads optional, writes authed,
 	// and a line for each action in entity/access.go's policy table.
 	mux.Handle("GET /notes", optional(s.ListNotes))

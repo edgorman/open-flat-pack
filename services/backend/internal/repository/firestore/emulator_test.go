@@ -178,3 +178,19 @@ func TestEmulatorUser(t *testing.T) {
 		t.Errorf("repeated Delete = %v, want nil", err)
 	}
 }
+
+func TestEmulatorModelCallCounter_Spend(t *testing.T) {
+	ctx := context.Background()
+	counter := NewModelCallCounter(newClient(t))
+
+	for i, want := range []bool{true, true, false} {
+		spent, err := counter.Spend(ctx, "2026-10-27", 2)
+		if err != nil || spent != want {
+			t.Fatalf("Spend #%d = %v, %v; want %v", i+1, spent, err, want)
+		}
+	}
+	// A new day starts from zero.
+	if spent, err := counter.Spend(ctx, "2026-10-28", 2); err != nil || !spent {
+		t.Errorf("Spend on the next day = %v, %v", spent, err)
+	}
+}

@@ -11,12 +11,14 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	fs "cloud.google.com/go/firestore"
 
 	"github.com/edgorman/webapp-template/services/backend/internal/catalogue"
 	"github.com/edgorman/webapp-template/services/backend/internal/logging"
+	"github.com/edgorman/webapp-template/services/backend/internal/model"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository/devauth"
 	"github.com/edgorman/webapp-template/services/backend/internal/repository/firestore"
@@ -56,6 +58,21 @@ func run() error {
 
 	ctx := context.Background()
 
+	dailyCalls, err := strconv.Atoi(envOr("MODEL_DAILY_CALL_LIMIT", "0"))
+	if err != nil {
+		return fmt.Errorf("MODEL_DAILY_CALL_LIMIT: %w", err)
+	}
+	// Unset MODEL_NAME (as when running locally) leaves designing off rather than needing Vertex
+	// credentials to start.
+	var chat model.Chat
+	if name := os.Getenv("MODEL_NAME"); name != "" {
+		if chat, err = model.Vertex(ctx, name, envOr("MODEL_LOCATION", "global")); err != nil {
+			return err
+		}
+	} else {
+		slog.Warn("MODEL_NAME is unset, so POST /layouts answers 503")
+	}
+
 	client, err := fs.NewClient(ctx, fs.DetectProjectID)
 	if err != nil {
 		return fmt.Errorf("firestore client: %w", err)
@@ -64,14 +81,17 @@ func run() error {
 
 	api := service.New(
 		service.Config{
-			Environment:   environment,
-			Commit:        commit,
-			AllowedOrigin: os.Getenv("CORS_ALLOWED_ORIGIN"),
+			Environment:         environment,
+			Commit:              commit,
+			AllowedOrigin:       os.Getenv("CORS_ALLOWED_ORIGIN"),
+			ModelDailyCallLimit: dailyCalls,
 		},
 		firestore.NewNoteRepository(client),
 		firestore.NewUserRepository(client),
 		verifier,
 		parts,
+		chat,
+		firestore.NewModelCallCounter(client),
 	)
 
 	// The server is built explicitly rather than handed to http.ListenAndServe, which supplies a

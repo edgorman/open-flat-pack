@@ -43,3 +43,18 @@ message LayoutError {
   optional int32 part = 1;
   string message = 2;
 }
+
+// CreateLayoutRequest is the body of `POST /layouts`: a prompt, and the layout of the design being
+// changed when there is one - see docs/design/v1/0003-prompting.md#api.
+message CreateLayoutRequest {
+  string prompt = 1;
+  Layout base_layout = 2;
+}
+
+// CreateLayoutResponse is a `POST /layouts` 200: a buildable layout and its build notes. The
+// validation's errors are always empty here; a layout that is still unbuildable after the retries
+// is a 422 carrying the Validation alone.
+message CreateLayoutResponse {
+  Layout layout = 1;
+  Validation validation = 2;
+}
