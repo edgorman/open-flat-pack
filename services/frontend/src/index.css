@@ -557,6 +557,26 @@ a {
   color: inherit;
 }
 
+/* The 3D preview (components/Preview.tsx): a canvas with its dimension labels laid over it. */
+.blueprint {
+  position: relative;
+  height: min(70vh, 640px);
+  overflow: hidden;
+}
+
+.blueprint-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blueprint-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0 2px;
+  background: var(--paper);
+}
+
 /* — parts list — */
 .parts-list {
   width: 100%;
