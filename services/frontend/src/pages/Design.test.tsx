@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { resetCatalogue } from '../hooks/useCatalogue'
-import { ApiError, type Api, type Catalogue, type Layout } from '../lib/api'
+import { ApiError, type Api, type Catalogue, type Design as DesignType, type Layout } from '../lib/api'
 import { renderWithApp } from '../testUtils'
 import { Design } from './Design'
 
@@ -12,9 +12,9 @@ const user = { id: 'uid-1', email: 'a@b.com', name: 'Ada' }
 const catalogue = { parts: [] } as unknown as Catalogue
 const layout: Layout = { parts: [{ article: '80275887', x: 0, y: 0 }] }
 
-function setup(createLayout: Api['createLayout']) {
-  const api = { createLayout, getCatalogue: vi.fn().mockResolvedValue(catalogue) } as unknown as Api
-  renderWithApp(<Design />, { context: { api, user }, route: '/design' })
+function setup(createLayout: Api['createLayout'], createDesign?: Api['createDesign'], state?: unknown) {
+  const api = { createLayout, createDesign, getCatalogue: vi.fn().mockResolvedValue(catalogue) } as unknown as Api
+  renderWithApp(<Design />, { context: { api, user }, route: '/design', state })
 }
 
 describe('Design', () => {
@@ -48,5 +48,34 @@ describe('Design', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Design' }))
     expect(await screen.findByText('Too tall')).toBeInTheDocument()
     expect(screen.getByRole('alert')).toHaveTextContent('Try rephrasing it.')
+  })
+
+  it('publishes the layout under the first prompt', async () => {
+    const createLayout = vi.fn().mockResolvedValue({ layout, validation: { errors: [], notes: [] } })
+    const createDesign = vi.fn().mockResolvedValue({ id: 'd9' })
+    setup(createLayout, createDesign)
+
+    await userEvent.type(screen.getByLabelText('What do you want?'), 'A 2x2 KALLAX')
+    await userEvent.click(screen.getByRole('button', { name: 'Design' }))
+    await userEvent.type(await screen.findByLabelText('What should change?'), 'Taller')
+    await userEvent.click(screen.getByRole('button', { name: 'Refine' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Publish' }))
+    expect(createDesign).toHaveBeenCalledWith({ prompt: 'A 2x2 KALLAX', layout, forkedFrom: '' })
+  })
+
+  it('forks a design: refines its layout, then publishes with forkedFrom', async () => {
+    const original = { id: 'd0', layout: { parts: [] }, notes: [] } as unknown as DesignType
+    const createLayout = vi.fn().mockResolvedValue({ layout, validation: { errors: [], notes: [] } })
+    const createDesign = vi.fn().mockResolvedValue({ id: 'd9' })
+    setup(createLayout, createDesign, { fork: original })
+
+    expect(await screen.findByText('preview')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Publish' })).not.toBeInTheDocument()
+
+    await userEvent.type(screen.getByLabelText('What should change?'), 'Add legs')
+    await userEvent.click(screen.getByRole('button', { name: 'Refine' }))
+    expect(createLayout).toHaveBeenCalledWith({ prompt: 'Add legs', baseLayout: original.layout })
+    await userEvent.click(await screen.findByRole('button', { name: 'Publish' }))
+    expect(createDesign).toHaveBeenCalledWith({ prompt: 'Add legs', layout, forkedFrom: 'd0' })
   })
 })

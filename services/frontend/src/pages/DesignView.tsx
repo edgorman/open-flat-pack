@@ -1,10 +1,11 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { PageMeta } from '../components/PageMeta'
 import { PartsList } from '../components/PartsList'
 import { useApp } from '../context/AppContext'
 import { useCatalogue } from '../hooks/useCatalogue'
-import { ApiError, designPath, errorMessage, type Design } from '../lib/api'
+import { ApiError, designPath, errorMessage, isAuthor, type Design } from '../lib/api'
+import type { ForkState } from './Design'
 import { formatDate, snippetFrom } from '../lib/format'
 
 // Three.js is most of the bundle, so it loads only on a page that draws something.
@@ -28,10 +29,16 @@ function Message({ children, alert }: { children: string; alert?: boolean }) {
   )
 }
 
-/** One published design: its prompt, author, preview and parts list. Readable signed out. */
+/**
+ * One published design: its prompt, author, preview and parts list. Readable signed out. Anyone can
+ * fork it into the design page, and its owner can delete it.
+ */
 export function DesignView() {
   const { id } = useParams<{ id: string }>()
-  const { api } = useApp()
+  const { api, profile } = useApp()
+  const navigate = useNavigate()
+  const [deleting, setDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
   const { catalogue, error: catalogueError } = useCatalogue()
   const [state, setState] = useState<State>(api ? { phase: 'loading' } : { phase: 'unconfigured' })
 
@@ -60,12 +67,38 @@ export function DesignView() {
   const { design } = state
   const layout = design.layout ?? { parts: [] }
 
+  const remove = () => {
+    if (!api || !window.confirm('Delete this design? This cannot be undone.')) return
+    setDeleting(true)
+    setDeleteError(null)
+    api
+      .deleteDesign(design.id)
+      .then(() => navigate('/designs', { replace: true }))
+      .catch((e: unknown) => {
+        setDeleteError(errorMessage(e, 'Failed to delete'))
+        setDeleting(false)
+      })
+  }
+
   return (
     <div className="page">
       <PageMeta title={snippetFrom(design.prompt, 60)} description={snippetFrom(design.prompt)} path={designPath(design.id)} />
-      <Link to="/designs" className="text-muted back-link">
-        ← Back to gallery
-      </Link>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-3)' }}>
+        <Link to="/designs" className="text-muted back-link">
+          ← Back to gallery
+        </Link>
+        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+          <Link to="/design" state={{ fork: design } satisfies ForkState} className="btn btn-secondary">
+            Fork
+          </Link>
+          {isAuthor(profile, design.authorUsername) && (
+            <button type="button" className="btn btn-ghost" onClick={remove} disabled={deleting}>
+              {deleting ? 'Deleting…' : 'Delete'}
+            </button>
+          )}
+        </div>
+      </div>
+      {deleteError && <p role="alert">{deleteError}</p>}
       <header style={{ paddingBottom: 'var(--space-4)' }}>
         <div className="post-meta">
           {design.createdAt && <span className="text-muted feed-row-date">{formatDate(design.createdAt)}</span>}

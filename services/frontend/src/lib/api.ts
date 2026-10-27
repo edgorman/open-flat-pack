@@ -11,7 +11,7 @@ import type { ListNotesParams, Note, NotePage, NoteRequest } from '../gen/app/v1
 import type { ErrorResponse } from '../gen/app/v1/error'
 import type { Catalogue } from '../gen/app/v1/catalogue'
 import type { CreateLayoutRequest, CreateLayoutResponse } from '../gen/app/v1/layout'
-import type { Design, DesignPage, ListDesignsParams } from '../gen/app/v1/design'
+import type { CreateDesignRequest, Design, DesignPage, ListDesignsParams } from '../gen/app/v1/design'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
 export type { Note, NotePage, ListNotesParams, NoteRequest } from '../gen/app/v1/note'
@@ -147,6 +147,9 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
 
     listDesigns: (params?: ListDesignsParams) => request<DesignPage>('GET', listPath('/designs', params)),
     getDesign: (id: string) => request<Design>('GET', designPath(id)),
+    // A 422 carries the layout's Validation, as createLayout's does.
+    createDesign: (req: CreateDesignRequest) => request<Design>('POST', '/designs', req),
+    deleteDesign: (id: string) => request<void>('DELETE', designPath(id)),
   }
 }
 
