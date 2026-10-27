@@ -5,6 +5,7 @@ import { useApp } from './context/AppContext'
 import { AppProvider } from './context/AppProvider'
 import type { RuntimeConfig } from './lib/config'
 import { releaseUrl } from './lib/format'
+import { Design } from './pages/Design'
 import { Landing } from './pages/Landing'
 import { Note } from './pages/Note'
 import { NoteEditor } from './pages/NoteEditor'
@@ -74,6 +75,7 @@ function App({ config }: { config: RuntimeConfig }) {
       <PageErrorBoundary pathname={pathname}>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/design" element={<Design />} />
           {/* "new" is the editor rather than a note - React Router ranks the literal above the
               wildcard beside it, and no note id can be "new" (ids are generated). */}
           <Route path="/note/new" element={<NoteEditor />} />
