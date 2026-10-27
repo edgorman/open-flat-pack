@@ -24,6 +24,10 @@ JSON:
 | `GET /health`, `/debug`  | none     | The Debug Endpoint Contract above                             |
 | `GET /catalogue`         | none     | Every part a design may use; cacheable for an hour            |
 | `POST /layouts`          | required | Turn a prompt into a buildable layout; 422 with the errors if the model can't, 503 past the daily call limit |
+| `GET /designs`           | none     | One page of designs, newest first, each with its build notes  |
+| `GET /designs/{id}`      | none     | One design                                                    |
+| `POST /designs`          | required | Publish a layout as a design; 422 with the errors if it isn't buildable |
+| `DELETE /designs/{id}`   | required | Delete a design (owner only); designs are never updated       |
 | `GET /notes`             | optional | One page of the notes the caller may read, newest first       |
 | `GET /notes/{id}`        | optional | One note, if the caller may read it                           |
 | `POST /notes`            | required | Create a note owned by the caller                             |
@@ -31,12 +35,12 @@ JSON:
 | `DELETE /notes/{id}`     | required | Delete a note (owner only)                                    |
 | `GET /users/me`          | required | The caller's own profile                                      |
 | `PUT /users/me`          | required | Create or update it; a profile with no username is given one  |
-| `DELETE /users/me`       | required | Erase the account: its notes, then the profile                |
+| `DELETE /users/me`       | required | Erase the account: its designs and notes, then the profile    |
 | `GET /users/{username}`  | optional | Anybody's public profile                                      |
 
 Request and response bodies are the messages in `packages/protos/app/v1`, as protojson. Every
-non-2xx response is an `ErrorResponse`. `GET /notes` takes `limit` and `startAfter` (the
-`createdAt` of the last note on the previous page) and answers `hasMore`.
+non-2xx response is an `ErrorResponse`. `GET /designs` and `GET /notes` take `limit` and
+`startAfter` (the `createdAt` of the last entry on the previous page) and answer `hasMore`.
 
 ## Layout
 
@@ -51,7 +55,7 @@ internal/
   model/              One conversation with the design model on Vertex AI, and its system prompt
   repository/         Interfaces for everything external, plus ErrNotFound
     devauth/          Development-token TokenVerifier for running locally (ENVIRONMENT=local only)
-    firestore/        Firestore implementations of the repositories (notes, users, model calls)
+    firestore/        Firestore implementations of the repositories (designs, notes, users, model calls)
     google/           Google Identity Services implementation of TokenVerifier
   service/            HTTP server: routes, middleware, and logic spanning more than one entity
 scripts/

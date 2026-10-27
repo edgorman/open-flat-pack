@@ -26,6 +26,7 @@ const (
 	ResourceNote      Resource = "note"
 	ResourceCatalogue Resource = "catalogue"
 	ResourceLayout    Resource = "layout"
+	ResourceDesign    Resource = "design"
 )
 
 // Action is one thing that can be done to a resource. These four are the whole vocabulary, and
@@ -91,6 +92,12 @@ var policy = map[Resource]map[Action]Access{
 	// stored: the layout is the caller's own until they publish it as a design.
 	ResourceLayout: {
 		ActionCreate: AccessPrivate,
+	},
+	// Every design is public, and none can be updated: changing one publishes a fork.
+	ResourceDesign: {
+		ActionRead:   AccessPublic,
+		ActionCreate: AccessPrivate,
+		ActionDelete: AccessPrivate,
 	},
 }
 

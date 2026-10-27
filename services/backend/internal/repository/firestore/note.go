@@ -58,10 +58,10 @@ func documentToNote(doc *fs.DocumentSnapshot) (entity.Note, error) {
 	return stored.toEntity(doc.Ref.ID), nil
 }
 
-// noteIDPattern admits the ids Create assigns (Firestore's 20-character auto ids) and nothing that
+// idPattern admits the ids Create assigns (Firestore's 20-character auto ids) and nothing that
 // could address anything but a single document: no slash, no "." or "..", no "__reserved__" form.
 // An id arrives in a URL, so it is checked before Firestore is asked to parse it as a path.
-var noteIDPattern = regexp.MustCompile(`^[A-Za-z0-9]{1,64}$`)
+var idPattern = regexp.MustCompile(`^[A-Za-z0-9]{1,64}$`)
 
 var _ repository.NoteRepository = (*NoteRepository)(nil)
 
@@ -76,7 +76,7 @@ func NewNoteRepository(client *fs.Client) *NoteRepository {
 }
 
 func (r *NoteRepository) Get(ctx context.Context, id string) (entity.Note, error) {
-	if !noteIDPattern.MatchString(id) {
+	if !idPattern.MatchString(id) {
 		return entity.Note{}, repository.ErrNotFound
 	}
 
@@ -164,7 +164,7 @@ func (r *NoteRepository) Update(ctx context.Context, note entity.Note) (entity.N
 	if err := note.Validate(); err != nil {
 		return entity.Note{}, err
 	}
-	if !noteIDPattern.MatchString(note.ID) {
+	if !idPattern.MatchString(note.ID) {
 		return entity.Note{}, repository.ErrNotFound
 	}
 
@@ -186,7 +186,7 @@ func (r *NoteRepository) Update(ctx context.Context, note entity.Note) (entity.N
 }
 
 func (r *NoteRepository) Delete(ctx context.Context, id string) error {
-	if !noteIDPattern.MatchString(id) {
+	if !idPattern.MatchString(id) {
 		return repository.ErrNotFound
 	}
 

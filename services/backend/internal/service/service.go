@@ -33,6 +33,7 @@ type Config struct {
 type Service struct {
 	cfg      Config
 	notes    repository.NoteRepository
+	designs  repository.DesignRepository
 	users    repository.UserRepository
 	verifier repository.TokenVerifier
 	// catalogue is loaded and checked once at startup (see internal/catalogue).
@@ -51,6 +52,7 @@ type Service struct {
 func New(
 	cfg Config,
 	notes repository.NoteRepository,
+	designs repository.DesignRepository,
 	users repository.UserRepository,
 	verifier repository.TokenVerifier,
 	catalogue *appv1.Catalogue,
@@ -60,6 +62,7 @@ func New(
 	return &Service{
 		cfg:           cfg,
 		notes:         notes,
+		designs:       designs,
 		users:         users,
 		verifier:      verifier,
 		catalogue:     catalogue,
@@ -101,6 +104,11 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("GET /catalogue", s.GetCatalogue)
 	// Each request can make several paid model calls, so it has a tighter budget of its own.
 	mux.Handle("POST /layouts", authed(rateLimited(s.layoutLimiter, callerKey, s.CreateLayout)))
+	// Every design is public, so reading one needs no caller at all.
+	mux.HandleFunc("GET /designs", s.ListDesigns)
+	mux.HandleFunc("GET /designs/{id}", s.GetDesign)
+	mux.Handle("POST /designs", authed(s.CreateDesign))
+	mux.Handle("DELETE /designs/{id}", authed(s.DeleteDesign))
 	// The example resource. A new one is registered the same way: reads optional, writes authed,
 	// and a line for each action in entity/access.go's policy table.
 	mux.Handle("GET /notes", optional(s.ListNotes))

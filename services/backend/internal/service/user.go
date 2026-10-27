@@ -191,6 +191,11 @@ func (s *Service) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := s.designs.DeleteOwned(r.Context(), id); err != nil {
+		s.logger().Error("erasing account content failed", "error", err)
+		writeError(w, http.StatusInternalServerError, "internal error")
+		return
+	}
 	if err := s.notes.DeleteOwned(r.Context(), id); err != nil {
 		s.logger().Error("erasing account content failed", "error", err)
 		writeError(w, http.StatusInternalServerError, "internal error")
@@ -202,4 +207,27 @@ func (s *Service) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusNoContent)
+}
+
+// usernamesFor resolves the username behind each uid, looking up each distinct one once, so a feed
+// dominated by one author costs one read rather than one per row. A missing profile is an empty
+// username rather than a failed request: writing a note never required one.
+func (s *Service) usernamesFor(ctx context.Context, uids []string) (map[string]string, error) {
+	usernames := make(map[string]string)
+	for _, uid := range uids {
+		if _, resolved := usernames[uid]; resolved {
+			continue
+		}
+
+		user, err := s.users.Get(ctx, uid)
+		if errors.Is(err, repository.ErrNotFound) {
+			usernames[uid] = ""
+			continue
+		}
+		if err != nil {
+			return nil, err
+		}
+		usernames[uid] = user.Username
+	}
+	return usernames, nil
 }

@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/edgorman/webapp-template/services/backend/internal/entity"
 	"github.com/edgorman/webapp-template/services/backend/internal/model"
 )
 
@@ -115,7 +116,7 @@ func TestCreateLayout_Refused(t *testing.T) {
 	}{
 		{"daily limit reached", 0, `{"prompt":"a bookcase"}`, http.StatusServiceUnavailable},
 		{"empty prompt", 10, `{"prompt":"  "}`, http.StatusBadRequest},
-		{"prompt too long", 10, `{"prompt":"` + strings.Repeat("a", maxPromptLength+1) + `"}`, http.StatusBadRequest},
+		{"prompt too long", 10, `{"prompt":"` + strings.Repeat("a", entity.MaxPromptLength+1) + `"}`, http.StatusBadRequest},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			s, _, _ := layoutService(tt.limit, validLayout)

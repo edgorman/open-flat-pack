@@ -87,6 +87,7 @@ func run() error {
 			ModelDailyCallLimit: dailyCalls,
 		},
 		firestore.NewNoteRepository(client),
+		firestore.NewDesignRepository(client),
 		firestore.NewUserRepository(client),
 		verifier,
 		parts,
