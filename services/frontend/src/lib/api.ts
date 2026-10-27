@@ -10,11 +10,12 @@ import type { CurrentUser, UpdateCurrentUserRequest, User } from '../gen/app/v1/
 import type { ListNotesParams, Note, NotePage, NoteRequest } from '../gen/app/v1/note'
 import type { ErrorResponse } from '../gen/app/v1/error'
 import type { Catalogue } from '../gen/app/v1/catalogue'
+import type { CreateLayoutRequest, CreateLayoutResponse } from '../gen/app/v1/layout'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
 export type { Note, NotePage, ListNotesParams, NoteRequest } from '../gen/app/v1/note'
 export type { Catalogue, Part } from '../gen/app/v1/catalogue'
-export type { Layout, LayoutPart } from '../gen/app/v1/layout'
+export type { Layout, LayoutPart, Validation } from '../gen/app/v1/layout'
 
 /**
  * "public" or "private" - what a note's `visibility` actually holds, kept as a union here because
@@ -22,14 +23,19 @@ export type { Layout, LayoutPart } from '../gen/app/v1/layout'
  */
 export type Visibility = 'public' | 'private'
 
-/** Thrown for any non-2xx response, carrying the status so callers can treat 404 as "absent". */
+/**
+ * Thrown for any non-2xx response, carrying the status so callers can treat 404 as "absent", and
+ * the parsed body for the few that carry more than an ErrorResponse (a 422's Validation).
+ */
 export class ApiError extends Error {
   status: number
+  body: unknown
 
-  constructor(status: number, message: string) {
+  constructor(status: number, message: string, body?: unknown) {
     super(message)
     this.name = 'ApiError'
     this.status = status
+    this.body = body
   }
 }
 
@@ -84,11 +90,9 @@ async function send<T>(
 
   if (!response.ok) {
     // Every non-2xx response is an ErrorResponse, but fall back to the status if parsing it fails.
-    const message = await response
-      .json()
-      .then((body: ErrorResponse) => body.error)
-      .catch(() => undefined)
-    throw new ApiError(response.status, message ?? `Request failed with ${response.status}`)
+    const body: unknown = await response.json().catch(() => undefined)
+    const message = (body as ErrorResponse | undefined)?.error
+    throw new ApiError(response.status, message ?? `Request failed with ${response.status}`, body)
   }
 
   if (response.status === 204) return undefined as T
@@ -130,6 +134,9 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
     deleteUser: () => request<void>('DELETE', '/users/me'),
 
     getCatalogue: () => request<Catalogue>('GET', '/catalogue'),
+    // Can take several seconds: the model may be called up to three times. A 422 carries the
+    // remaining errors as a Validation in ApiError.body.
+    createLayout: (req: CreateLayoutRequest) => request<CreateLayoutResponse>('POST', '/layouts', req),
   }
 }
 
