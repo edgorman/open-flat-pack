@@ -10,14 +10,11 @@ import { snippetFrom } from './lib/format'
 const SHELL = '<!doctype html><html><head><title>Example App</title></head><body><div id="root"></div></body></html>'
 const BACKEND = 'https://api.example.run.app'
 
-const publicNote = {
-  id: 'note1',
-  title: 'Hello <world>',
-  body: 'Hi\n\nSome body text.',
-  visibility: 'public',
+const design = {
+  id: 'design1',
+  prompt: 'A <tall> KALLAX\n\nwith doors',
   authorUsername: 'kestrel',
   createdAt: '2026-08-01T00:00:00Z',
-  updatedAt: '2026-08-02T00:00:00Z',
 }
 
 // The static assets: config.json when the deployment has one, the SPA shell for everything else.
@@ -33,15 +30,15 @@ function env(config: object | null = { backendUrl: BACKEND, siteUrl: 'https://ex
   }
 }
 
-// The backend as a signed-out reader sees it: one public note, everything else a 404.
-function backend(pages: object[] = [{ notes: [publicNote], hasMore: false }]) {
+// The backend as a signed-out reader sees it: one design, everything else a 404.
+function backend(pages: object[] = [{ designs: [design], hasMore: false }]) {
   const calls: string[] = []
   global.fetch = vi.fn(async (input: string | URL | Request) => {
     const url = new URL(String(input))
     calls.push(url.pathname + url.search)
-    if (url.pathname === `/notes/${publicNote.id}`) return Response.json(publicNote)
-    if (url.pathname === '/notes') return Response.json(pages[calls.filter((c) => c.startsWith('/notes?')).length - 1])
-    return Response.json({ error: 'note not found' }, { status: 404 })
+    if (url.pathname === `/designs/${design.id}`) return Response.json(design)
+    if (url.pathname === '/designs') return Response.json(pages[calls.filter((c) => c.startsWith('/designs?')).length - 1])
+    return Response.json({ error: 'design not found' }, { status: 404 })
   }) as typeof fetch
   return calls
 }
@@ -64,6 +61,7 @@ const STATIC_ONLY = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
   '  <url><loc>https://example.com/</loc></url>',
+  '  <url><loc>https://example.com/designs</loc></url>',
   '</urlset>',
   '',
 ].join('\n')
@@ -74,53 +72,53 @@ describe('_worker.js', () => {
     vi.restoreAllMocks()
   })
 
-  it('injects the note title, description, Open Graph and canonical tags into the shell', async () => {
+  it('injects the design title, description, Open Graph and canonical tags into the shell', async () => {
     backend()
-    const response = await get('https://example.com/note/note1')
+    const response = await get('https://example.com/designs/design1')
     const html = await response.text()
 
-    expect(html).toContain('<title>Hello &lt;world&gt; · Example App</title>')
+    expect(html).toContain('<title>A &lt;tall&gt; KALLAX with doors · Example App</title>')
     expect(html).not.toContain('<title>Example App</title>')
-    expect(html).toContain('<meta name="description" content="Hi Some body text." />')
-    expect(html).toContain('<meta property="og:title" content="Hello &lt;world&gt;" />')
+    expect(html).toContain('<meta name="description" content="A &lt;tall&gt; KALLAX with doors" />')
+    expect(html).toContain('<meta property="og:title" content="A &lt;tall&gt; KALLAX with doors" />')
     expect(html).toContain('<meta property="og:type" content="article" />')
-    expect(html).toContain('<meta property="og:url" content="https://example.com/note/note1" />')
-    expect(html).toContain('<link rel="canonical" href="https://example.com/note/note1" />')
-    expect(html).toContain('"@type":"Article"')
+    expect(html).toContain('<meta property="og:url" content="https://example.com/designs/design1" />')
+    expect(html).toContain('<link rel="canonical" href="https://example.com/designs/design1" />')
+    expect(html).toContain('"@type":"CreativeWork"')
     // The shell's own headers (the CSP from _headers) survive the rewrite.
     expect(response.headers.get('Content-Security-Policy')).toBe("default-src 'self'")
     expect(response.headers.get('X-Robots-Tag')).toBeNull()
   })
 
-  it('leaves the shell untouched for a private or missing note, so nothing about it leaks', async () => {
+  it('leaves the shell untouched for a missing design', async () => {
     backend()
-    const html = await (await get('https://example.com/note/secret')).text()
+    const html = await (await get('https://example.com/designs/gone')).text()
     expect(html).toBe(SHELL)
   })
 
   it('leaves the shell untouched when the deployment has no backend', async () => {
     backend()
-    const html = await (await get('https://example.com/note/note1', env(null))).text()
+    const html = await (await get('https://example.com/designs/design1', env(null))).text()
     expect(html).toBe(SHELL)
   })
 
   // A string replacement would expand $' into the rest of the shell and $& into the matched <title>.
   it("keeps $' and $& in a title literal", async () => {
     backend()
-    global.fetch = vi.fn(async () => Response.json({ ...publicNote, title: "What $' and $& mean in sed" })) as typeof fetch
-    const html = await (await get('https://example.com/note/note1')).text()
+    global.fetch = vi.fn(async () => Response.json({ ...design, prompt: "What $' and $& mean in sed" })) as typeof fetch
+    const html = await (await get('https://example.com/designs/design1')).text()
     expect(html).toContain("<title>What $&#39; and $&amp; mean in sed · Example App</title>")
     expect(html.match(/<body>/g)).toHaveLength(1)
   })
 
-  it('serves the plain shell once the note lookup misses its deadline', async () => {
+  it('serves the plain shell once the design lookup misses its deadline', async () => {
     const deadline = new AbortController()
     const timeout = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(deadline.signal)
     global.fetch = vi.fn(
       (_input: unknown, init?: RequestInit) =>
         new Promise((_resolve, reject) => init?.signal?.addEventListener('abort', () => reject(init.signal?.reason))),
     ) as typeof fetch
-    const pending = get('https://example.com/note/note1')
+    const pending = get('https://example.com/designs/design1')
     await new Promise((resolve) => setTimeout(resolve, 0))
     deadline.abort(new DOMException('timed out', 'TimeoutError'))
     expect(await (await pending).text()).toBe(SHELL)
@@ -143,24 +141,25 @@ describe('_worker.js', () => {
     expect(asset.headers.get('Content-Security-Policy')).toBe("default-src 'self'")
   })
 
-  it('lists every public note, across pages, with its lastmod', async () => {
-    const second = { ...publicNote, id: 'older', updatedAt: '2026-07-01T00:00:00Z', createdAt: '2026-07-01T00:00:00Z' }
+  it('lists every design, across pages, with its createdAt as lastmod', async () => {
+    const second = { ...design, id: 'older', createdAt: '2026-07-01T00:00:00Z' }
     const calls = backend([
-      { notes: [publicNote], hasMore: true },
-      { notes: [second, { ...second, id: 'mine', visibility: 'private' }], hasMore: false },
+      { designs: [design], hasMore: true },
+      { designs: [second], hasMore: false },
     ])
     const response = await get('https://example.com/sitemap.xml')
     const xml = await response.text()
 
     expect(response.headers.get('Content-Type')).toBe('application/xml; charset=utf-8')
-    expect(calls).toEqual(['/notes?limit=100', `/notes?limit=100&startAfter=${encodeURIComponent(publicNote.createdAt)}`])
+    expect(calls).toEqual(['/designs?limit=100', `/designs?limit=100&startAfter=${encodeURIComponent(design.createdAt)}`])
     expect(xml).toBe(
       [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
         '  <url><loc>https://example.com/</loc></url>',
-        '  <url><loc>https://example.com/note/note1</loc><lastmod>2026-08-02T00:00:00Z</lastmod></url>',
-        '  <url><loc>https://example.com/note/older</loc><lastmod>2026-07-01T00:00:00Z</lastmod></url>',
+        '  <url><loc>https://example.com/designs</loc></url>',
+        '  <url><loc>https://example.com/designs/design1</loc><lastmod>2026-08-01T00:00:00Z</lastmod></url>',
+        '  <url><loc>https://example.com/designs/older</loc><lastmod>2026-07-01T00:00:00Z</lastmod></url>',
         '</urlset>',
         '',
       ].join('\n'),
@@ -172,7 +171,7 @@ describe('_worker.js', () => {
     const store = cache()
     backend()
     const good = await (await get('https://example.com/sitemap.xml')).text()
-    expect(good).toContain('/note/note1')
+    expect(good).toContain('/designs/design1')
     expect(await store.get('https://example.com/sitemap.xml?last-good')?.clone().text()).toBe(good)
     expect(store.get('https://example.com/sitemap.xml?last-good')?.headers.get('Cache-Control')).toBe('public, max-age=604800')
 
@@ -222,13 +221,14 @@ describe('_worker.js', () => {
     expect(await response.text()).toBe(STATIC_ONLY)
   })
 
-  // The worker keeps its own copy of excerpt(); this keeps it describing a note the way the SPA does.
-  it('describes a note the same way the SPA does', async () => {
-    const body = `line one\n\n  line two ${'word '.repeat(60)}`
+  // The worker keeps its own copy of excerpt(); this keeps it describing a design the way the SPA does.
+  it('describes a design the same way the SPA does', async () => {
+    const prompt = `line one\n\n  line two ${'word '.repeat(60)}`
     backend()
-    global.fetch = vi.fn(async () => Response.json({ ...publicNote, body })) as typeof fetch
-    const html = await (await get('https://example.com/note/note1')).text()
-    expect(html).toContain(`<meta name="description" content="${snippetFrom(body)}" />`)
-    expect(snippetFrom(body).length).toBeLessThanOrEqual(160)
+    global.fetch = vi.fn(async () => Response.json({ ...design, prompt })) as typeof fetch
+    const html = await (await get('https://example.com/designs/design1')).text()
+    expect(html).toContain(`<title>${snippetFrom(prompt, 60)} · Example App</title>`)
+    expect(html).toContain(`<meta name="description" content="${snippetFrom(prompt)}" />`)
+    expect(snippetFrom(prompt).length).toBeLessThanOrEqual(160)
   })
 })
