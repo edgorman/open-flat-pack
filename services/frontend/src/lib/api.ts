@@ -7,23 +7,15 @@
  * adds one (`root:wire-types`).
  */
 import type { CurrentUser, UpdateCurrentUserRequest, User } from '../gen/app/v1/user'
-import type { ListNotesParams, Note, NotePage, NoteRequest } from '../gen/app/v1/note'
 import type { ErrorResponse } from '../gen/app/v1/error'
 import type { Catalogue } from '../gen/app/v1/catalogue'
 import type { CreateLayoutRequest, CreateLayoutResponse } from '../gen/app/v1/layout'
 import type { CreateDesignRequest, Design, DesignPage, ListDesignsParams } from '../gen/app/v1/design'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
-export type { Note, NotePage, ListNotesParams, NoteRequest } from '../gen/app/v1/note'
 export type { Catalogue, Part } from '../gen/app/v1/catalogue'
 export type { Layout, LayoutPart, Validation } from '../gen/app/v1/layout'
 export type { Design, DesignPage } from '../gen/app/v1/design'
-
-/**
- * "public" or "private" - what a note's `visibility` actually holds, kept as a union here because
- * the proto field is a plain string (see `packages/protos/AGENTS.md`'s "Contract Layer").
- */
-export type Visibility = 'public' | 'private'
 
 /**
  * Thrown for any non-2xx response, carrying the status so callers can treat 404 as "absent", and
@@ -46,11 +38,6 @@ export function errorMessage(error: unknown, fallback: string): string {
   return error instanceof Error ? error.message : fallback
 }
 
-/** The path a note lives at in the app. The id is escaped: it arrives from the API. */
-export function notePath(note: Pick<Note, 'id'>): string {
-  return `/note/${encodeURIComponent(note.id)}`
-}
-
 /** The path a design lives at, in the app and the API alike. The id is escaped: it arrives from the API. */
 export function designPath(id: string): string {
   return `/designs/${encodeURIComponent(id)}`
@@ -58,7 +45,7 @@ export function designPath(id: string): string {
 
 /**
  * Whether the signed-in caller wrote something attributed to username. Usernames are unique and a
- * note resolves its author's on every read, so this is the "is it mine" check the wire leaves a
+ * design resolves its author's on every read, so this is the "is it mine" check the wire leaves a
  * client - it is never sent a uid to compare. Only for what to show: the backend decides every
  * write itself.
  */
@@ -107,7 +94,7 @@ async function send<T>(
 }
 
 /** The API path for a page of a newest-first list, carrying only the params a caller actually set. */
-function listPath(path: string, params: ListNotesParams | ListDesignsParams = {}): string {
+function listPath(path: string, params: ListDesignsParams = {}): string {
   const query = new URLSearchParams()
   if (params.limit !== undefined) query.set('limit', String(params.limit))
   if (params.startAfter) query.set('startAfter', params.startAfter)
@@ -116,22 +103,12 @@ function listPath(path: string, params: ListNotesParams | ListDesignsParams = {}
   return search ? `${path}?${search}` : path
 }
 
-function noteApiPath(id: string): string {
-  return `/notes/${encodeURIComponent(id)}`
-}
-
 export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthorized?: () => void) {
   // Every call below goes through this, so each one ends the session on a refused credential.
   function request<T>(method: string, path: string, body?: unknown) {
     return send<T>(baseUrl, authHeaders, method, path, body, onUnauthorized)
   }
   return {
-    listNotes: (params?: ListNotesParams) => request<NotePage>('GET', listPath('/notes', params)),
-    getNote: (id: string) => request<Note>('GET', noteApiPath(id)),
-    createNote: (note: NoteRequest) => request<Note>('POST', '/notes', note),
-    updateNote: (id: string, note: NoteRequest) => request<Note>('PUT', noteApiPath(id), note),
-    deleteNote: (id: string) => request<void>('DELETE', noteApiPath(id)),
-
     // A profile is addressed by its username; the Google sub it is keyed by is never a URL.
     getUser: (username: string) => request<User>('GET', `/users/${encodeURIComponent(username)}`),
     // The caller's own profile needs no name: the backend takes the owner from the credential,

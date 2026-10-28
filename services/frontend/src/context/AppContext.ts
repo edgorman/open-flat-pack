@@ -18,8 +18,8 @@ export interface AppContextValue {
    * loads. It is how the app learns its own username: the Google identity carries only a sub,
    * which is never addressable.
    *
-   * Note authors do not come from here - a note carries its own username. Comparing this
-   * profile's username with it is how the app tells its own notes (see api.ts's isAuthor).
+   * Design authors do not come from here - a design carries its own username. Comparing this
+   * profile's username with it is how the app tells its own designs (see api.ts's isAuthor).
    */
   profile: CurrentUser | null
   /** Replaces `profile` after an edit, such as a rename, that answered with the new one. */

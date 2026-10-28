@@ -64,7 +64,7 @@ describe('AppProvider', () => {
   })
 
   // Signing in is the only "sign-up" the backend sees, so a caller with no profile gets one here
-  // rather than having to rename themselves first - otherwise their notes have no author to show.
+  // rather than having to rename themselves first - otherwise their designs have no author to show.
   it('creates a profile when the caller has none', async () => {
     mockGetCurrentUser.mockRejectedValue(new ApiError(404, 'user not found'))
     mockPutUser.mockResolvedValue(profile)
