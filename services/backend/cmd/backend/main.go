@@ -86,7 +86,6 @@ func run() error {
 			AllowedOrigin:       os.Getenv("CORS_ALLOWED_ORIGIN"),
 			ModelDailyCallLimit: dailyCalls,
 		},
-		firestore.NewNoteRepository(client),
 		firestore.NewDesignRepository(client),
 		firestore.NewUserRepository(client),
 		verifier,

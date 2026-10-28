@@ -45,7 +45,7 @@ type User struct {
 }
 
 // Permission is the single definition of who may do what to a profile: anybody may read one, since
-// a username is the whole of a public identity and a note is shown by its author's name; only the
+// a username is the whole of a public identity and a design is shown by its author's name; only the
 // account itself may write or delete it, which the /users/me address makes structural.
 func (u User) Permission(action Action) Permission {
 	permission := PermissionFor(ResourceUser, action)

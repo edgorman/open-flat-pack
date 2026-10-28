@@ -18,6 +18,8 @@ import (
 type fakeDesignRepository struct {
 	designs map[string]entity.Design
 	nextID  int
+	// deleteOwnedErr, when set, fails the next DeleteOwned once.
+	deleteOwnedErr error
 }
 
 func newFakeDesignRepository() *fakeDesignRepository {
@@ -79,6 +81,10 @@ func (r *fakeDesignRepository) Delete(_ context.Context, id string) error {
 }
 
 func (r *fakeDesignRepository) DeleteOwned(_ context.Context, ownerID string) error {
+	if err := r.deleteOwnedErr; err != nil {
+		r.deleteOwnedErr = nil
+		return err
+	}
 	for id, design := range r.designs {
 		if design.OwnerID == ownerID {
 			delete(r.designs, id)
@@ -87,7 +93,10 @@ func (r *fakeDesignRepository) DeleteOwned(_ context.Context, ownerID string) er
 	return nil
 }
 
-// wireDesign and wireDesignPage spell out the wire, for the reason given on wireNote.
+// wireDesign and wireDesignPage are what a response body actually carries, spelled out here rather
+// than decoded into appv1.Design: reusing the production type would hide the wire, since both sides
+// would move together and a field leaving the body would assert nothing. Declared separately, a
+// rename fails here.
 type wireDesign struct {
 	ID             string `json:"id"`
 	AuthorUsername string `json:"authorUsername"`

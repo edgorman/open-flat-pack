@@ -272,13 +272,13 @@ func TestHandler_LimitsAnonymousRequestsPerIP(t *testing.T) {
 // A preflight is answered above the limiter, so a browser's OPTIONS never spends the budget of the
 // request it precedes.
 func TestHandler_PreflightIsNotRateLimited(t *testing.T) {
-	s := New(Config{AllowedOrigin: testOrigin}, newFakeNoteRepository(), newFakeDesignRepository(), newFakeUserRepository(), fakeVerifier{uid: "caller"}, nil, nil, nil)
+	s := New(Config{AllowedOrigin: testOrigin}, newFakeDesignRepository(), newFakeUserRepository(), fakeVerifier{uid: "caller"}, nil, nil, nil)
 	freezeLimiters(s)
 	handler := s.Handler()
 
 	for range requestsPerIP.burst + 10 {
 		rec := httptest.NewRecorder()
-		handler.ServeHTTP(rec, httptest.NewRequest(http.MethodOptions, "/notes", nil))
+		handler.ServeHTTP(rec, httptest.NewRequest(http.MethodOptions, "/designs", nil))
 		if rec.Result().StatusCode != http.StatusNoContent {
 			t.Fatalf("preflight status = %d, want %d", rec.Result().StatusCode, http.StatusNoContent)
 		}

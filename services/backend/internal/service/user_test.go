@@ -649,24 +649,24 @@ func TestGetCurrentUser_WireBody(t *testing.T) {
 	}
 }
 
-// eraseFixture is an account ("caller") with a public and a private note, beside another
-// account's note - everything DeleteUser has to find, and something it must not.
+// eraseFixture is an account ("caller") with two designs, beside another account's design -
+// everything DeleteUser has to find, and something it must not.
 type eraseFixture struct {
-	s     *Service
-	notes *fakeNoteRepository
-	users *fakeUserRepository
+	s       *Service
+	designs *fakeDesignRepository
+	users   *fakeUserRepository
 }
 
 func newEraseFixture() eraseFixture {
-	f := eraseFixture{notes: newFakeNoteRepository(), users: newFakeUserRepository()}
+	f := eraseFixture{designs: newFakeDesignRepository(), users: newFakeUserRepository()}
 	f.users.seed(entity.User{ID: "caller", Username: "sly-dancing-monkey"})
 	f.users.seed(entity.User{ID: "other", Username: "bold-leaping-lynx"})
-	f.notes.seed(
-		entity.Note{ID: "mine", OwnerID: "caller", Visibility: entity.VisibilityPublic},
-		entity.Note{ID: "minePrivate", OwnerID: "caller", Visibility: entity.VisibilityPrivate},
-		entity.Note{ID: "theirs", OwnerID: "other", Visibility: entity.VisibilityPublic},
+	f.designs.seed(
+		entity.Design{ID: "mine", OwnerID: "caller"},
+		entity.Design{ID: "mineToo", OwnerID: "caller"},
+		entity.Design{ID: "theirs", OwnerID: "other"},
 	)
-	f.s = newTestService(f.notes, f.users)
+	f.s = newTestService(f.designs, f.users)
 	return f
 }
 
@@ -685,16 +685,16 @@ func (f eraseFixture) assertErased(t *testing.T) {
 	if _, ok := f.users.users["caller"]; ok {
 		t.Error("profile still stored")
 	}
-	for _, id := range []string{"mine", "minePrivate"} {
-		if _, ok := f.notes.notes[id]; ok {
-			t.Errorf("note %q still stored", id)
+	for _, id := range []string{"mine", "mineToo"} {
+		if _, ok := f.designs.designs[id]; ok {
+			t.Errorf("design %q still stored", id)
 		}
 	}
 	if _, ok := f.users.users["other"]; !ok {
 		t.Error("another account's profile was erased too")
 	}
-	if _, ok := f.notes.notes["theirs"]; !ok {
-		t.Error("another account's note was erased too")
+	if _, ok := f.designs.designs["theirs"]; !ok {
+		t.Error("another account's design was erased too")
 	}
 }
 
@@ -708,7 +708,7 @@ func TestDeleteUser_ErasesEverythingTheAccountCreated(t *testing.T) {
 // finishes the job rather than answering 404 over half-erased content.
 func TestDeleteUser_RetryFinishesAPartialErasure(t *testing.T) {
 	f := newEraseFixture()
-	f.notes.deleteOwnedErr = errors.New("firestore unavailable")
+	f.designs.deleteOwnedErr = errors.New("firestore unavailable")
 
 	f.deleteAccount(t, http.StatusInternalServerError)
 	if _, ok := f.users.users["caller"]; !ok {

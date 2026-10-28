@@ -1,7 +1,9 @@
+// Package firestore implements the repository interfaces against Cloud Firestore.
 package firestore
 
 import (
 	"context"
+	"regexp"
 	"time"
 
 	fs "cloud.google.com/go/firestore"
@@ -79,6 +81,11 @@ func documentToDesign(doc *fs.DocumentSnapshot) (entity.Design, error) {
 	}
 	return stored.toEntity(doc.Ref.ID), nil
 }
+
+// idPattern admits the ids Create assigns (Firestore's 20-character auto ids) and nothing that
+// could address anything but a single document: no slash, no "." or "..", no "__reserved__" form.
+// An id arrives in a URL, so it is checked before Firestore is asked to parse it as a path.
+var idPattern = regexp.MustCompile(`^[A-Za-z0-9]{1,64}$`)
 
 var _ repository.DesignRepository = (*DesignRepository)(nil)
 
@@ -179,4 +186,30 @@ func (r *DesignRepository) DeleteOwned(ctx context.Context, ownerID string) erro
 		refs = append(refs, doc.Ref)
 	}
 	return deleteAll(ctx, r.client, refs)
+}
+
+// deleteAll deletes refs through a BulkWriter and reports the first delete that failed. A
+// BulkWriter's End does not return errors itself, so each job is asked for its result.
+func deleteAll(ctx context.Context, client *fs.Client, refs []*fs.DocumentRef) error {
+	if len(refs) == 0 {
+		return nil
+	}
+	batch := client.BulkWriter(ctx)
+	jobs := make([]*fs.BulkWriterJob, 0, len(refs))
+	for _, ref := range refs {
+		job, err := batch.Delete(ref)
+		if err != nil {
+			batch.End()
+			return err
+		}
+		jobs = append(jobs, job)
+	}
+	batch.End()
+
+	for _, job := range jobs {
+		if _, err := job.Results(); err != nil {
+			return err
+		}
+	}
+	return nil
 }

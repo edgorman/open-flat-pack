@@ -6,7 +6,7 @@ package entity
 //
 // The model has three parts and no more:
 //
-//   - A Resource is a kind of thing this service holds (a profile, a note).
+//   - A Resource is a kind of thing this service holds (a profile, a design).
 //   - An Action is one thing that can be done to it (read it, create one, update it, delete it).
 //   - An Access is how wide the audience for that pair is: public or private.
 //
@@ -23,7 +23,6 @@ type Resource string
 
 const (
 	ResourceUser      Resource = "user"
-	ResourceNote      Resource = "note"
 	ResourceCatalogue Resource = "catalogue"
 	ResourceLayout    Resource = "layout"
 	ResourceDesign    Resource = "design"
@@ -64,23 +63,15 @@ func (a Access) Valid() bool {
 // know what this service allows, and the one place to change to alter it.
 //
 // Some entries are private for a caller who could only ever be acting on their own: a profile is
-// addressed as /users/me, and a note is created owned by whoever asked. Those are enforced by the
+// addressed as /users/me, and a design is created owned by whoever asked. Those are enforced by the
 // address rather than by a check - the forbidden case is unreachable, not refused - and they are
 // declared here anyway, because a table that only listed the checks that happen would not say what
 // the rules are.
 var policy = map[Resource]map[Action]Access{
-	// A profile is public because a username is the whole of a public identity: a note shows its
+	// A profile is public because a username is the whole of a public identity: a design shows its
 	// author by name. Writing one is the account's own business and nobody else's.
 	ResourceUser: {
 		ActionRead:   AccessPublic,
-		ActionUpdate: AccessPrivate,
-		ActionDelete: AccessPrivate,
-	},
-	// A note's read audience is whatever the note itself says (see Note.Permission). The entry
-	// below is the widest a note can be, not what every note is.
-	ResourceNote: {
-		ActionRead:   AccessPublic,
-		ActionCreate: AccessPrivate,
 		ActionUpdate: AccessPrivate,
 		ActionDelete: AccessPrivate,
 	},
@@ -110,7 +101,7 @@ type Permission struct {
 	Resource Resource
 	Action   Action
 	Access   Access
-	// OwnerID is the uid the thing belongs to - the note's author, the profile's account. It is
+	// OwnerID is the uid the thing belongs to - the design's author, the profile's account. It is
 	// empty for a resource with no owner, which only a public action can have.
 	OwnerID string
 }

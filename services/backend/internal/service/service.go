@@ -32,7 +32,6 @@ type Config struct {
 // Service owns the API's dependencies and serves its routes.
 type Service struct {
 	cfg      Config
-	notes    repository.NoteRepository
 	designs  repository.DesignRepository
 	users    repository.UserRepository
 	verifier repository.TokenVerifier
@@ -51,7 +50,6 @@ type Service struct {
 
 func New(
 	cfg Config,
-	notes repository.NoteRepository,
 	designs repository.DesignRepository,
 	users repository.UserRepository,
 	verifier repository.TokenVerifier,
@@ -61,7 +59,6 @@ func New(
 ) *Service {
 	return &Service{
 		cfg:           cfg,
-		notes:         notes,
 		designs:       designs,
 		users:         users,
 		verifier:      verifier,
@@ -92,8 +89,7 @@ func (s *Service) Handler() http.Handler {
 	authed := func(h http.HandlerFunc) http.Handler {
 		return requireAuth(s.verifier, rateLimited(s.callerLimiter, callerKey, h))
 	}
-	// Reads admit anonymous callers. Visibility is enforced downstream: entity.Note.CanBeReadBy
-	// treats the zero Caller as seeing only public notes, and a profile has nothing to hide.
+	// Reads admit anonymous callers, which downstream handlers see as the zero Caller.
 	optional := func(h http.HandlerFunc) http.Handler {
 		return optionalAuth(s.verifier, h)
 	}
@@ -109,13 +105,6 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("GET /designs/{id}", s.GetDesign)
 	mux.Handle("POST /designs", authed(s.CreateDesign))
 	mux.Handle("DELETE /designs/{id}", authed(s.DeleteDesign))
-	// The example resource. A new one is registered the same way: reads optional, writes authed,
-	// and a line for each action in entity/access.go's policy table.
-	mux.Handle("GET /notes", optional(s.ListNotes))
-	mux.Handle("GET /notes/{id}", optional(s.GetNote))
-	mux.Handle("POST /notes", authed(s.CreateNote))
-	mux.Handle("PUT /notes/{id}", authed(s.UpdateNote))
-	mux.Handle("DELETE /notes/{id}", authed(s.DeleteNote))
 	// A profile is addressed by its username, never by the Google `sub` it is keyed by, so the id
 	// stays an internal detail rather than a public handle. "me" is the one exception, for a client
 	// that holds a credential but does not yet know which name it was given; ServeMux prefers that
