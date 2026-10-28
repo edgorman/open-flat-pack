@@ -10,7 +10,7 @@ export function formatDate(iso: string): string {
 }
 
 /**
- * A note's body as one line of at most `max` characters, for a feed row and a page description.
+ * Text as one line of at most `max` characters, for a list row and a page description.
  * `public/_worker.js` keeps its own copy, since it ships as-is rather than through Vite; change both
  * together.
  */

@@ -16,43 +16,39 @@ afterEach(() => {
 
 describe('createApi', () => {
   it('sends the auth headers and trims a trailing slash from the base URL', async () => {
-    const fetchMock = mockFetch({ json: () => Promise.resolve({ notes: [], hasMore: false }) })
+    const fetchMock = mockFetch({ json: () => Promise.resolve({ designs: [], hasMore: false }) })
 
-    await createApi('https://api.example.com/', authHeaders).listNotes()
+    await createApi('https://api.example.com/', authHeaders).listDesigns()
 
     const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit]
-    expect(url).toBe('https://api.example.com/notes')
+    expect(url).toBe('https://api.example.com/designs')
     expect(init.method).toBe('GET')
     expect((init.headers as Record<string, string>).Authorization).toBe('Bearer test-token')
     expect((init.headers as Record<string, string>)['Authorization-Provider']).toBe('google')
   })
 
-  // Only the params a caller actually sets end up on the query string, so a bare `listNotes()`
-  // still reads as a plain `/notes` request above.
-  it('carries listNotes params on the query string', async () => {
-    const fetchMock = mockFetch({ json: () => Promise.resolve({ notes: [], hasMore: false }) })
+  // Only the params a caller actually sets end up on the query string, so a bare `listDesigns()`
+  // still reads as a plain `/designs` request above.
+  it('carries listDesigns params on the query string', async () => {
+    const fetchMock = mockFetch({ json: () => Promise.resolve({ designs: [], hasMore: false }) })
 
-    await createApi('https://api.example.com', authHeaders).listNotes({
+    await createApi('https://api.example.com', authHeaders).listDesigns({
       limit: 10,
       startAfter: '2026-08-01T00:00:00Z',
     })
 
     const [url] = fetchMock.mock.calls[0] as [string, RequestInit]
-    expect(url).toBe('https://api.example.com/notes?limit=10&startAfter=2026-08-01T00%3A00%3A00Z')
+    expect(url).toBe('https://api.example.com/designs?limit=10&startAfter=2026-08-01T00%3A00%3A00Z')
   })
 
   it('serialises a JSON body for writes', async () => {
-    const fetchMock = mockFetch({ status: 201, json: () => Promise.resolve({ id: 'note1' }) })
+    const fetchMock = mockFetch({ json: () => Promise.resolve({ username: 'kestrel' }) })
 
-    await createApi('https://api.example.com', authHeaders).createNote({
-      title: 'Hello',
-      body: '',
-      visibility: 'public',
-    })
+    await createApi('https://api.example.com', authHeaders).putUser({ username: 'kestrel' })
 
     const [, init] = fetchMock.mock.calls[0] as [string, RequestInit]
     expect((init.headers as Record<string, string>)['Content-Type']).toBe('application/json')
-    expect(JSON.parse(init.body as string)).toEqual({ title: 'Hello', body: '', visibility: 'public' })
+    expect(JSON.parse(init.body as string)).toEqual({ username: 'kestrel' })
   })
 
   // 204 has no body, so parsing it as JSON would throw.
@@ -63,7 +59,7 @@ describe('createApi', () => {
     })
 
     await expect(
-      createApi('https://api.example.com', authHeaders).deleteNote('note1'),
+      createApi('https://api.example.com', authHeaders).deleteDesign('d1'),
     ).resolves.toBeUndefined()
   })
 
@@ -84,25 +80,21 @@ describe('createApi', () => {
     expect((error as ApiError).message).toBe('user not found')
   })
 
-  it('addresses a single note by its id', async () => {
-    const fetchMock = mockFetch({ json: () => Promise.resolve({ id: 'note1' }) })
-    const api = createApi('https://api.example.com', authHeaders)
+  it('addresses a single design by its escaped id', async () => {
+    const fetchMock = mockFetch({ json: () => Promise.resolve({ id: 'a/b' }) })
 
-    await api.getNote('note1')
-    await api.updateNote('note1', { title: 't', body: '', visibility: 'private' })
+    await createApi('https://api.example.com', authHeaders).getDesign('a/b')
 
-    const calls = fetchMock.mock.calls as [string, RequestInit][]
-    expect(calls[0][0]).toBe('https://api.example.com/notes/note1')
-    expect(calls[0][1].method).toBe('GET')
-    expect(calls[1][0]).toBe('https://api.example.com/notes/note1')
-    expect(calls[1][1].method).toBe('PUT')
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit]
+    expect(url).toBe('https://api.example.com/designs/a%2Fb')
+    expect(init.method).toBe('GET')
   })
 
   it('falls back to the status when the error body is not JSON', async () => {
     mockFetch({ ok: false, status: 502, json: () => Promise.reject(new Error('not json')) })
 
     const error = await createApi('https://api.example.com', authHeaders)
-      .listNotes()
+      .listDesigns()
       .catch((e: unknown) => e)
 
     expect((error as ApiError).message).toContain('502')
@@ -113,7 +105,7 @@ describe('createApi', () => {
     const onUnauthorized = vi.fn()
 
     const error = await createApi('https://api.example.com', authHeaders, onUnauthorized)
-      .updateNote('note1', { title: '', body: '', visibility: 'public' })
+      .deleteDesign('d1')
       .catch((e: unknown) => e)
 
     expect(onUnauthorized).toHaveBeenCalled()
@@ -125,11 +117,10 @@ describe('createApi', () => {
     const onUnauthorized = vi.fn()
 
     const error = await createApi('https://api.example.com', {}, onUnauthorized)
-      .createNote({ title: '', body: '', visibility: 'public' })
+      .deleteDesign('d1')
       .catch((e: unknown) => e)
 
     expect(onUnauthorized).not.toHaveBeenCalled()
     expect((error as ApiError).message).toBe('missing bearer token')
   })
 })
-

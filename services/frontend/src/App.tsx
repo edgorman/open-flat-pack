@@ -9,14 +9,12 @@ import { Design } from './pages/Design'
 import { DesignView } from './pages/DesignView'
 import { Gallery } from './pages/Gallery'
 import { Landing } from './pages/Landing'
-import { Note } from './pages/Note'
-import { NoteEditor } from './pages/NoteEditor'
 
 function NotFound() {
   return (
     <div className="page">
       <p className="center-note">Page not found.</p>
-      <Link to="/">← Back to feed</Link>
+      <Link to="/">← Back home</Link>
     </div>
   )
 }
@@ -52,7 +50,7 @@ class PageErrorBoundary extends Component<BoundaryProps, { failed: boolean; path
         <p role="alert" className="center-note">
           Something went wrong showing this page.
         </p>
-        <Link to="/">← Back to feed</Link>
+        <Link to="/">← Back home</Link>
       </div>
     )
   }
@@ -80,11 +78,6 @@ function App({ config }: { config: RuntimeConfig }) {
           <Route path="/design" element={<Design />} />
           <Route path="/designs" element={<Gallery />} />
           <Route path="/designs/:id" element={<DesignView />} />
-          {/* "new" is the editor rather than a note - React Router ranks the literal above the
-              wildcard beside it, and no note id can be "new" (ids are generated). */}
-          <Route path="/note/new" element={<NoteEditor />} />
-          <Route path="/note/:id" element={<Note />} />
-          <Route path="/note/:id/edit" element={<NoteEditor />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </PageErrorBoundary>

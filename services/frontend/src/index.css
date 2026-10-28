@@ -104,13 +104,6 @@ a {
   background: color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
-.hr {
-  height: 2px;
-  border: 0;
-  margin: var(--space-4) 0;
-  background: var(--color-divider);
-}
-
 /* — buttons — */
 .btn {
   display: inline-flex;
@@ -206,47 +199,6 @@ a {
   border-color: var(--color-accent);
   outline-offset: 0;
 }
-.seg {
-  /* Block-level (not inline-flex): each segmented group needs to sit on its own line, and an
-     inline-level box lets two adjacent .seg elements be laid out on the same line with no wrap
-     point between them, which is what crammed the visibility and mode controls together on
-     narrow screens. */
-  display: flex;
-  width: fit-content;
-  overflow: hidden;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-md);
-}
-.seg-opt {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  font-size: 13px;
-  cursor: pointer;
-}
-.seg-opt input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-.seg-opt + .seg-opt {
-  border-left: 1px solid var(--color-divider);
-}
-.seg-opt:has(input:checked) {
-  background: var(--color-accent);
-  color: var(--color-bg);
-}
-.seg-opt:not(:has(input:checked)):hover {
-  background: color-mix(in srgb, var(--color-text) 7%, transparent);
-}
-.seg-opt:has(input:focus-visible) {
-  outline: 2px solid var(--color-accent);
-  outline-offset: -2px;
-}
-
 /* — tags — */
 .tag {
   display: inline-flex;
@@ -464,28 +416,12 @@ a {
   margin: 0 0 8px;
   transition: color 120ms ease;
 }
-.feed-snippet {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.6;
-  max-width: 60ch;
-}
 .feed-load-more {
   text-align: center;
   margin-top: var(--space-6);
 }
 
-/* — post — */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* — design page — */
 .back-link {
   color: inherit;
   text-decoration: none;
@@ -504,42 +440,6 @@ a {
   text-decoration: none;
   font-size: 14px;
 }
-.post-body {
-  animation: fadeIn 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  font-size: 16px;
-  line-height: 1.7;
-  white-space: pre-wrap;
-}
-
-/* — editor — */
-@keyframes paneIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.gc-pane {
-  animation: paneIn 140ms ease both;
-}
-.gc-editor {
-  width: 100%;
-  min-height: 360px;
-  padding: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--color-text);
-  background: var(--color-surface);
-  border: 1px solid var(--color-divider);
-  resize: vertical;
-}
-.gc-editor:focus-visible {
-  border-color: var(--color-accent);
-  outline: none;
-}
-
 .center-note {
   padding: var(--space-6) 0;
 }

@@ -30,14 +30,13 @@ describe('NavBar', () => {
     expect(toggleTheme).toHaveBeenCalledTimes(1)
   })
 
-  it('opens the account panel with New note and Sign out when signed in', async () => {
+  it('opens the account panel with Sign out when signed in', async () => {
     const signOut = vi.fn()
     renderWithApp(<NavBar />, { context: { user: author, profile, signOut } })
 
     await userEvent.click(screen.getByRole('button', { name: 'Account' }))
     const dialog = screen.getByRole('dialog', { name: 'Account' })
     expect(dialog).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'New note' })).toHaveAttribute('href', '/note/new')
 
     await userEvent.click(screen.getByRole('button', { name: 'Sign out' }))
     expect(signOut).toHaveBeenCalledTimes(1)
@@ -70,7 +69,7 @@ describe('NavBar', () => {
     renderWithApp(<NavBar />, { context: { renderSignInButton } })
 
     await userEvent.click(screen.getByRole('button', { name: 'Account' }))
-    expect(screen.getByText('Sign in to write and manage your notes.')).toBeInTheDocument()
+    expect(screen.getByText('Sign in to publish and manage your designs.')).toBeInTheDocument()
     expect(renderSignInButton).toHaveBeenCalled()
   })
 

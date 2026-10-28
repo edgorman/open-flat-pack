@@ -1,23 +1,22 @@
 import { expect, test } from '@playwright/test'
 
-const feedRows = (page: import('@playwright/test').Page) => page.locator('a.feed-row')
+const galleryRows = (page: import('@playwright/test').Page) => page.locator('a.feed-row')
 
-test('the feed loads', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.getByRole('heading', { name: 'Recent notes' })).toBeVisible()
-  // A fresh deployment may hold no notes yet; either a row or the empty state proves the backend
+test('the gallery loads', async ({ page }) => {
+  await page.goto('/designs')
+  await expect(page.getByRole('heading', { name: 'Recent designs' })).toBeVisible()
+  // A fresh deployment may hold no designs yet; either a row or the empty state proves the backend
   // answered through CORS and config.json.
-  await expect(feedRows(page).first().or(page.getByText(/No notes yet/))).toBeVisible()
+  await expect(galleryRows(page).first().or(page.getByText(/No designs yet/))).toBeVisible()
 })
 
-test('opening a note renders it', async ({ page }) => {
-  await page.goto('/')
-  const first = feedRows(page).first()
-  test.skip(!(await first.isVisible()), 'no public notes on this deployment')
-  const title = (await first.locator('.feed-title').textContent()) ?? ''
+test('opening a design renders it', async ({ page }) => {
+  await page.goto('/designs')
+  const first = galleryRows(page).first()
+  test.skip(!(await first.isVisible()), 'no designs on this deployment')
   await first.click()
-  await expect(page).toHaveURL(/\/note\/[^/]+$/)
-  await expect(page.getByRole('heading', { level: 1, name: title })).toBeVisible()
+  await expect(page).toHaveURL(/\/designs\/[^/]+$/)
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 })
 
 test('the sign-in button renders', async ({ page }) => {

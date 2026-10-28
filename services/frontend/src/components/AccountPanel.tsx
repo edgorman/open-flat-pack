@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 import { errorMessage } from '../lib/api'
 import { releaseUrl } from '../lib/format'
@@ -55,8 +54,7 @@ interface Props {
   onClose: () => void
 }
 
-/** The account overlay opened from NavBar's account button: sign in/out, the username, a New note
- * shortcut, and (pinned to the bottom, see .panel-deploy-info) this build's release tag and
+/** The account overlay opened from NavBar's account button: sign in/out, the username, and (pinned to the bottom, see .panel-deploy-info) this build's release tag and
  * staging badge. */
 export function AccountPanel({ onClose }: Props) {
   const { user, profile, authError, authReady, renderSignInButton, signOut, config } = useApp()
@@ -93,16 +91,13 @@ export function AccountPanel({ onClose }: Props) {
             </div>
             {/* Keyed by the username, so the field resets to whatever the profile now holds. */}
             <UsernameForm key={profile?.username} />
-            <Link to="/note/new" className="btn btn-primary btn-block" onClick={onClose}>
-              New note
-            </Link>
             <button type="button" className="btn btn-ghost btn-block" onClick={() => { signOut(); onClose() }}>
               Sign out
             </button>
           </>
         ) : (
           <>
-            <p className="text-muted">Sign in to write and manage your notes.</p>
+            <p className="text-muted">Sign in to publish and manage your designs.</p>
             {authError ? <p role="alert">{authError}</p> : <GoogleSignInButton ready={authReady} onRender={renderSignInButton} />}
           </>
         )}
