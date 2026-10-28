@@ -5,24 +5,23 @@
 //
 // It reads the same config.json frontend-deploy writes next to the bundle that the SPA does - the
 // backend URL, the site's name and its canonical (production) URL - and only ever calls the backend
-// anonymously, so it sees exactly what a signed-out reader can: a private note is a 404 to it, and
-// its title never reaches the page.
+// anonymously, so it sees exactly what a signed-out reader can. Every design is public.
 //
 // excerpt() mirrors snippetFrom in src/lib/format.ts, which this file can't import because it ships
 // as-is rather than through Vite. Change both together.
 
-// ponytail: stops the sitemap at 50 pages of 100 notes; move to a dedicated backend route if the
+// ponytail: stops the sitemap at 50 pages of 100 designs; move to a dedicated backend route if the
 // site ever outgrows that.
 const SITEMAP_MAX_PAGES = 50
 // How long the backend gets to answer all its pages before the sitemap falls back.
 const SITEMAP_TIMEOUT_MS = 10_000
 // How long a colo keeps the last good sitemap to fall back to: a week.
 const SITEMAP_LAST_GOOD_SECONDS = 7 * 24 * 60 * 60
-// How long a note page waits for the backend before serving the plain shell: the SPA fetches the
-// note itself anyway, so a slow or cold backend shouldn't hold up the page.
-const NOTE_TIMEOUT_MS = 1500
-// The SPA's routes that aren't notes but are worth indexing.
-const STATIC_PAGES = ['/']
+// How long a design page waits for the backend before serving the plain shell: the SPA fetches the
+// design itself anyway, so a slow or cold backend shouldn't hold up the page.
+const DESIGN_TIMEOUT_MS = 1500
+// The SPA's routes that aren't designs but are worth indexing.
+const STATIC_PAGES = ['/', '/designs']
 
 export default {
   async fetch(request, env) {
@@ -51,33 +50,32 @@ async function route(request, env, url, config, prod) {
     return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
   }
   if (url.pathname === '/sitemap.xml') return sitemap(config, url)
-  const id = /^\/note\/([^/]+)\/?$/.exec(url.pathname)?.[1]
-  if (id && id !== 'new' && request.method === 'GET') return noteShell(request, env, config, id)
+  const id = /^\/designs\/([^/]+)\/?$/.exec(url.pathname)?.[1]
+  if (id && request.method === 'GET') return designShell(request, env, config, id)
   return env.ASSETS.fetch(request)
 }
 
-/** The SPA shell with the note's title, description, Open Graph and canonical tags in its head. */
-async function noteShell(request, env, config, encodedId) {
-  const [shell, note] = await Promise.all([env.ASSETS.fetch(request), fetchNote(config, encodedId)])
-  if (!note || shell.status !== 200) return shell
+/** The SPA shell with the design's title, description, Open Graph and canonical tags in its head. */
+async function designShell(request, env, config, encodedId) {
+  const [shell, design] = await Promise.all([env.ASSETS.fetch(request), fetchDesign(config, encodedId)])
+  if (!design || shell.status !== 200) return shell
   const headers = new Headers(shell.headers)
   headers.delete('Content-Length')
   headers.delete('ETag')
-  // A function, not a string: a string replacement would expand $' and $& inside the note's title.
-  const html = (await shell.text()).replace(/<title>[^<]*<\/title>/, () => noteTags(config, note))
+  // A function, not a string: a string replacement would expand $' and $& inside the design's prompt.
+  const html = (await shell.text()).replace(/<title>[^<]*<\/title>/, () => designTags(config, design))
   return new Response(html, { status: 200, headers })
 }
 
-/** The note as a signed-out reader sees it, or null for a private, missing or unreachable one. */
-async function fetchNote(config, encodedId) {
+/** The design, or null for a missing or unreachable one. */
+async function fetchDesign(config, encodedId) {
   if (!config.backendUrl) return null
   try {
     const id = decodeURIComponent(encodedId)
-    const signal = AbortSignal.timeout(NOTE_TIMEOUT_MS)
-    const response = await fetch(`${config.backendUrl}/notes/${encodeURIComponent(id)}`, { signal })
+    const signal = AbortSignal.timeout(DESIGN_TIMEOUT_MS)
+    const response = await fetch(`${config.backendUrl}/designs/${encodeURIComponent(id)}`, { signal })
     if (!response.ok) return null
-    const note = await response.json()
-    return note.visibility === 'public' ? note : null
+    return await response.json()
   } catch {
     return null
   }
@@ -105,7 +103,7 @@ async function sitemap(config, url) {
   }
 }
 
-/** Every <url> line: the static pages, then each public note. Throws if the backend can't be read. */
+/** Every <url> line: the static pages, then each design. Throws if the backend can't be read. */
 async function sitemapEntries(config) {
   if (!config.backendUrl) throw new Error('no backend configured')
   const entries = STATIC_PAGES.map((path) => staticEntry(config, path))
@@ -115,17 +113,17 @@ async function sitemapEntries(config) {
   for (let i = 0; i < SITEMAP_MAX_PAGES; i++) {
     const query = new URLSearchParams({ limit: '100' })
     if (startAfter) query.set('startAfter', startAfter)
-    const response = await fetch(`${config.backendUrl}/notes?${query}`, { signal })
-    if (!response.ok) throw new Error(`GET /notes answered ${response.status}`)
+    const response = await fetch(`${config.backendUrl}/designs?${query}`, { signal })
+    if (!response.ok) throw new Error(`GET /designs answered ${response.status}`)
     const page = await response.json()
-    const notes = page.notes ?? []
-    for (const note of notes) {
-      if (note.visibility !== 'public') continue
-      const lastmod = note.updatedAt ? `<lastmod>${escapeHtml(note.updatedAt)}</lastmod>` : ''
-      entries.push(`  <url><loc>${escapeHtml(noteUrl(config, note))}</loc>${lastmod}</url>`)
+    const designs = page.designs ?? []
+    for (const design of designs) {
+      // A design never changes once published, so it was last modified when it was created.
+      const lastmod = design.createdAt ? `<lastmod>${escapeHtml(design.createdAt)}</lastmod>` : ''
+      entries.push(`  <url><loc>${escapeHtml(designUrl(config, design))}</loc>${lastmod}</url>`)
     }
-    if (!page.hasMore || notes.length === 0) break
-    startAfter = notes.at(-1).createdAt
+    if (!page.hasMore || designs.length === 0) break
+    startAfter = designs.at(-1).createdAt
   }
   return entries
 }
@@ -163,24 +161,24 @@ async function readConfig(env, url) {
   return { backendUrl: text(config.backendUrl), siteUrl: text(config.siteUrl), siteName: text(config.siteName) }
 }
 
-function noteUrl(config, note) {
-  return `${config.siteUrl}/note/${encodeURIComponent(note.id)}`
+function designUrl(config, design) {
+  return `${config.siteUrl}/designs/${encodeURIComponent(design.id)}`
 }
 
-function noteTags(config, note) {
-  const title = note.title || '(untitled)'
-  const description = excerpt(note.body ?? '')
-  const href = noteUrl(config, note)
+/** The same title and description the design page sets for itself (PageMeta in DesignView.tsx). */
+function designTags(config, design) {
+  const title = excerpt(design.prompt ?? '', 60) || '(untitled)'
+  const description = excerpt(design.prompt ?? '')
+  const href = designUrl(config, design)
   const siteName = escapeHtml(config.siteName)
   const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'CreativeWork',
     headline: title,
     description,
     url: href,
-    ...(note.createdAt ? { datePublished: note.createdAt } : {}),
-    ...(note.updatedAt ? { dateModified: note.updatedAt } : {}),
-    ...(note.authorUsername ? { author: { '@type': 'Person', name: note.authorUsername } } : {}),
+    ...(design.createdAt ? { datePublished: design.createdAt } : {}),
+    ...(design.authorUsername ? { author: { '@type': 'Person', name: design.authorUsername } } : {}),
   }).replace(/</g, '\\u003c')
   return [
     `<title>${escapeHtml(title)}${siteName ? ` · ${siteName}` : ''}</title>`,

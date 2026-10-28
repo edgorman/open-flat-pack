@@ -19,7 +19,7 @@ Every page degrades to an explanatory message rather than an error when its conf
 missing, so the page is still useful before anything is deployed.
 
 `public/_worker.js` is a Cloudflare Pages worker for crawlers and link previews: it serves
-`robots.txt` and `sitemap.xml`, and puts a public note's title and description into the HTML a
+`robots.txt` and `sitemap.xml`, and puts a design's title and description into the HTML a
 crawler receives. It marks every response on a host other than production's `noindex`.
 
 ## Google Sign-In
