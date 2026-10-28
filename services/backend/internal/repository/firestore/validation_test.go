@@ -15,21 +15,6 @@ import (
 func TestRepositoriesRejectInvalidEntitiesBeforeWriting(t *testing.T) {
 	ctx := context.Background()
 
-	t.Run("note create", func(t *testing.T) {
-		_, err := (&NoteRepository{}).Create(ctx, entity.Note{Visibility: entity.VisibilityPublic})
-		assertValidationError(t, err)
-	})
-
-	t.Run("note update", func(t *testing.T) {
-		_, err := (&NoteRepository{}).Update(ctx, entity.Note{ID: "n1", Visibility: entity.VisibilityPublic})
-		assertValidationError(t, err)
-	})
-
-	t.Run("note with a bad visibility", func(t *testing.T) {
-		_, err := (&NoteRepository{}).Create(ctx, entity.Note{OwnerID: "owner", Visibility: "everyone"})
-		assertValidationError(t, err)
-	})
-
 	t.Run("design create", func(t *testing.T) {
 		_, err := (&DesignRepository{}).Create(ctx, entity.Design{Prompt: "x", Layout: entity.Layout{Parts: []entity.PlacedPart{{Article: "1"}}}})
 		assertValidationError(t, err)
@@ -70,24 +55,6 @@ func assertValidationError(t *testing.T, err error) {
 
 // A malformed id is a miss rather than a path Firestore is asked to parse, which it would answer
 // by panicking rather than erroring.
-func TestNoteRepositoryRefusesUnaddressableIDs(t *testing.T) {
-	ctx := context.Background()
-	notes := &NoteRepository{}
-
-	for _, id := range []string{"", "a/b", ".."} {
-		if _, err := notes.Get(ctx, id); !errors.Is(err, repository.ErrNotFound) {
-			t.Errorf("Get(%q) = %v, want ErrNotFound", id, err)
-		}
-		if err := notes.Delete(ctx, id); !errors.Is(err, repository.ErrNotFound) {
-			t.Errorf("Delete(%q) = %v, want ErrNotFound", id, err)
-		}
-		valid := entity.Note{ID: id, OwnerID: "owner", Visibility: entity.VisibilityPublic}
-		if _, err := notes.Update(ctx, valid); !errors.Is(err, repository.ErrNotFound) {
-			t.Errorf("Update(%q) = %v, want ErrNotFound", id, err)
-		}
-	}
-}
-
 func TestDesignRepositoryRefusesUnaddressableIDs(t *testing.T) {
 	ctx := context.Background()
 	designs := &DesignRepository{}

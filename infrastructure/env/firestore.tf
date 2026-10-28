@@ -44,37 +44,3 @@ resource "google_firestore_database" "database" {
 
 # No security rules are deployed deliberately: the backend is the only client and decides access
 # itself, and with no ruleset released the client SDKs cannot reach the database at all.
-
-# NoteRepository.List (services/backend/internal/repository/firestore/note.go) pages the "notes"
-# collection ordered by createdAt. A signed-in caller's feed is a Firestore OR query (public, or
-# theirs), which runs as one query per branch, and each branch filters on a different field than it
-# orders by, so each needs a composite index. A new collection queried the same way needs the same.
-resource "google_firestore_index" "notes_by_visibility_and_created_at" {
-  project    = var.gcp_project_id
-  database   = google_firestore_database.database.name
-  collection = "notes"
-
-  fields {
-    field_path = "visibility"
-    order      = "ASCENDING"
-  }
-  fields {
-    field_path = "createdAt"
-    order      = "DESCENDING"
-  }
-}
-
-resource "google_firestore_index" "notes_by_owner_and_created_at" {
-  project    = var.gcp_project_id
-  database   = google_firestore_database.database.name
-  collection = "notes"
-
-  fields {
-    field_path = "ownerId"
-    order      = "ASCENDING"
-  }
-  fields {
-    field_path = "createdAt"
-    order      = "DESCENDING"
-  }
-}

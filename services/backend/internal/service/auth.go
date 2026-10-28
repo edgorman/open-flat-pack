@@ -92,9 +92,8 @@ func requireAuth(verifier repository.TokenVerifier, next http.HandlerFunc) http.
 
 // optionalAuth verifies the request's credential if one was supplied, for routes that admit
 // anonymous callers but still authorize a signed-in one. A request with no Authorization header
-// runs unauthenticated, which downstream handlers see as the zero entity.Caller - exactly the
-// identity entity.Note.CanBeReadBy already treats as "not the owner". A
-// header that is present but invalid is rejected the same way requireAuth rejects it: supplying a
+// runs unauthenticated, which downstream handlers see as the zero entity.Caller, the identity
+// entity.Permission.Allows grants nothing but public access. A header that is present but invalid is rejected the same way requireAuth rejects it: supplying a
 // bad credential is different from supplying none.
 func optionalAuth(verifier repository.TokenVerifier, next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

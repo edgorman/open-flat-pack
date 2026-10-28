@@ -14,26 +14,6 @@ var (
 	updated = time.Date(2026, 6, 1, 12, 0, 0, 0, time.UTC)
 )
 
-// A field added to entity.Note but not to the mapping would silently stop being persisted, so the
-// round trip is asserted whole rather than field by field.
-func TestNoteMappingRoundTrip(t *testing.T) {
-	note := entity.Note{
-		ID:         "abc123",
-		OwnerID:    "owner",
-		Title:      "Hello",
-		Body:       "Body",
-		Visibility: entity.VisibilityPrivate,
-		CreatedAt:  created,
-		UpdatedAt:  updated,
-	}
-
-	got := noteToDocument(note).toEntity(note.ID)
-
-	if !reflect.DeepEqual(got, note) {
-		t.Errorf("round trip = %+v, want %+v", got, note)
-	}
-}
-
 // An id arrives in a URL and becomes a document key, so anything that could address more than
 // one document, or that Firestore refuses as a key, has to be refused before it is asked.
 func TestIDPattern(t *testing.T) {
@@ -72,12 +52,8 @@ func TestUserDocumentExcludesID(t *testing.T) {
 	}
 }
 
-func TestNoteDocumentExcludesID(t *testing.T) {
-	if _, ok := reflect.TypeOf(noteToDocument(entity.Note{ID: "n1"})).FieldByName("ID"); ok {
-		t.Error("note document type has an ID field, which would duplicate the document key")
-	}
-}
-
+// A field added to entity.Design but not to the mapping would silently stop being persisted, so
+// the round trip is asserted whole rather than field by field.
 func TestDesignMappingRoundTrip(t *testing.T) {
 	width := int32(1500)
 	design := entity.Design{

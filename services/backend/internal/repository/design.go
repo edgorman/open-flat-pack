@@ -2,9 +2,22 @@ package repository
 
 import (
 	"context"
+	"time"
 
 	"github.com/edgorman/webapp-template/services/backend/internal/entity"
 )
+
+// ListParams bounds one page of DesignRepository.List.
+type ListParams struct {
+	// Limit caps how many designs a page holds. A repository is free to treat a non-positive or
+	// out-of-range value as its own default rather than erroring, since this is a page size, not a
+	// caller-facing validation.
+	Limit int
+	// StartAfter, when non-zero, excludes every design at or after this createdAt - continuing a
+	// feed a caller has already seen a page of. A caller sets it to the createdAt of the last design
+	// its previous page held.
+	StartAfter time.Time
+}
 
 // DesignRepository persists designs. Every design is public, so nothing here filters by caller,
 // and none is ever updated.

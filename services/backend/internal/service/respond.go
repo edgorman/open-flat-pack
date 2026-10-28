@@ -66,9 +66,9 @@ func writeProto(w http.ResponseWriter, status int, message proto.Message) {
 // is also what makes an additive proto change safe to deploy before the client that sends it.
 var protoJSONUnmarshal = protojson.UnmarshalOptions{DiscardUnknown: true}
 
-// maxRequestBody caps every body readProto reads. The largest legitimate one is a note at
-// entity.MaxBodyLength runes, which even at the 6 bytes a JSON-escaped control character takes
-// stays well under this.
+// maxRequestBody caps every body readProto reads. The largest legitimate one is a design of
+// entity.MaxLayoutParts parts with an entity.MaxPromptLength prompt, which even at the 6 bytes a
+// JSON-escaped control character takes stays well under this.
 const maxRequestBody = 1 << 20
 
 // readProto decodes a request body into a generated message, the counterpart to writeProto,

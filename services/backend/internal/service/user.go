@@ -172,7 +172,7 @@ func (s *Service) PutUser(w http.ResponseWriter, r *http.Request) {
 	writeProto(w, status, currentUserMessage(saved))
 }
 
-// DeleteUser erases the caller's account: every note it wrote, then the profile. It is addressed
+// DeleteUser erases the caller's account: every design it published, then the profile. It is addressed
 // as /users/me for the same reason PutUser is: the owner comes from the credential, so only the
 // owner can ever be the target.
 //
@@ -196,11 +196,6 @@ func (s *Service) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusInternalServerError, "internal error")
 		return
 	}
-	if err := s.notes.DeleteOwned(r.Context(), id); err != nil {
-		s.logger().Error("erasing account content failed", "error", err)
-		writeError(w, http.StatusInternalServerError, "internal error")
-		return
-	}
 	if err := s.users.Delete(r.Context(), id); err != nil {
 		writeError(w, http.StatusInternalServerError, "internal error")
 		return
@@ -211,7 +206,7 @@ func (s *Service) DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 // usernamesFor resolves the username behind each uid, looking up each distinct one once, so a feed
 // dominated by one author costs one read rather than one per row. A missing profile is an empty
-// username rather than a failed request: writing a note never required one.
+// username rather than a failed request: publishing a design never required one.
 func (s *Service) usernamesFor(ctx context.Context, uids []string) (map[string]string, error) {
 	usernames := make(map[string]string)
 	for _, uid := range uids {
