@@ -16,7 +16,7 @@ Claude Code reads these files through its built-in [`agents-md`](https://github.
 A trunk-based monorepo: a static frontend, containerized backend services, Terraform and repository governance in one place.
 
 - `infrastructure/` - Terraform. `env` is applied per environment with `config/staging` and `config/prod`; `root` holds shared, bootstrapped resources.
-- `services/backend/` - Go API for Cloud Run: sign-in, profiles and an example `notes` resource to copy. A second binary goes under `cmd/`, as its own moon project, image and service.
+- `services/backend/` - Go API for Cloud Run: sign-in, profiles, the parts catalogue, layout generation and the published `designs`. A second binary goes under `cmd/`, as its own moon project, image and service.
 - `services/frontend/` - Vite/React app on Cloudflare Pages.
 - `packages/protos/` - the `.proto` contract both services generate from.
 - `.github/` - workflows, composite actions (`actions/`), and `settings.yml` (repository settings and rulesets, applied by the Probot Settings app).
@@ -76,7 +76,7 @@ Two project skills in `.claude/skills/` cover issue to merged PR: `implement-iss
 
 ## Commit Message Convention
 
-Every PR title must be a [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) subject, `type(scope)?: description` (e.g. `feat(backend): paginate GET /notes`), and the `pr-title` check enforces it. PRs are squash-merged with the title as the commit subject, and versioning parses that subject ([18](docs/decisions/0018-versions-from-conventional-commits.md)):
+Every PR title must be a [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) subject, `type(scope)?: description` (e.g. `feat(backend): paginate GET /designs`), and the `pr-title` check enforces it. PRs are squash-merged with the title as the commit subject, and versioning parses that subject ([18](docs/decisions/0018-versions-from-conventional-commits.md)):
 
 - `feat:` - a new capability; bumps minor.
 - `fix:` - a bug fix; bumps patch.

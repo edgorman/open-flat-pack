@@ -18,7 +18,7 @@ It is a trunk-based monorepo with CI/CD and infrastructure-as-code wired up. Set
 | Path | What |
 | --- | --- |
 | `services/backend` | Go API (Firestore, Google sign-in), shipped as a container to GCP Cloud Run |
-| `services/frontend` | Vite/React single-page app, deployed to Cloudflare Pages |
+| `services/frontend` | Vite/React single-page app on Cloudflare Pages, with a Pages worker serving design share tags and the sitemap |
 | `packages/protos` | Protobuf API contract; `buf generate` writes the Go and TypeScript types |
 | `infrastructure` | Terraform for the shared root, staging and prod environments (GCP, Cloudflare, GitHub) |
 | `.github` | Workflows and composite actions: PR checks, staging deploy on merge, release promotion to prod |

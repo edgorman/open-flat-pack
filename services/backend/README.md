@@ -1,8 +1,8 @@
 # backend
 
 Go API service, packaged as a Docker container and deployed to GCP Cloud Run (see the repository
-root `AGENTS.md` for the full deployment architecture). It ships with sign-in, profiles and one
-example resource, **notes**, to copy when adding your own.
+root `AGENTS.md` for the full deployment architecture). It serves sign-in, profiles, the parts
+catalogue, prompt-to-layout generation, and the **designs** published to the gallery.
 
 It implements the Debug Endpoint Contract: `/health` and `/debug` both return system status, a
 timestamp, the deployment environment, and the git commit SHA the running image was built from, as
@@ -28,19 +28,14 @@ JSON:
 | `GET /designs/{id}`      | none     | One design                                                    |
 | `POST /designs`          | required | Publish a layout as a design; 422 with the errors if it isn't buildable |
 | `DELETE /designs/{id}`   | required | Delete a design (owner only); designs are never updated       |
-| `GET /notes`             | optional | One page of the notes the caller may read, newest first       |
-| `GET /notes/{id}`        | optional | One note, if the caller may read it                           |
-| `POST /notes`            | required | Create a note owned by the caller                             |
-| `PUT /notes/{id}`        | required | Replace a note's title, body and visibility (owner only)      |
-| `DELETE /notes/{id}`     | required | Delete a note (owner only)                                    |
 | `GET /users/me`          | required | The caller's own profile                                      |
 | `PUT /users/me`          | required | Create or update it; a profile with no username is given one  |
-| `DELETE /users/me`       | required | Erase the account: its designs and notes, then the profile    |
+| `DELETE /users/me`       | required | Erase the account: its designs, then the profile              |
 | `GET /users/{username}`  | optional | Anybody's public profile                                      |
 
 Request and response bodies are the messages in `packages/protos/app/v1`, as protojson. Every
-non-2xx response is an `ErrorResponse`. `GET /designs` and `GET /notes` take `limit` and
-`startAfter` (the `createdAt` of the last entry on the previous page) and answer `hasMore`.
+non-2xx response is an `ErrorResponse`. `GET /designs` takes `limit` and `startAfter` (the
+`createdAt` of the last entry on the previous page) and answers `hasMore`.
 
 ## Layout
 
@@ -55,7 +50,7 @@ internal/
   model/              One conversation with the design model on Vertex AI, and its system prompt
   repository/         Interfaces for everything external, plus ErrNotFound
     devauth/          Development-token TokenVerifier for running locally (ENVIRONMENT=local only)
-    firestore/        Firestore implementations of the repositories (designs, notes, users, model calls)
+    firestore/        Firestore implementations of the repositories (designs, users, model calls)
     google/           Google Identity Services implementation of TokenVerifier
   service/            HTTP server: routes, middleware, and logic spanning more than one entity
 scripts/
@@ -66,12 +61,12 @@ Dependencies point inward: `service` and `repository` both know `entity`, `entit
 else, and only `cmd/backend` knows which concrete adapters exist. Swapping Firestore for another
 store means adding a folder under `repository/` and changing one line in `cmd/backend`.
 
-Validation lives on the entities as setters (`SetUsername`, `SetVisibility`, ...) that trim,
+Validation lives on the entities as setters (`SetUsername`, `SetPrompt`, ...) that trim,
 check, and only then apply, so a rejected value is never half-written. The HTTP layer decodes into
 a request message holding only the client-settable fields and applies it through those setters -
 which is why `ownerId` and `createdAt` cannot be spoofed: they are not part of the request shape at
 all. `Validate` runs the same setters against a copy and additionally requires the server-set
-identity (`Note.OwnerID`, `User.ID`); repositories call it before every write.
+identity (`Design.OwnerID`, `User.ID`); repositories call it before every write.
 
 Firestore's field names live on separate document structs in `repository/firestore`, which also
 keeps the document body free of the id that Firestore already stores as the document key.
@@ -80,7 +75,7 @@ keeps the document body free of the id that Firestore already stores as the docu
 
 Every gate in this service is one question asked of one model (`internal/entity/access.go`):
 
-- A **resource** is a kind of thing the service holds (`user`, `note`).
+- A **resource** is a kind of thing the service holds (`user`, `design`).
 - An **action** is one thing that can be done to it: `read`, `create`, `update`, `delete` - the
   same four verbs the routes are registered under.
 - An **access** mode is how wide the audience for that pair is: **public** (everybody, signed in
@@ -92,18 +87,13 @@ rather than open. An entity turns the declared mode into a `Permission` narrowed
 owns it), and `Permission.Allows(uid)` answers. The zero uid is the anonymous caller and holds
 nothing but public access. There are deliberately no roles.
 
-A note's read audience is whatever the note says: `Note.Permission(ActionRead)` reads its
-`visibility` back as a mode, and anything but `public` reads as private, so an unknown value is
-closed rather than open.
-
-A refused read is a `404`, not a `403`: `requireNotePermission` (`internal/service/note.go`)
-answers a note the caller may not read exactly as it answers a missing one, so a refusal never
-confirms that a private note exists. Only once a note is visible does a failed write become a
+Every design is public to read, and only its owner may delete it. `requireDesignPermission`
+(`internal/service/design.go`) answers a missing design with a `404` and a refused action with a
 `403`.
 
 ## Adding a resource
 
-Copy the notes slice end to end:
+Copy the designs slice end to end:
 
 1. `packages/protos/app/v1/<thing>.proto`: the wire message, a page, and a request. Run `buf generate`.
 2. `internal/entity/<thing>.go`: the type, its setters, `Validate` and `Permission`, plus a
@@ -164,8 +154,8 @@ verifier stands in for Google's); `Bearer dev:<uid>` signs in as another account
 ```sh
 auth=(-H 'Authorization: Bearer dev' -H 'Authorization-Provider: google' -H 'Content-Type: application/json')
 curl "${auth[@]}" -X PUT -d '{"username":"dev"}' localhost:8080/users/me
-curl "${auth[@]}" -X POST -d '{"title":"Hello","body":"First note","visibility":"public"}' localhost:8080/notes
-curl localhost:8080/notes
+curl localhost:8080/catalogue
+curl localhost:8080/designs
 ```
 
 The emulator keeps data in memory, so restarting it starts empty. `DEV_AUTH=true` is what enables

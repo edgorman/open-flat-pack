@@ -27,8 +27,8 @@ Try it:
 ```sh
 auth=(-H 'Authorization: Bearer dev' -H 'Authorization-Provider: google' -H 'Content-Type: application/json')
 curl "${auth[@]}" -X PUT -d '{"username":"dev"}' localhost:8080/users/me
-curl "${auth[@]}" -X POST -d '{"title":"Hello","body":"First note","visibility":"public"}' localhost:8080/notes
-curl localhost:8080/notes
+curl localhost:8080/catalogue
+curl localhost:8080/designs
 ```
 
 The emulator starts empty each time. More in "Running locally" in `services/backend/README.md`.
@@ -42,7 +42,7 @@ cd ../..
 moon run services/frontend:dev                               # Vite on http://localhost:5173
 ```
 
-The feed shows the note you just created. Signing in from the browser needs a Google client ID (see `services/frontend/README.md`); nothing else does.
+The gallery at `/designs` lists the designs in the emulator, so it starts empty. Signing in from the browser needs a Google client ID (see `services/frontend/README.md`), and generating a layout on `/design` needs `MODEL_NAME` and Vertex AI credentials (see "Configuration" in `services/backend/README.md`); nothing else does.
 
 ## 4. Run what CI runs
 

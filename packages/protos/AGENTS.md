@@ -13,7 +13,7 @@ The `.proto` contract shared by `services/backend` and `services/frontend`, buil
 - Use `optional` where "absent" and "empty" are different requests (`UpdateCurrentUserRequest.username`) ([5](../../docs/decisions/0005-protos-model-the-wire.md)).
 - Marshal with `protojson` via `internal/service/respond.go`, keeping `EmitDefaultValues`, lowerCamelCase names, `DiscardUnknown` on requests and compacted output ([6](../../docs/decisions/0006-protojson-settings.md)).
 - Timestamps are `google.protobuf.Timestamp` ([4](../../docs/decisions/0004-ts-proto-options.md)).
-- Closed sets of string values (`visibility`) stay `string`, not `enum`; validate them in the entity ([7](../../docs/decisions/0007-visibility-is-a-string.md)).
+- Closed sets of string values (`Slot.kind`) stay `string`, not `enum`; validate them where they enter the backend ([7](../../docs/decisions/0007-closed-sets-are-strings.md)).
 - No hand-written wire types: no `export interface` in `api.ts`, no `json:"..."` tags in `internal/service` outside `debug.go`. `root:wire-types` enforces both. Errors use `appv1.ErrorResponse` ([8](../../docs/decisions/0008-no-hand-written-wire-types.md)).
 - Tasks: `lint` (`buf lint`), `format` (`buf format -d --exit-code`), `drift`, and `breaking` (`buf breaking` against `origin/main`).
 
