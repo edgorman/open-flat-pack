@@ -59,6 +59,12 @@ func TestSlots(t *testing.T) {
 		{"BESTÅ top panel for tv", &appv1.Size{W: 1800, H: 20}, []string{"besta_top"}, nil},
 		{"LAPPVIKEN door/drawer front", &appv1.Size{W: 600, H: 380}, []string{"besta_front"}, nil},
 		{"BESTÅ shelf", &appv1.Size{W: 560, H: 360}, nil, nil},
+		{"PAX wardrobe frame", &appv1.Size{W: 1000, H: 2360}, []string{"floor"}, []string{"pax_front", "pax_inside"}},
+		{"KOMPLEMENT drawer with framed front", &appv1.Size{W: 960, H: 160}, []string{"pax_inside"}, nil},
+		{"KOMPLEMENT divider for frames", &appv1.Size{W: 1000, H: 580}, nil, nil},
+		{"TONSTAD door", &appv1.Size{W: 500, H: 2290}, []string{"pax_front"}, nil},
+		{"KAMMARTORP mirror door", &appv1.Size{W: 500, H: 1950}, []string{"pax_front"}, nil},
+		{"TONSTAD bookcase", &appv1.Size{W: 820, H: 2010}, nil, nil},
 		{"BILLY corner fittings", &appv1.Size{W: 10, H: 10}, nil, nil},
 	} {
 		restsOn, offers := slots(tt.name, tt.size)

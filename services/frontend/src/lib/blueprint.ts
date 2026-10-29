@@ -67,14 +67,14 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Pa
   const parts = new Map(catalogue.parts.map((p) => [p.article, p]))
   const slotNames = (kind: string) =>
     new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === kind).map((s) => s.name)))
-  const cellSlots = slotNames('cell')
+  const heldSlots = new Set([...slotNames('cell'), ...slotNames('inside')])
   const frontSlots = slotNames('front')
   const placed: Placed[] = layout.parts.flatMap(({ article, x, y }) => {
     const part = parts.get(article)
     return part?.size ? [{ part, x, y, inFront: part.restsOn.some((name) => frontSlots.has(name)) }] : []
   })
-  // Structure is everything that does not sit in a cell or a front: frames, underframes, legs.
-  const structure = placed.filter((p) => !p.inFront && !p.part.restsOn.some((name) => cellSlots.has(name)))
+  // Structure is everything that does not sit in a cell, a front or an inside: frames, underframes.
+  const structure = placed.filter((p) => !p.inFront && !p.part.restsOn.some((name) => heldSlots.has(name)))
 
   const object = new Group()
   const measures = new Group()
@@ -108,11 +108,11 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Pa
   return { object, measures, floor, bounds: drawing.union(new Box3().setFromObject(bar)) }
 }
 
-/** A part as a box, or, when it offers cells, as a carcass with a recessed cell at each. */
+/** A part as a box, or, when it offers cells or an inside, as a carcass with a recess at each. */
 function drawPart({ part, x, y, inFront }: Placed, outline: LineBasicMaterial): Group {
   const { w, h, d } = part.size!
   const colour = new Color(finishColour(part.finish))
-  const cells = part.offers.filter((s) => s.kind === 'cell')
+  const cells = part.offers.filter((s) => s.kind === 'cell' || s.kind === 'inside')
   const group = new Group()
   group.position.set(x, y, inFront ? d : 0)
 

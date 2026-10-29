@@ -103,3 +103,40 @@ func TestChatCompletions(t *testing.T) {
 		t.Errorf("error = %v, want the status and body", err)
 	}
 }
+
+func TestRelevant(t *testing.T) {
+	part := func(article, name string, restsOn []string, offers ...string) *appv1.Part {
+		p := &appv1.Part{Article: article, Name: name, RestsOn: restsOn}
+		for _, o := range offers {
+			p.Offers = append(p.Offers, &appv1.Slot{Name: o})
+		}
+		return p
+	}
+	full := &appv1.Catalogue{Parts: []*appv1.Part{
+		part("kallax", "KALLAX shelving unit", []string{"floor", "base"}, "cube"),
+		part("underframe", "KALLAX underframe", []string{"floor"}, "base"),
+		part("drona", "DRÖNA box", []string{"cube"}),
+		part("pax", "PAX wardrobe frame", []string{"floor"}, "pax_front"),
+		part("door", "FORSAND door", []string{"pax_front"}),
+	}}
+	articles := func(c *appv1.Catalogue) string {
+		var out []string
+		for _, p := range c.Parts {
+			out = append(out, p.Article)
+		}
+		return strings.Join(out, " ")
+	}
+	for _, tt := range []struct {
+		prompt string
+		base   *appv1.Layout
+		want   string
+	}{
+		{"a white Kallax", nil, "kallax underframe drona"},
+		{"a wardrobe", nil, "kallax underframe drona pax door"},
+		{"add doors", &appv1.Layout{Parts: []*appv1.LayoutPart{{Article: "pax"}}}, "pax door"},
+	} {
+		if got := articles(relevant(full, tt.prompt, tt.base)); got != tt.want {
+			t.Errorf("relevant(%q) = %s, want %s", tt.prompt, got, tt.want)
+		}
+	}
+}

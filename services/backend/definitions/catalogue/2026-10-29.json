@@ -1,6 +1,55 @@
 {
   "parts": [
     {
+      "article": "20510939",
+      "name": "BERGSBO door",
+      "finish": "dark grey",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60510937",
+      "name": "BERGSBO door",
+      "finish": "dark grey",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "50510947",
+      "name": "BERGSBO door",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90510945",
+      "name": "BERGSBO door",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60473015",
+      "name": "BERGSBO door",
+      "finish": "white stained oak effect",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "20207410",
+      "name": "BERGSBO door",
+      "finish": "white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "30160407",
+      "name": "BERGSBO door",
+      "finish": "white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
       "article": "20245959",
       "name": "BESTÅ frame",
       "finish": "black-brown",
@@ -723,6 +772,20 @@
       ]
     },
     {
+      "article": "10596641",
+      "name": "BJÖRNESKOGEN door",
+      "finish": "walnut veneer",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "50596639",
+      "name": "BJÖRNESKOGEN door",
+      "finish": "walnut veneer",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
       "article": "10625714",
       "name": "DRÖNA box",
       "finish": "black/off-white",
@@ -1144,6 +1207,209 @@
       "offers": [
         { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
       ]
+    },
+    {
+      "article": "30330607",
+      "name": "FARDAL door",
+      "finish": "high-gloss dark beige",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40330621",
+      "name": "FARDAL door",
+      "finish": "high-gloss dark beige",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "50344627",
+      "name": "FARDAL door",
+      "finish": "high-gloss white",
+      "size": { "w": 250, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "70344626",
+      "name": "FARDAL door",
+      "finish": "high-gloss white",
+      "size": { "w": 250, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80190529",
+      "name": "FARDAL door",
+      "finish": "high-gloss white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90190524",
+      "name": "FARDAL door",
+      "finish": "high-gloss white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "00344743",
+      "name": "FLISBERGET door",
+      "finish": "light beige",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60344735",
+      "name": "FLISBERGET door",
+      "finish": "light beige",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "30630088",
+      "name": "FLISBERGET door",
+      "finish": "off-white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40630083",
+      "name": "FLISBERGET door",
+      "finish": "off-white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40510924",
+      "name": "FORSAND door",
+      "finish": "dark grey",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90510926",
+      "name": "FORSAND door",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90434961",
+      "name": "FORSAND door",
+      "finish": "white stained oak effect",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "20423602",
+      "name": "FORSAND door",
+      "finish": "white",
+      "size": { "w": 250, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40391092",
+      "name": "FORSAND door",
+      "finish": "white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60391091",
+      "name": "FORSAND door",
+      "finish": "white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80423604",
+      "name": "FORSAND door",
+      "finish": "white",
+      "size": { "w": 250, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "00596397",
+      "name": "FYRUDDEN door",
+      "finish": "blue",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80594356",
+      "name": "FYRUDDEN door",
+      "finish": "blue",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "70597119",
+      "name": "GRIMO door",
+      "finish": "grey-green",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90597118",
+      "name": "GRIMO door",
+      "finish": "grey-green",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "20435186",
+      "name": "GRIMO door",
+      "finish": "grey",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80435188",
+      "name": "GRIMO door",
+      "finish": "grey",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40343464",
+      "name": "GRIMO door",
+      "finish": "white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90343466",
+      "name": "GRIMO door",
+      "finish": "white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "10580664",
+      "name": "GULLABERG door",
+      "finish": "grey",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60580666",
+      "name": "GULLABERG door",
+      "finish": "grey",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40580667",
+      "name": "GULLABERG door",
+      "finish": "white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80580665",
+      "name": "GULLABERG door",
+      "finish": "white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
     },
     {
       "article": "00291848",
@@ -2200,6 +2466,468 @@
       ]
     },
     {
+      "article": "00574668",
+      "name": "KAMMARTORP mirror door",
+      "finish": "grey",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60574665",
+      "name": "KAMMARTORP mirror door",
+      "finish": "grey",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "00256944",
+      "name": "KOMPLEMENT clothes rail",
+      "finish": "dark grey",
+      "size": { "w": 710, "h": 30, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "40256942",
+      "name": "KOMPLEMENT clothes rail",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 30, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "80256940",
+      "name": "KOMPLEMENT clothes rail",
+      "finish": "dark grey",
+      "size": { "w": 960, "h": 30, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30256891",
+      "name": "KOMPLEMENT clothes rail",
+      "finish": "white",
+      "size": { "w": 960, "h": 30, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "40256895",
+      "name": "KOMPLEMENT clothes rail",
+      "finish": "white",
+      "size": { "w": 710, "h": 30, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90256893",
+      "name": "KOMPLEMENT clothes rail",
+      "finish": "white",
+      "size": { "w": 460, "h": 30, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10509516",
+      "name": "KOMPLEMENT drawer with framed front",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "80509513",
+      "name": "KOMPLEMENT drawer with framed front",
+      "finish": "dark grey",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10446604",
+      "name": "KOMPLEMENT drawer with framed front",
+      "finish": "white",
+      "size": { "w": 710, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "50446598",
+      "name": "KOMPLEMENT drawer with framed front",
+      "finish": "white",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70446601",
+      "name": "KOMPLEMENT drawer with framed front",
+      "finish": "white",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "50509656",
+      "name": "KOMPLEMENT drawer with framed glass front",
+      "finish": "dark grey",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90509659",
+      "name": "KOMPLEMENT drawer with framed glass front",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30447023",
+      "name": "KOMPLEMENT drawer with framed glass front",
+      "finish": "white",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "60447026",
+      "name": "KOMPLEMENT drawer with framed glass front",
+      "finish": "white",
+      "size": { "w": 710, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90447020",
+      "name": "KOMPLEMENT drawer with framed glass front",
+      "finish": "white",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "20509083",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "grey-beige",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "50509086",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "grey-beige",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "00246714",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "white stained oak effect",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10246681",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "white stained oak effect",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10246695",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "white",
+      "size": { "w": 710, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "20246708",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "white",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70246683",
+      "name": "KOMPLEMENT drawer with glass front",
+      "finish": "white",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "20509196",
+      "name": "KOMPLEMENT drawer",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "50509072",
+      "name": "KOMPLEMENT drawer",
+      "finish": "grey-beige",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "60509076",
+      "name": "KOMPLEMENT drawer",
+      "finish": "grey-beige",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70246348",
+      "name": "KOMPLEMENT drawer",
+      "finish": "white stained oak effect",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10246308",
+      "name": "KOMPLEMENT drawer",
+      "finish": "white",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10246332",
+      "name": "KOMPLEMENT drawer",
+      "finish": "white",
+      "size": { "w": 710, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90246352",
+      "name": "KOMPLEMENT drawer",
+      "finish": "white",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30509153",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "dark grey",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70509113",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "grey-beige",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10257660",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "white stained oak effect",
+      "size": { "w": 710, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "60257648",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "white stained oak effect",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "00257646",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "white",
+      "size": { "w": 460, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70257638",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "white",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "80257647",
+      "name": "KOMPLEMENT glass shelf",
+      "finish": "white",
+      "size": { "w": 710, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "40257296",
+      "name": "KOMPLEMENT mesh basket",
+      "finish": "dark grey",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "60257304",
+      "name": "KOMPLEMENT mesh basket",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70257313",
+      "name": "KOMPLEMENT mesh basket",
+      "finish": "dark grey",
+      "size": { "w": 710, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "00257298",
+      "name": "KOMPLEMENT mesh basket",
+      "finish": "white",
+      "size": { "w": 960, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10257306",
+      "name": "KOMPLEMENT mesh basket",
+      "finish": "white",
+      "size": { "w": 460, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "20257315",
+      "name": "KOMPLEMENT mesh basket",
+      "finish": "white",
+      "size": { "w": 710, "h": 160, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "40509096",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "grey-beige",
+      "size": { "w": 960, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "80509099",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "grey-beige",
+      "size": { "w": 460, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "00246356",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "white stained oak effect",
+      "size": { "w": 460, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30246388",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "white stained oak effect",
+      "size": { "w": 960, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "20246360",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "white",
+      "size": { "w": 460, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30246374",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "white",
+      "size": { "w": 710, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70246386",
+      "name": "KOMPLEMENT pull-out tray",
+      "finish": "white",
+      "size": { "w": 960, "h": 60, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10509173",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "dark grey",
+      "size": { "w": 960, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "20509177",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90509065",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "grey-beige",
+      "size": { "w": 460, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "00446505",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "white stained oak effect",
+      "size": { "w": 460, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70446502",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "white stained oak effect",
+      "size": { "w": 960, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "00446534",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "white",
+      "size": { "w": 960, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30446537",
+      "name": "KOMPLEMENT pull-out trouser hanger",
+      "finish": "white",
+      "size": { "w": 460, "h": 100, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90509145",
+      "name": "KOMPLEMENT shelf",
+      "finish": "dark grey",
+      "size": { "w": 460, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "40509039",
+      "name": "KOMPLEMENT shelf",
+      "finish": "grey-beige",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "60509043",
+      "name": "KOMPLEMENT shelf",
+      "finish": "grey-beige",
+      "size": { "w": 460, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "10277984",
+      "name": "KOMPLEMENT shelf",
+      "finish": "white stained oak effect",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "30277959",
+      "name": "KOMPLEMENT shelf",
+      "finish": "white",
+      "size": { "w": 460, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "70277957",
+      "name": "KOMPLEMENT shelf",
+      "finish": "white",
+      "size": { "w": 960, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
+      "article": "90277961",
+      "name": "KOMPLEMENT shelf",
+      "finish": "white",
+      "size": { "w": 710, "h": 20, "d": 580 },
+      "rests_on": [ "pax_inside" ]
+    },
+    {
       "article": "00526875",
       "name": "KUGGIS storage box with lid",
       "finish": "white",
@@ -2410,6 +3138,293 @@
       "rests_on": [ "billy_front" ]
     },
     {
+      "article": "20603844",
+      "name": "PAX add-on end-unit",
+      "finish": "oak effect",
+      "size": { "w": 200, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "70603851",
+      "name": "PAX add-on end-unit",
+      "finish": "oak effect",
+      "size": { "w": 200, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "10603854",
+      "name": "PAX add-on end-unit",
+      "finish": "white",
+      "size": { "w": 200, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "50603847",
+      "name": "PAX add-on end-unit",
+      "finish": "white",
+      "size": { "w": 200, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "30603829",
+      "name": "PAX add-on mid-unit",
+      "finish": "oak effect",
+      "size": { "w": 350, "h": 2360, "d": 350 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "50603828",
+      "name": "PAX add-on mid-unit",
+      "finish": "oak effect",
+      "size": { "w": 350, "h": 2010, "d": 350 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "10603825",
+      "name": "PAX add-on mid-unit",
+      "finish": "white",
+      "size": { "w": 350, "h": 2360, "d": 350 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "90603826",
+      "name": "PAX add-on mid-unit",
+      "finish": "white",
+      "size": { "w": 350, "h": 2010, "d": 350 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "10458201",
+      "name": "PAX wardrobe frame",
+      "finish": "dark grey",
+      "size": { "w": 1000, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 1970 }
+      ]
+    },
+    {
+      "article": "10458215",
+      "name": "PAX wardrobe frame",
+      "finish": "dark grey",
+      "size": { "w": 500, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 1970 }
+      ]
+    },
+    {
+      "article": "20458229",
+      "name": "PAX wardrobe frame",
+      "finish": "dark grey",
+      "size": { "w": 750, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 1970 }
+      ]
+    },
+    {
+      "article": "00458206",
+      "name": "PAX wardrobe frame",
+      "finish": "grey-beige",
+      "size": { "w": 1000, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 2320 }
+      ]
+    },
+    {
+      "article": "00458230",
+      "name": "PAX wardrobe frame",
+      "finish": "grey-beige",
+      "size": { "w": 750, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 1970 }
+      ]
+    },
+    {
+      "article": "10458220",
+      "name": "PAX wardrobe frame",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 2320 }
+      ]
+    },
+    {
+      "article": "20458234",
+      "name": "PAX wardrobe frame",
+      "finish": "grey-beige",
+      "size": { "w": 750, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 2320 }
+      ]
+    },
+    {
+      "article": "90458202",
+      "name": "PAX wardrobe frame",
+      "finish": "grey-beige",
+      "size": { "w": 1000, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 1970 }
+      ]
+    },
+    {
+      "article": "90458216",
+      "name": "PAX wardrobe frame",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 1970 }
+      ]
+    },
+    {
+      "article": "50458204",
+      "name": "PAX wardrobe frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 1000, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 1970 }
+      ]
+    },
+    {
+      "article": "50458218",
+      "name": "PAX wardrobe frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 500, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 1970 }
+      ]
+    },
+    {
+      "article": "60458208",
+      "name": "PAX wardrobe frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 1000, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 2320 }
+      ]
+    },
+    {
+      "article": "60458232",
+      "name": "PAX wardrobe frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 750, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 1970 }
+      ]
+    },
+    {
+      "article": "70458222",
+      "name": "PAX wardrobe frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 500, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 2320 }
+      ]
+    },
+    {
+      "article": "70458236",
+      "name": "PAX wardrobe frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 750, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 2320 }
+      ]
+    },
+    {
+      "article": "70458203",
+      "name": "PAX wardrobe frame",
+      "finish": "white",
+      "size": { "w": 1000, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 1970 }
+      ]
+    },
+    {
+      "article": "70458217",
+      "name": "PAX wardrobe frame",
+      "finish": "white",
+      "size": { "w": 500, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 1970 }
+      ]
+    },
+    {
+      "article": "80458207",
+      "name": "PAX wardrobe frame",
+      "finish": "white",
+      "size": { "w": 1000, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 1000, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 960, "h": 2320 }
+      ]
+    },
+    {
+      "article": "80458231",
+      "name": "PAX wardrobe frame",
+      "finish": "white",
+      "size": { "w": 750, "h": 2010, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2010 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 1970 }
+      ]
+    },
+    {
+      "article": "90458221",
+      "name": "PAX wardrobe frame",
+      "finish": "white",
+      "size": { "w": 500, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 500, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 460, "h": 2320 }
+      ]
+    },
+    {
+      "article": "90458235",
+      "name": "PAX wardrobe frame",
+      "finish": "white",
+      "size": { "w": 750, "h": 2360, "d": 580 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "pax_front", "kind": "front", "w": 750, "h": 2360 },
+        { "name": "pax_inside", "kind": "inside", "x": 20, "y": 20, "w": 710, "h": 2320 }
+      ]
+    },
+    {
       "article": "90294866",
       "name": "SELSVIKEN door/drawer front",
       "finish": "high-gloss beige",
@@ -2534,6 +3549,160 @@
       "finish": "white/clear glass",
       "size": { "w": 600, "h": 640, "d": 20 },
       "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "40584364",
+      "name": "STORKLINTA door",
+      "finish": "dark brown/oak effect",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90584371",
+      "name": "STORKLINTA door",
+      "finish": "dark brown/oak effect",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "10584365",
+      "name": "STORKLINTA door",
+      "finish": "oak effect",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "10584370",
+      "name": "STORKLINTA door",
+      "finish": "oak effect",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "00510252",
+      "name": "TONSTAD door",
+      "finish": "brown stained oak veneer",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "30510255",
+      "name": "TONSTAD door",
+      "finish": "brown stained oak veneer",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "10552500",
+      "name": "TONSTAD door",
+      "finish": "brown/stained oak veneer glass",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "70552502",
+      "name": "TONSTAD door",
+      "finish": "brown/stained oak veneer glass",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "50510259",
+      "name": "TONSTAD door",
+      "finish": "oak veneer",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90510262",
+      "name": "TONSTAD door",
+      "finish": "oak veneer",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "50552503",
+      "name": "TONSTAD door",
+      "finish": "oak/veneer glass",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90552501",
+      "name": "TONSTAD door",
+      "finish": "oak/veneer glass",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "70510244",
+      "name": "TONSTAD door",
+      "finish": "off-white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90510243",
+      "name": "TONSTAD door",
+      "finish": "off-white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "30612942",
+      "name": "TYSSEDAL door",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "60612530",
+      "name": "TYSSEDAL door",
+      "finish": "grey-beige",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "40298126",
+      "name": "TYSSEDAL door",
+      "finish": "white",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "90298124",
+      "name": "TYSSEDAL door",
+      "finish": "white",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "00414830",
+      "name": "ÅHEIM door",
+      "finish": "mirror glass",
+      "size": { "w": 250, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "20414829",
+      "name": "ÅHEIM door",
+      "finish": "mirror glass",
+      "size": { "w": 250, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80331930",
+      "name": "ÅHEIM door",
+      "finish": "mirror glass",
+      "size": { "w": 500, "h": 1950, "d": 20 },
+      "rests_on": [ "pax_front" ]
+    },
+    {
+      "article": "80410055",
+      "name": "ÅHEIM door",
+      "finish": "mirror glass",
+      "size": { "w": 500, "h": 2290, "d": 20 },
+      "rests_on": [ "pax_front" ]
     }
   ]
 }

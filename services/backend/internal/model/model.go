@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"slices"
 	"strings"
 
 	"golang.org/x/oauth2"
@@ -45,7 +46,7 @@ type Conversation struct {
 func Start(chat Chat, catalogue *appv1.Catalogue, prompt string, base *appv1.Layout) (*Conversation, error) {
 	// Proto names, so the catalogue reads like the snake_case the system prompt describes.
 	marshal := protojson.MarshalOptions{UseProtoNames: true}
-	parts, err := marshal.Marshal(catalogue)
+	parts, err := marshal.Marshal(relevant(catalogue, prompt, base))
 	if err != nil {
 		return nil, err
 	}
@@ -61,6 +62,57 @@ func Start(chat Chat, catalogue *appv1.Catalogue, prompt string, base *appv1.Lay
 		{Role: "system", Content: systemPrompt + "\n\nThe catalogue:\n" + string(parts)},
 		{Role: "user", Content: request},
 	}}, nil
+}
+
+// relevant is the part of the catalogue a request needs, so a big catalogue doesn't make every call
+// big: the ranges the prompt names or base uses, plus every part those can hold or stand on, and so
+// on. A request naming no range gets the whole catalogue.
+func relevant(catalogue *appv1.Catalogue, prompt string, base *appv1.Layout) *appv1.Catalogue {
+	prompt = strings.ToLower(prompt)
+	inBase := map[string]bool{}
+	for _, p := range base.GetParts() {
+		inBase[p.Article] = true
+	}
+	keep := map[*appv1.Part]bool{}
+	for _, part := range catalogue.Parts {
+		r, _, _ := strings.Cut(part.Name, " ")
+		if inBase[part.Article] || strings.Contains(prompt, strings.ToLower(r)) {
+			keep[part] = true
+		}
+	}
+	if len(keep) == 0 {
+		return catalogue
+	}
+	// Follow slots both ways, except the floor, which everything shares.
+	for grown := true; grown; {
+		grown = false
+		slots := map[string]bool{}
+		for part := range keep {
+			for _, s := range part.Offers {
+				slots[s.Name] = true
+			}
+			for _, name := range part.RestsOn {
+				slots["<"+name] = true
+			}
+		}
+		for _, part := range catalogue.Parts {
+			if keep[part] {
+				continue
+			}
+			links := slices.ContainsFunc(part.RestsOn, func(name string) bool { return slots[name] }) ||
+				slices.ContainsFunc(part.Offers, func(s *appv1.Slot) bool { return slots["<"+s.Name] })
+			if links {
+				keep[part], grown = true, true
+			}
+		}
+	}
+	trimmed := &appv1.Catalogue{}
+	for _, part := range catalogue.Parts {
+		if keep[part] {
+			trimmed.Parts = append(trimmed.Parts, part)
+		}
+	}
+	return trimmed
 }
 
 // Next asks the model for a layout. A reply that isn't one is an ErrUnparseable error; any other
