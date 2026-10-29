@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 import { AccountPanel } from './AccountPanel'
 
@@ -38,14 +38,15 @@ export function NavBar() {
   return (
     <nav className="nav">
       <Link to="/" className="nav-brand">
+        <span className="nav-brand-mark" aria-hidden="true" />
         <span className="nav-brand-main">{config.siteName}</span>
       </Link>
-      <Link to="/designs" className="btn btn-ghost">
+      <NavLink to="/designs" className="nav-link">
         Gallery
-      </Link>
-      <Link to="/design" className="btn btn-secondary">
+      </NavLink>
+      <NavLink to="/design" className="nav-link">
         Design
-      </Link>
+      </NavLink>
       <button
         type="button"
         className="btn btn-icon btn-secondary"

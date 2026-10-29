@@ -1,7 +1,9 @@
-import { Mesh, type MeshLambertMaterial } from 'three'
+import { Mesh, type MeshStandardMaterial } from 'three'
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js'
 import type { Catalogue, Layout } from './api'
-import { buildBlueprint, finishColour } from './blueprint'
+import { buildBlueprint, finishColour, type Palette } from './blueprint'
+
+const palette: Palette = { ink: '#000', paper: '#fff', accent: '#00f' }
 
 // A 2x1 frame with two cells, a narrower underframe it stands on, and an insert for a cell.
 const catalogue: Catalogue = {
@@ -38,7 +40,7 @@ const catalogue: Catalogue = {
 
 function labels(layout: Layout): string[] {
   const out: string[] = []
-  buildBlueprint(layout, catalogue, '#000').object.traverse((o) => {
+  buildBlueprint(layout, catalogue, palette).measures.traverse((o) => {
     if (o instanceof CSS2DObject) out.push(o.element.textContent!)
   })
   return out.sort()
@@ -62,17 +64,17 @@ describe('buildBlueprint', () => {
   })
 
   it('skips articles missing from the catalogue', () => {
-    const { object } = buildBlueprint({ parts: [{ article: 'gone', x: 0, y: 0 }] }, catalogue, '#000')
+    const { object } = buildBlueprint({ parts: [{ article: 'gone', x: 0, y: 0 }] }, catalogue, palette)
     expect(object.children).toHaveLength(0)
   })
 
   it('colours each part by its finish, with a recessed back behind a frame', () => {
-    const { object } = buildBlueprint({ parts: [{ article: 'frame', x: 0, y: 0 }, { article: 'insert', x: 42, y: 37 }] }, catalogue, '#000')
+    const { object } = buildBlueprint({ parts: [{ article: 'frame', x: 0, y: 0 }, { article: 'insert', x: 42, y: 37 }] }, catalogue, palette)
     const meshes: Mesh[] = []
     object.traverse((o) => o instanceof Mesh && meshes.push(o))
     // The frame's back and body, then the insert.
     expect(meshes).toHaveLength(3)
-    expect('#' + (meshes[2].material as MeshLambertMaterial).color.getHexString()).toBe(finishColour('black-brown'))
+    expect('#' + (meshes[2].material as MeshStandardMaterial).color.getHexString()).toBe(finishColour('black-brown'))
   })
 })
 

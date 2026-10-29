@@ -90,35 +90,37 @@ export function Design() {
   }
 
   return (
-    <div className="page">
+    <div className="page page-wide">
       <header className="page-header">
         <span className="page-kicker text-muted">{forkedFrom ? 'Fork' : 'Design'}</span>
         <h1 className="title-editor">{result ? 'Refine your design' : 'Describe your shelving'}</h1>
       </header>
 
-      <form onSubmit={submit}>
-        <div className="field">
-          <label htmlFor="design-prompt">{result ? 'What should change?' : 'What do you want?'}</label>
+      <form onSubmit={submit} className="prompt">
+        <label htmlFor="design-prompt" className="prompt-label">
+          {result ? 'What should change?' : 'What do you want?'}
+        </label>
+        <div className="prompt-bar">
           <textarea
             id="design-prompt"
-            className="input"
-            rows={3}
+            className="prompt-input"
+            rows={2}
             placeholder={result ? 'Make it one cube taller' : 'A white 4×4 KALLAX with two doors and legs'}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
           />
-        </div>
-        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
           <button type="submit" className="btn btn-primary" disabled={working || !prompt.trim()}>
             {working ? 'Designing…' : result ? 'Refine' : 'Design'}
           </button>
-          {/* A fork needs a change before it is a new design, and a design needs a prompt. */}
-          {result?.prompt && (
-            <button type="button" className="btn btn-secondary" onClick={publish} disabled={working}>
-              Publish
-            </button>
-          )}
-          {result && (
+        </div>
+        {result && (
+          <div className="prompt-actions">
+            {/* A fork needs a change before it is a new design, and a design needs a prompt. */}
+            {result.prompt && (
+              <button type="button" className="btn btn-accent" onClick={publish} disabled={working}>
+                Publish
+              </button>
+            )}
             <button
               type="button"
               className="btn btn-ghost"
@@ -130,8 +132,8 @@ export function Design() {
             >
               Start over
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </form>
 
       {working && <p className="text-muted">Designing - this can take a few seconds…</p>}
@@ -146,12 +148,12 @@ export function Design() {
 
       {result && catalogueError && <p role="alert">{catalogueError}</p>}
       {result && catalogue && (
-        <>
-          <Suspense fallback={<p className="text-muted">Loading preview…</p>}>
+        <div className="design-grid">
+          <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
             <Preview layout={result.layout} catalogue={catalogue} />
           </Suspense>
           <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />
-        </>
+        </div>
       )}
     </div>
   )
