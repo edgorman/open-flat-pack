@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, NavLink } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 import { AccountPanel } from './AccountPanel'
@@ -80,7 +81,9 @@ export function NavBar() {
         </button>
       )}
 
-      {accountOpen && <AccountPanel onClose={() => setAccountOpen(false)} />}
+      {/* Portalled out of .nav: its backdrop-filter makes it the containing block for the panel's
+          position: fixed, which would clip the panel to the nav bar's height. */}
+      {accountOpen && createPortal(<AccountPanel onClose={() => setAccountOpen(false)} />, document.body)}
     </nav>
   )
 }

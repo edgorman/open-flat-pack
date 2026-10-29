@@ -37,6 +37,8 @@ describe('NavBar', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Account' }))
     const dialog = screen.getByRole('dialog', { name: 'Account' })
     expect(dialog).toBeInTheDocument()
+    // Outside the nav, whose backdrop-filter would otherwise clip the fixed panel to its height.
+    expect(dialog.closest('nav')).toBeNull()
 
     await userEvent.click(screen.getByRole('button', { name: 'Sign out' }))
     expect(signOut).toHaveBeenCalledTimes(1)
