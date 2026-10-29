@@ -10,8 +10,8 @@
 // matches it.
 //
 // Each entry keeps facts only: the article number, range and type, colour, a size read from IKEA's
-// measure text (w x h, or w x d x h, in mm), and rests_on and offers for the part types KALLAX uses
-// (see slots). A product that fits none of those types is left out. Prices and page text are not
+// measure text (w x h, or w x d x h, in mm), and rests_on and offers for the part types each range
+// uses (see slots). A product that fits none of those types is left out. Prices and page text are not
 // kept.
 package main
 
@@ -25,6 +25,7 @@ import (
 	"net/url"
 	"os"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -57,11 +58,11 @@ type product struct {
 }
 
 func main() {
-	filter := flag.String("filter", "^(KALLAX|DRÖNA|KUGGIS)$", "keep products whose name matches this regexp")
+	filter := flag.String("filter", "^(KALLAX|DRÖNA|KUGGIS|BILLY|OXBERG|HÖGBO)$", "keep products whose name matches this regexp")
 	flag.Parse()
 	queries := flag.Args()
 	if len(queries) == 0 {
-		queries = []string{"kallax", "dröna", "kuggis"}
+		queries = []string{"kallax", "dröna", "kuggis", "billy", "oxberg", "högbo"}
 	}
 	if err := run(queries, regexp.MustCompile(*filter)); err != nil {
 		fmt.Fprintln(os.Stderr, "scrape-catalogue:", err)
@@ -169,13 +170,16 @@ func entry(p product) *appv1.Part {
 		Size:    size(p.Measure),
 	}
 	part.RestsOn, part.Offers = slots(part.Name, part.Size)
-	// Search gives frames and inserts as w x h only; their product pages list these depths.
+	// Search gives frames, inserts and doors as w x h only. The KALLAX product pages list these
+	// depths; a door's is its thickness, near enough for the preview.
 	if part.Size != nil && part.Size.D == 0 {
 		switch {
 		case part.Name == "KALLAX shelving unit":
 			part.Size.D = 390
 		case strings.HasPrefix(part.Name, "KALLAX insert"):
 			part.Size.D = 370
+		case slices.Equal(part.RestsOn, []string{"front"}):
+			part.Size.D = 20
 		}
 	}
 	return part
@@ -188,7 +192,8 @@ const (
 	dividerMM = 15
 )
 
-// slots gives a part's rests_on and offers from its name, per docs/design/v1/0002-catalogue.md.
+// slots gives a part's rests_on and offers from its name, per docs/design/v1/0002-catalogue.md and
+// docs/design/v2/0001-more-ranges.md.
 // A part it doesn't recognise, one without a size, or a box too small for a cube gets neither.
 func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 	switch {
@@ -207,6 +212,17 @@ func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 		return []string{"floor"}, []*appv1.Slot{{Name: "base", Kind: "surface", Y: size.H, W: size.W}}
 	case (strings.Contains(name, "insert") || strings.Contains(name, "box")) && size.W >= 300 && size.H >= 300:
 		return []string{"cube"}, nil
+	case name == "BILLY bookcase":
+		offers := []*appv1.Slot{{Name: "front", Kind: "front", W: size.W, H: size.H}}
+		// Height extension units are made for the 202 cm bookcases only.
+		if size.H == 2020 {
+			offers = append(offers, &appv1.Slot{Name: "billy_top", Kind: "surface", Y: size.H, W: size.W})
+		}
+		return []string{"floor"}, offers
+	case name == "BILLY height extension unit":
+		return []string{"billy_top"}, []*appv1.Slot{{Name: "front", Kind: "front", W: size.W, H: size.H}}
+	case strings.HasPrefix(name, "OXBERG") || strings.HasPrefix(name, "HÖGBO"):
+		return []string{"front"}, nil
 	}
 	return nil, nil
 }

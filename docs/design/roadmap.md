@@ -15,13 +15,18 @@ Designed in [`v1/`](v1/0001-overview.md).
 
 ## v2
 
-- BILLY bookcases, added as catalogue data on the v1 slot model.
+Designed in [`v2/`](v2/0001-more-ranges.md).
+
+- BILLY bookcases with OXBERG and HÖGBO doors, using a new `front` slot for doors.
+- EKET, IVAR and BESTÅ storage, with BESTÅ's fronts and legs.
+- PAX wardrobes with their doors and KOMPLEMENT interiors.
+- Sending the model only the ranges a prompt needs, so a bigger catalogue doesn't grow every call.
 
 ## Later
 
 Not yet scheduled:
 
-- More IKEA ranges, such as PAX and BESTÅ, and desks.
+- More IKEA ranges, such as PLATSA, desks and kitchens.
 - More markets than the UK.
 - Designing within a room.
 - Photorealistic renders of a design.

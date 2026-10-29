@@ -223,11 +223,12 @@ func (x *Size) GetD() int32 {
 // part's bottom-left corner, seen from the front.
 type Slot struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// What a resting part lists in its rests_on, e.g. "cube", "top" or "base".
+	// What a resting part lists in its rests_on, e.g. "cube", "top", "base" or "front".
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// "cell" (a resting part fills it exactly, one part per cell) or "surface" (a resting part sits
-	// wholly on it, possibly spanning several at the same height) - a plain string rather than an
-	// enum, see the "Contract Layer" section of `packages/protos/AGENTS.md`.
+	// "cell" (a resting part fills it exactly, one part per cell), "surface" (a resting part sits
+	// wholly on it, possibly spanning several at the same height) or "front" (resting parts lie
+	// wholly inside it, in front of the part, without overlapping each other) - a plain string
+	// rather than an enum, see the "Contract Layer" section of `packages/protos/AGENTS.md`.
 	Kind          string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`
 	X             int32  `protobuf:"varint,3,opt,name=x,proto3" json:"x,omitempty"`
 	Y             int32  `protobuf:"varint,4,opt,name=y,proto3" json:"y,omitempty"`

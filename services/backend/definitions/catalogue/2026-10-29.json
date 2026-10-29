@@ -1,6 +1,287 @@
 {
   "parts": [
     {
+      "article": "00477337",
+      "name": "BILLY bookcase",
+      "finish": "black oak effect",
+      "size": { "w": 800, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+      ]
+    },
+    {
+      "article": "30477331",
+      "name": "BILLY bookcase",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+      ]
+    },
+    {
+      "article": "40477340",
+      "name": "BILLY bookcase",
+      "finish": "black oak effect",
+      "size": { "w": 800, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
+      ]
+    },
+    {
+      "article": "70477334",
+      "name": "BILLY bookcase",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
+      ]
+    },
+    {
+      "article": "40594928",
+      "name": "BILLY bookcase",
+      "finish": "blue",
+      "size": { "w": 400, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
+      ]
+    },
+    {
+      "article": "10508625",
+      "name": "BILLY bookcase",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+      ]
+    },
+    {
+      "article": "30508648",
+      "name": "BILLY bookcase",
+      "finish": "brown walnut effect",
+      "size": { "w": 800, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+      ]
+    },
+    {
+      "article": "50508652",
+      "name": "BILLY bookcase",
+      "finish": "brown walnut effect",
+      "size": { "w": 800, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
+      ]
+    },
+    {
+      "article": "80508641",
+      "name": "BILLY bookcase",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
+      ]
+    },
+    {
+      "article": "10508932",
+      "name": "BILLY bookcase",
+      "finish": "oak effect",
+      "size": { "w": 800, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
+      ]
+    },
+    {
+      "article": "20477379",
+      "name": "BILLY bookcase",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+      ]
+    },
+    {
+      "article": "60477382",
+      "name": "BILLY bookcase",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
+      ]
+    },
+    {
+      "article": "90477385",
+      "name": "BILLY bookcase",
+      "finish": "oak effect",
+      "size": { "w": 800, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+      ]
+    },
+    {
+      "article": "00263850",
+      "name": "BILLY bookcase",
+      "finish": "white",
+      "size": { "w": 800, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
+      ]
+    },
+    {
+      "article": "10401931",
+      "name": "BILLY bookcase",
+      "finish": "white",
+      "size": { "w": 400, "h": 2020, "d": 390 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
+      ]
+    },
+    {
+      "article": "30263844",
+      "name": "BILLY bookcase",
+      "finish": "white",
+      "size": { "w": 800, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+      ]
+    },
+    {
+      "article": "50263838",
+      "name": "BILLY bookcase",
+      "finish": "white",
+      "size": { "w": 400, "h": 2020, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
+      ]
+    },
+    {
+      "article": "80263832",
+      "name": "BILLY bookcase",
+      "finish": "white",
+      "size": { "w": 400, "h": 1060, "d": 280 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+      ]
+    },
+    {
+      "article": "90401932",
+      "name": "BILLY bookcase",
+      "finish": "white",
+      "size": { "w": 800, "h": 2020, "d": 390 },
+      "rests_on": [ "floor" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
+      ]
+    },
+    {
+      "article": "00477361",
+      "name": "BILLY height extension unit",
+      "finish": "black oak effect",
+      "size": { "w": 800, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+      ]
+    },
+    {
+      "article": "60477358",
+      "name": "BILLY height extension unit",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+      ]
+    },
+    {
+      "article": "00508664",
+      "name": "BILLY height extension unit",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+      ]
+    },
+    {
+      "article": "30508667",
+      "name": "BILLY height extension unit",
+      "finish": "brown walnut effect",
+      "size": { "w": 800, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+      ]
+    },
+    {
+      "article": "60477396",
+      "name": "BILLY height extension unit",
+      "finish": "oak effect",
+      "size": { "w": 800, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+      ]
+    },
+    {
+      "article": "80477395",
+      "name": "BILLY height extension unit",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+      ]
+    },
+    {
+      "article": "40263853",
+      "name": "BILLY height extension unit",
+      "finish": "white",
+      "size": { "w": 800, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+      ]
+    },
+    {
+      "article": "90263860",
+      "name": "BILLY height extension unit",
+      "finish": "white",
+      "size": { "w": 400, "h": 350, "d": 280 },
+      "rests_on": [ "billy_top" ],
+      "offers": [
+        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+      ]
+    },
+    {
       "article": "10625714",
       "name": "DRÖNA box",
       "finish": "black/off-white",
@@ -48,6 +329,20 @@
       "finish": "white",
       "size": { "w": 330, "h": 330, "d": 380 },
       "rests_on": [ "cube" ]
+    },
+    {
+      "article": "20517243",
+      "name": "HÖGBO glass door",
+      "finish": "white",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "60530252",
+      "name": "HÖGBO glass door",
+      "finish": "white",
+      "size": { "w": 400, "h": 970, "d": 20 },
+      "rests_on": [ "front" ]
     },
     {
       "article": "80401292",
@@ -1032,6 +1327,146 @@
       "finish": "white",
       "size": { "w": 320, "h": 320, "d": 320 },
       "rests_on": [ "cube" ]
+    },
+    {
+      "article": "10477365",
+      "name": "OXBERG door",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 970, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "20528246",
+      "name": "OXBERG door",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "00562420",
+      "name": "OXBERG door",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "90508674",
+      "name": "OXBERG door",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 970, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "30477411",
+      "name": "OXBERG door",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 970, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "90528243",
+      "name": "OXBERG door",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "40407564",
+      "name": "OXBERG door",
+      "finish": "white",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "50275596",
+      "name": "OXBERG door",
+      "finish": "white",
+      "size": { "w": 400, "h": 970, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "50477368",
+      "name": "OXBERG glass door",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "90477371",
+      "name": "OXBERG glass door",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 350, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "20508700",
+      "name": "OXBERG glass door",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "60508703",
+      "name": "OXBERG glass door",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 350, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "40477415",
+      "name": "OXBERG glass door",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "80477418",
+      "name": "OXBERG glass door",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 350, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "50275619",
+      "name": "OXBERG glass door",
+      "finish": "white",
+      "size": { "w": 400, "h": 350, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "90275617",
+      "name": "OXBERG glass door",
+      "finish": "white",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "30477374",
+      "name": "OXBERG panel/glass door",
+      "finish": "black oak effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "30508709",
+      "name": "OXBERG panel/glass door",
+      "finish": "brown walnut effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "90477432",
+      "name": "OXBERG panel/glass door",
+      "finish": "oak effect",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
+    },
+    {
+      "article": "50275558",
+      "name": "OXBERG panel/glass door",
+      "finish": "white",
+      "size": { "w": 400, "h": 1920, "d": 20 },
+      "rests_on": [ "front" ]
     }
   ]
 }
