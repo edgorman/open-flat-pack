@@ -7,7 +7,7 @@
       "size": { "w": 800, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 1060 }
       ]
     },
     {
@@ -17,7 +17,7 @@
       "size": { "w": 400, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 1060 }
       ]
     },
     {
@@ -27,7 +27,7 @@
       "size": { "w": 800, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
       ]
     },
@@ -38,7 +38,7 @@
       "size": { "w": 400, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
       ]
     },
@@ -49,7 +49,7 @@
       "size": { "w": 400, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
       ]
     },
@@ -60,7 +60,7 @@
       "size": { "w": 400, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 1060 }
       ]
     },
     {
@@ -70,7 +70,7 @@
       "size": { "w": 800, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 1060 }
       ]
     },
     {
@@ -80,7 +80,7 @@
       "size": { "w": 800, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
       ]
     },
@@ -91,7 +91,7 @@
       "size": { "w": 400, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
       ]
     },
@@ -102,7 +102,7 @@
       "size": { "w": 800, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
       ]
     },
@@ -113,7 +113,7 @@
       "size": { "w": 400, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 1060 }
       ]
     },
     {
@@ -123,7 +123,7 @@
       "size": { "w": 400, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
       ]
     },
@@ -134,7 +134,7 @@
       "size": { "w": 800, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 1060 }
       ]
     },
     {
@@ -144,7 +144,7 @@
       "size": { "w": 800, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
       ]
     },
@@ -155,7 +155,7 @@
       "size": { "w": 400, "h": 2020, "d": 390 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
       ]
     },
@@ -166,7 +166,7 @@
       "size": { "w": 800, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 1060 }
       ]
     },
     {
@@ -176,7 +176,7 @@
       "size": { "w": 400, "h": 2020, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 400 }
       ]
     },
@@ -187,7 +187,7 @@
       "size": { "w": 400, "h": 1060, "d": 280 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 1060 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 1060 }
       ]
     },
     {
@@ -197,7 +197,7 @@
       "size": { "w": 800, "h": 2020, "d": 390 },
       "rests_on": [ "floor" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 2020 },
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 2020 },
         { "name": "billy_top", "kind": "surface", "y": 2020, "w": 800 }
       ]
     },
@@ -208,7 +208,7 @@
       "size": { "w": 800, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 350 }
       ]
     },
     {
@@ -218,7 +218,7 @@
       "size": { "w": 400, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 350 }
       ]
     },
     {
@@ -228,7 +228,7 @@
       "size": { "w": 400, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 350 }
       ]
     },
     {
@@ -238,7 +238,7 @@
       "size": { "w": 800, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 350 }
       ]
     },
     {
@@ -248,7 +248,7 @@
       "size": { "w": 800, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 350 }
       ]
     },
     {
@@ -258,7 +258,7 @@
       "size": { "w": 400, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 350 }
       ]
     },
     {
@@ -268,7 +268,7 @@
       "size": { "w": 800, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 800, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 800, "h": 350 }
       ]
     },
     {
@@ -278,7 +278,7 @@
       "size": { "w": 400, "h": 350, "d": 280 },
       "rests_on": [ "billy_top" ],
       "offers": [
-        { "name": "front", "kind": "front", "w": 400, "h": 350 }
+        { "name": "billy_front", "kind": "front", "w": 400, "h": 350 }
       ]
     },
     {
@@ -335,14 +335,14 @@
       "name": "HÖGBO glass door",
       "finish": "white",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "60530252",
       "name": "HÖGBO glass door",
       "finish": "white",
       "size": { "w": 400, "h": 970, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "80401292",
@@ -1333,140 +1333,140 @@
       "name": "OXBERG door",
       "finish": "black oak effect",
       "size": { "w": 400, "h": 970, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "20528246",
       "name": "OXBERG door",
       "finish": "black oak effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "00562420",
       "name": "OXBERG door",
       "finish": "brown walnut effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "90508674",
       "name": "OXBERG door",
       "finish": "brown walnut effect",
       "size": { "w": 400, "h": 970, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "30477411",
       "name": "OXBERG door",
       "finish": "oak effect",
       "size": { "w": 400, "h": 970, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "90528243",
       "name": "OXBERG door",
       "finish": "oak effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "40407564",
       "name": "OXBERG door",
       "finish": "white",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "50275596",
       "name": "OXBERG door",
       "finish": "white",
       "size": { "w": 400, "h": 970, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "50477368",
       "name": "OXBERG glass door",
       "finish": "black oak effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "90477371",
       "name": "OXBERG glass door",
       "finish": "black oak effect",
       "size": { "w": 400, "h": 350, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "20508700",
       "name": "OXBERG glass door",
       "finish": "brown walnut effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "60508703",
       "name": "OXBERG glass door",
       "finish": "brown walnut effect",
       "size": { "w": 400, "h": 350, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "40477415",
       "name": "OXBERG glass door",
       "finish": "oak effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "80477418",
       "name": "OXBERG glass door",
       "finish": "oak effect",
       "size": { "w": 400, "h": 350, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "50275619",
       "name": "OXBERG glass door",
       "finish": "white",
       "size": { "w": 400, "h": 350, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "90275617",
       "name": "OXBERG glass door",
       "finish": "white",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "30477374",
       "name": "OXBERG panel/glass door",
       "finish": "black oak effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "30508709",
       "name": "OXBERG panel/glass door",
       "finish": "brown walnut effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "90477432",
       "name": "OXBERG panel/glass door",
       "finish": "oak effect",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     },
     {
       "article": "50275558",
       "name": "OXBERG panel/glass door",
       "finish": "white",
       "size": { "w": 400, "h": 1920, "d": 20 },
-      "rests_on": [ "front" ]
+      "rests_on": [ "billy_front" ]
     }
   ]
 }

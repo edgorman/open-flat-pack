@@ -6,13 +6,13 @@ v2 widens the catalogue from KALLAX to IKEA UK's other modular storage ranges. E
 
 | Range | Parts | Rests on | Offers |
 | --- | --- | --- | --- |
-| BILLY bookcase | 40 and 80 cm wide, 106 and 202 cm high | `floor` | a `front`; the 202 cm ones also a `billy_top` surface |
-| BILLY height extension unit | 40 and 80 cm wide, 35 cm high | `billy_top` | a `front` |
-| OXBERG and HÖGBO doors | 40 cm wide, 35, 97 and 192 cm high | `front` | - |
+| BILLY bookcase | 40 and 80 cm wide, 106 and 202 cm high | `floor` | a `billy_front`; the 202 cm ones also a `billy_top` surface |
+| BILLY height extension unit | 40 and 80 cm wide, 35 cm high | `billy_top` | a `billy_front` |
+| OXBERG and HÖGBO doors | 40 cm wide, 35, 97 and 192 cm high | `billy_front` | - |
 
 BILLY shelves, corner fittings, the drawer on castors and the bookcase with a foldable table fit none of these rules and are left out. A BILLY bookcase comes with its shelves.
 
-`billy_top` is a surface of its own, rather than KALLAX's `top`, so that only a height extension stands on a BILLY.
+Slot names are per range, `billy_top` rather than KALLAX's `top` and `billy_front` rather than a shared name, so that only a height extension stands on a BILLY and only BILLY's doors hang on it.
 
 ## Fronts
 

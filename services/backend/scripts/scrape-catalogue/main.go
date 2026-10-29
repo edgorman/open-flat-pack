@@ -25,7 +25,6 @@ import (
 	"net/url"
 	"os"
 	"regexp"
-	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -178,7 +177,7 @@ func entry(p product) *appv1.Part {
 			part.Size.D = 390
 		case strings.HasPrefix(part.Name, "KALLAX insert"):
 			part.Size.D = 370
-		case slices.Equal(part.RestsOn, []string{"front"}):
+		case strings.Contains(part.Name, "door"):
 			part.Size.D = 20
 		}
 	}
@@ -213,16 +212,16 @@ func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 	case (strings.Contains(name, "insert") || strings.Contains(name, "box")) && size.W >= 300 && size.H >= 300:
 		return []string{"cube"}, nil
 	case name == "BILLY bookcase":
-		offers := []*appv1.Slot{{Name: "front", Kind: "front", W: size.W, H: size.H}}
+		offers := []*appv1.Slot{{Name: "billy_front", Kind: "front", W: size.W, H: size.H}}
 		// Height extension units are made for the 202 cm bookcases only.
 		if size.H == 2020 {
 			offers = append(offers, &appv1.Slot{Name: "billy_top", Kind: "surface", Y: size.H, W: size.W})
 		}
 		return []string{"floor"}, offers
 	case name == "BILLY height extension unit":
-		return []string{"billy_top"}, []*appv1.Slot{{Name: "front", Kind: "front", W: size.W, H: size.H}}
+		return []string{"billy_top"}, []*appv1.Slot{{Name: "billy_front", Kind: "front", W: size.W, H: size.H}}
 	case strings.HasPrefix(name, "OXBERG") || strings.HasPrefix(name, "HÖGBO"):
-		return []string{"front"}, nil
+		return []string{"billy_front"}, nil
 	}
 	return nil, nil
 }

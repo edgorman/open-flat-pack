@@ -26,9 +26,9 @@ var catalogue = &appv1.Catalogue{Parts: []*appv1.Part{
 	{Article: "underframe", Name: "KALLAX underframe", Size: &appv1.Size{W: 760, H: 180}, RestsOn: []string{"floor"},
 		Offers: []*appv1.Slot{{Name: "base", Kind: "surface", Y: 180, W: 760}}},
 	{Article: "billy", Name: "BILLY bookcase", Size: &appv1.Size{W: 800, H: 2020}, RestsOn: []string{"floor"},
-		Offers: []*appv1.Slot{{Name: "front", Kind: "front", W: 800, H: 2020}, {Name: "billy_top", Kind: "surface", Y: 2020, W: 800}}},
+		Offers: []*appv1.Slot{{Name: "billy_front", Kind: "front", W: 800, H: 2020}, {Name: "billy_top", Kind: "surface", Y: 2020, W: 800}}},
 	{Article: "extension", Name: "BILLY height extension unit", Size: &appv1.Size{W: 800, H: 350}, RestsOn: []string{"billy_top"}},
-	{Article: "door", Name: "OXBERG door", Size: &appv1.Size{W: 400, H: 1920}, RestsOn: []string{"front"}},
+	{Article: "door", Name: "OXBERG door", Size: &appv1.Size{W: 400, H: 1920}, RestsOn: []string{"billy_front"}},
 }}
 
 func at(article string, x, y int32) *appv1.LayoutPart {
@@ -78,7 +78,7 @@ func TestValidate(t *testing.T) {
 		{name: "doors overlap", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 0, 0), at("door", 300, 0)},
 			want: []string{"part 2 (OXBERG door) overlaps part 1 (OXBERG door)"}},
 		{name: "door past its front", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 500, 0)},
-			want: []string{"part 1 (OXBERG door) does not lie wholly inside a front"}},
+			want: []string{"part 1 (OXBERG door) does not lie wholly inside a billy_front"}},
 		{name: "extension on a bookcase", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("extension", 0, 2020)}, stacked: true},
 		{name: "taller than 2.5 m", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 0, 770), at("2x2", 0, 1540), at("2x2", 0, 2310)},
 			want: []string{"the design is 3080 mm tall; the limit is 2500 mm"}, stacked: true},

@@ -44,10 +44,10 @@ func TestSlots(t *testing.T) {
 		restsOn []string
 		offers  []string
 	}{
-		{"BILLY bookcase", &appv1.Size{W: 800, H: 2020}, []string{"floor"}, []string{"front", "billy_top"}},
-		{"BILLY bookcase", &appv1.Size{W: 800, H: 1060}, []string{"floor"}, []string{"front"}},
-		{"BILLY height extension unit", &appv1.Size{W: 400, H: 350}, []string{"billy_top"}, []string{"front"}},
-		{"OXBERG glass door", &appv1.Size{W: 400, H: 1920}, []string{"front"}, nil},
+		{"BILLY bookcase", &appv1.Size{W: 800, H: 2020}, []string{"floor"}, []string{"billy_front", "billy_top"}},
+		{"BILLY bookcase", &appv1.Size{W: 800, H: 1060}, []string{"floor"}, []string{"billy_front"}},
+		{"BILLY height extension unit", &appv1.Size{W: 400, H: 350}, []string{"billy_top"}, []string{"billy_front"}},
+		{"OXBERG glass door", &appv1.Size{W: 400, H: 1920}, []string{"billy_front"}, nil},
 		{"KALLAX insert with door", &appv1.Size{W: 330, H: 330}, []string{"cube"}, nil},
 		{"BILLY corner fittings", &appv1.Size{W: 10, H: 10}, nil, nil},
 	} {
