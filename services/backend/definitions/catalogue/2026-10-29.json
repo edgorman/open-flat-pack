@@ -1,6 +1,447 @@
 {
   "parts": [
     {
+      "article": "20245959",
+      "name": "BESTÅ frame",
+      "finish": "black-brown",
+      "size": { "w": 600, "h": 640, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 600 }
+      ]
+    },
+    {
+      "article": "20245964",
+      "name": "BESTÅ frame",
+      "finish": "black-brown",
+      "size": { "w": 600, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 600 }
+      ]
+    },
+    {
+      "article": "50245953",
+      "name": "BESTÅ frame",
+      "finish": "black-brown",
+      "size": { "w": 1200, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1200 }
+      ]
+    },
+    {
+      "article": "60245957",
+      "name": "BESTÅ frame",
+      "finish": "black-brown",
+      "size": { "w": 600, "h": 380, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 600 }
+      ]
+    },
+    {
+      "article": "70245952",
+      "name": "BESTÅ frame",
+      "finish": "black-brown",
+      "size": { "w": 1200, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1200 }
+      ]
+    },
+    {
+      "article": "90245946",
+      "name": "BESTÅ frame",
+      "finish": "black-brown",
+      "size": { "w": 600, "h": 1920, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 1920 },
+        { "name": "besta_top", "kind": "surface", "y": 1920, "w": 600 }
+      ]
+    },
+    {
+      "article": "60538583",
+      "name": "BESTÅ frame",
+      "finish": "dark grey",
+      "size": { "w": 1200, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1200 }
+      ]
+    },
+    {
+      "article": "90538591",
+      "name": "BESTÅ frame",
+      "finish": "dark grey",
+      "size": { "w": 600, "h": 380, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 600 }
+      ]
+    },
+    {
+      "article": "00247370",
+      "name": "BESTÅ frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 600, "h": 1920, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 1920 },
+        { "name": "besta_top", "kind": "surface", "y": 1920, "w": 600 }
+      ]
+    },
+    {
+      "article": "40247373",
+      "name": "BESTÅ frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 1200, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1200 }
+      ]
+    },
+    {
+      "article": "60247367",
+      "name": "BESTÅ frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 600, "h": 1280, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 1280 },
+        { "name": "besta_top", "kind": "surface", "y": 1280, "w": 600 }
+      ]
+    },
+    {
+      "article": "80247408",
+      "name": "BESTÅ frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 600, "h": 380, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 600 }
+      ]
+    },
+    {
+      "article": "80247413",
+      "name": "BESTÅ frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 600, "h": 640, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 600 }
+      ]
+    },
+    {
+      "article": "90247375",
+      "name": "BESTÅ frame",
+      "finish": "white stained oak effect",
+      "size": { "w": 1200, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1200 }
+      ]
+    },
+    {
+      "article": "00245842",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 600, "h": 1920, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 1920 },
+        { "name": "besta_top", "kind": "surface", "y": 1920, "w": 600 }
+      ]
+    },
+    {
+      "article": "00245917",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 600, "h": 380, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 600 }
+      ]
+    },
+    {
+      "article": "10245846",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 1200, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1200 }
+      ]
+    },
+    {
+      "article": "30245850",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 600, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 600 }
+      ]
+    },
+    {
+      "article": "40245840",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 600, "h": 1280, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 1280 },
+        { "name": "besta_top", "kind": "surface", "y": 1280, "w": 600 }
+      ]
+    },
+    {
+      "article": "60245844",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 1200, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1200, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1200 }
+      ]
+    },
+    {
+      "article": "60245919",
+      "name": "BESTÅ frame",
+      "finish": "white",
+      "size": { "w": 600, "h": 640, "d": 200 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 600, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 600 }
+      ]
+    },
+    {
+      "article": "00295304",
+      "name": "BESTÅ top panel for tv",
+      "finish": "glass black",
+      "size": { "w": 1800, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "80295300",
+      "name": "BESTÅ top panel for tv",
+      "finish": "glass black",
+      "size": { "w": 1200, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "40618203",
+      "name": "BESTÅ top panel for tv",
+      "finish": "glass/white",
+      "size": { "w": 1800, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "60618202",
+      "name": "BESTÅ top panel for tv",
+      "finish": "glass/white",
+      "size": { "w": 1200, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "00625762",
+      "name": "BESTÅ top panel for tv",
+      "finish": "oak veneer",
+      "size": { "w": 2400, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "50496362",
+      "name": "BESTÅ top panel for tv",
+      "finish": "oak veneer",
+      "size": { "w": 1200, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "80496365",
+      "name": "BESTÅ top panel for tv",
+      "finish": "oak veneer",
+      "size": { "w": 1800, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "00597863",
+      "name": "BESTÅ top panel",
+      "finish": "brown/walnut effect",
+      "size": { "w": 1200, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "80597864",
+      "name": "BESTÅ top panel",
+      "finish": "brown/walnut effect",
+      "size": { "w": 1800, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "50196537",
+      "name": "BESTÅ top panel",
+      "finish": "glass black",
+      "size": { "w": 1200, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "90196535",
+      "name": "BESTÅ top panel",
+      "finish": "glass black",
+      "size": { "w": 1800, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "40540756",
+      "name": "BESTÅ top panel",
+      "finish": "glass white/light green",
+      "size": { "w": 1800, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "60618198",
+      "name": "BESTÅ top panel",
+      "finish": "glass/white",
+      "size": { "w": 1800, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "80618197",
+      "name": "BESTÅ top panel",
+      "finish": "glass/white",
+      "size": { "w": 1200, "h": 20, "d": 400 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "40611348",
+      "name": "BESTÅ top panel",
+      "finish": "high-gloss white",
+      "size": { "w": 1800, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "60611347",
+      "name": "BESTÅ top panel",
+      "finish": "high-gloss white",
+      "size": { "w": 1200, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "00472919",
+      "name": "BESTÅ top panel",
+      "finish": "oak veneer",
+      "size": { "w": 1800, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "20472918",
+      "name": "BESTÅ top panel",
+      "finish": "oak veneer",
+      "size": { "w": 1200, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "40625760",
+      "name": "BESTÅ top panel",
+      "finish": "oak veneer",
+      "size": { "w": 2400, "h": 20, "d": 420 },
+      "rests_on": [ "besta_top" ]
+    },
+    {
+      "article": "70474062",
+      "name": "BESTÅ tv bench",
+      "finish": "black-brown",
+      "size": { "w": 1800, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1800 }
+      ]
+    },
+    {
+      "article": "80299874",
+      "name": "BESTÅ tv bench",
+      "finish": "black-brown",
+      "size": { "w": 1800, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1800 }
+      ]
+    },
+    {
+      "article": "00538618",
+      "name": "BESTÅ tv bench",
+      "finish": "dark grey",
+      "size": { "w": 1800, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1800 }
+      ]
+    },
+    {
+      "article": "60474072",
+      "name": "BESTÅ tv bench",
+      "finish": "white stained oak effect",
+      "size": { "w": 1800, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1800 }
+      ]
+    },
+    {
+      "article": "70299884",
+      "name": "BESTÅ tv bench",
+      "finish": "white stained oak effect",
+      "size": { "w": 1800, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1800 }
+      ]
+    },
+    {
+      "article": "00474070",
+      "name": "BESTÅ tv bench",
+      "finish": "white",
+      "size": { "w": 1800, "h": 380, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 380 },
+        { "name": "besta_top", "kind": "surface", "y": 380, "w": 1800 }
+      ]
+    },
+    {
+      "article": "70299879",
+      "name": "BESTÅ tv bench",
+      "finish": "white",
+      "size": { "w": 1800, "h": 640, "d": 400 },
+      "rests_on": [ "floor", "besta_top" ],
+      "offers": [
+        { "name": "besta_front", "kind": "front", "w": 1800, "h": 640 },
+        { "name": "besta_top", "kind": "surface", "y": 640, "w": 1800 }
+      ]
+    },
+    {
       "article": "00477337",
       "name": "BILLY bookcase",
       "finish": "black oak effect",
@@ -331,6 +772,401 @@
       "rests_on": [ "cube" ]
     },
     {
+      "article": "20574587",
+      "name": "EKET cabinet w 2 doors and 1 shelf",
+      "finish": "brown walnut effect",
+      "size": { "w": 700, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 700 }
+      ]
+    },
+    {
+      "article": "20344921",
+      "name": "EKET cabinet w 2 doors and 1 shelf",
+      "finish": "dark grey",
+      "size": { "w": 700, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 700 }
+      ]
+    },
+    {
+      "article": "20333951",
+      "name": "EKET cabinet w 2 doors and 1 shelf",
+      "finish": "white",
+      "size": { "w": 700, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 700 }
+      ]
+    },
+    {
+      "article": "00574588",
+      "name": "EKET cabinet w door and 1 shelf",
+      "finish": "brown walnut effect",
+      "size": { "w": 350, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 350 }
+      ]
+    },
+    {
+      "article": "50344929",
+      "name": "EKET cabinet w door and 1 shelf",
+      "finish": "dark grey",
+      "size": { "w": 350, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 350 }
+      ]
+    },
+    {
+      "article": "90333938",
+      "name": "EKET cabinet w door and 1 shelf",
+      "finish": "white",
+      "size": { "w": 350, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 350 }
+      ]
+    },
+    {
+      "article": "20574592",
+      "name": "EKET cabinet with 2 drawers",
+      "finish": "brown walnut effect",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 }
+      ]
+    },
+    {
+      "article": "80574594",
+      "name": "EKET cabinet with 2 drawers",
+      "finish": "brown walnut effect",
+      "size": { "w": 700, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
+      ]
+    },
+    {
+      "article": "30428920",
+      "name": "EKET cabinet with 2 drawers",
+      "finish": "dark grey",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 }
+      ]
+    },
+    {
+      "article": "80344923",
+      "name": "EKET cabinet with 2 drawers",
+      "finish": "dark grey",
+      "size": { "w": 700, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
+      ]
+    },
+    {
+      "article": "00333947",
+      "name": "EKET cabinet with 2 drawers",
+      "finish": "white",
+      "size": { "w": 700, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
+      ]
+    },
+    {
+      "article": "30428915",
+      "name": "EKET cabinet with 2 drawers",
+      "finish": "white",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 }
+      ]
+    },
+    {
+      "article": "10574583",
+      "name": "EKET cabinet with 4 compartments",
+      "finish": "brown walnut effect",
+      "size": { "w": 700, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 700 },
+        { "name": "eket_front", "kind": "front", "w": 700, "h": 700 }
+      ]
+    },
+    {
+      "article": "00334536",
+      "name": "EKET cabinet with 4 compartments",
+      "finish": "dark grey",
+      "size": { "w": 700, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 700 },
+        { "name": "eket_front", "kind": "front", "w": 700, "h": 700 }
+      ]
+    },
+    {
+      "article": "60333954",
+      "name": "EKET cabinet with 4 compartments",
+      "finish": "white",
+      "size": { "w": 700, "h": 700, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 700, "w": 700 },
+        { "name": "eket_front", "kind": "front", "w": 700, "h": 700 }
+      ]
+    },
+    {
+      "article": "60574590",
+      "name": "EKET cabinet with door",
+      "finish": "brown walnut effect",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 }
+      ]
+    },
+    {
+      "article": "90344927",
+      "name": "EKET cabinet with door",
+      "finish": "dark grey",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 }
+      ]
+    },
+    {
+      "article": "80332114",
+      "name": "EKET cabinet with door",
+      "finish": "white",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 }
+      ]
+    },
+    {
+      "article": "00595524",
+      "name": "EKET cabinet",
+      "finish": "beige",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "70595525",
+      "name": "EKET cabinet",
+      "finish": "beige",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "30530574",
+      "name": "EKET cabinet",
+      "finish": "brown walnut effect",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "60530577",
+      "name": "EKET cabinet",
+      "finish": "brown walnut effect",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "30595527",
+      "name": "EKET cabinet",
+      "finish": "dark grey-blue",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "50595526",
+      "name": "EKET cabinet",
+      "finish": "dark grey-blue",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "40334558",
+      "name": "EKET cabinet",
+      "finish": "dark grey",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "50334591",
+      "name": "EKET cabinet",
+      "finish": "dark grey",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "20595523",
+      "name": "EKET cabinet",
+      "finish": "pale lilac",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "40595522",
+      "name": "EKET cabinet",
+      "finish": "pale lilac",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "80428852",
+      "name": "EKET cabinet",
+      "finish": "white stained oak effect",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "90428842",
+      "name": "EKET cabinet",
+      "finish": "white stained oak effect",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "70332124",
+      "name": "EKET cabinet",
+      "finish": "white",
+      "size": { "w": 350, "h": 350, "d": 250 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "80334603",
+      "name": "EKET cabinet",
+      "finish": "white",
+      "size": { "w": 350, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 350 },
+        { "name": "eket_front", "kind": "front", "w": 350, "h": 350 }
+      ]
+    },
+    {
+      "article": "30428901",
+      "name": "EKET glass door",
+      "finish": "clear glass",
+      "size": { "w": 310, "h": 310, "d": 20 },
+      "rests_on": [ "eket_front" ]
+    },
+    {
+      "article": "00576479",
+      "name": "EKET media shelf",
+      "finish": "brown walnut effect",
+      "size": { "w": 700, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
+      ]
+    },
+    {
+      "article": "30582025",
+      "name": "EKET media shelf",
+      "finish": "dark grey",
+      "size": { "w": 700, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
+      ]
+    },
+    {
+      "article": "90582027",
+      "name": "EKET media shelf",
+      "finish": "white",
+      "size": { "w": 700, "h": 350, "d": 350 },
+      "rests_on": [ "floor", "eket_top" ],
+      "offers": [
+        { "name": "eket_top", "kind": "surface", "y": 350, "w": 700 }
+      ]
+    },
+    {
+      "article": "00291848",
+      "name": "HANVIKEN door/drawer front",
+      "finish": "white",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "60291845",
+      "name": "HANVIKEN door",
+      "finish": "white",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "40291851",
+      "name": "HANVIKEN drawer front",
+      "finish": "white",
+      "size": { "w": 600, "h": 260, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
       "article": "20517243",
       "name": "HÖGBO glass door",
       "finish": "white",
@@ -343,6 +1179,48 @@
       "finish": "white",
       "size": { "w": 400, "h": 970, "d": 20 },
       "rests_on": [ "billy_front" ]
+    },
+    {
+      "article": "00531240",
+      "name": "IVAR cabinet with doors",
+      "finish": "black mesh",
+      "size": { "w": 800, "h": 830, "d": 300 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "50531252",
+      "name": "IVAR cabinet with doors",
+      "finish": "grey-green mesh",
+      "size": { "w": 800, "h": 830, "d": 300 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "00494394",
+      "name": "IVAR cabinet with sliding doors",
+      "finish": "pine",
+      "size": { "w": 800, "h": 600, "d": 300 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "40033763",
+      "name": "IVAR cabinet",
+      "finish": "pine",
+      "size": { "w": 800, "h": 830, "d": 300 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "70033766",
+      "name": "IVAR cabinet",
+      "finish": "pine",
+      "size": { "w": 800, "h": 830, "d": 500 },
+      "rests_on": [ "floor" ]
+    },
+    {
+      "article": "00522330",
+      "name": "IVAR shelving unit",
+      "finish": "pine",
+      "size": { "w": 800, "h": 830, "d": 300 },
+      "rests_on": [ "floor" ]
     },
     {
       "article": "80401292",
@@ -1329,6 +2207,69 @@
       "rests_on": [ "cube" ]
     },
     {
+      "article": "40291667",
+      "name": "LAPPVIKEN door/drawer front",
+      "finish": "black-brown",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "80628733",
+      "name": "LAPPVIKEN door/drawer front",
+      "finish": "brown/walnut effect",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "10538811",
+      "name": "LAPPVIKEN door/drawer front",
+      "finish": "dark grey",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "10490852",
+      "name": "LAPPVIKEN door/drawer front",
+      "finish": "light grey-beige",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "90291684",
+      "name": "LAPPVIKEN door/drawer front",
+      "finish": "white stained oak effect",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "00291674",
+      "name": "LAPPVIKEN door/drawer front",
+      "finish": "white",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "00628732",
+      "name": "LAPPVIKEN door",
+      "finish": "brown/walnut effect",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "40291691",
+      "name": "LAPPVIKEN door",
+      "finish": "white stained oak effect",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "50291676",
+      "name": "LAPPVIKEN door",
+      "finish": "white",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
       "article": "10477365",
       "name": "OXBERG door",
       "finish": "black oak effect",
@@ -1467,6 +2408,132 @@
       "finish": "white",
       "size": { "w": 400, "h": 1920, "d": 20 },
       "rests_on": [ "billy_front" ]
+    },
+    {
+      "article": "90294866",
+      "name": "SELSVIKEN door/drawer front",
+      "finish": "high-gloss beige",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "50291624",
+      "name": "SELSVIKEN door/drawer front",
+      "finish": "high-gloss black",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "00361087",
+      "name": "SELSVIKEN door/drawer front",
+      "finish": "high-gloss light grey",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "20291630",
+      "name": "SELSVIKEN door/drawer front",
+      "finish": "high-gloss white",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "00291626",
+      "name": "SELSVIKEN door",
+      "finish": "high-gloss black",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "20490700",
+      "name": "SELSVIKEN door",
+      "finish": "high-gloss dark olive-green",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "60361089",
+      "name": "SELSVIKEN door",
+      "finish": "high-gloss light grey",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "80291632",
+      "name": "SELSVIKEN door",
+      "finish": "high-gloss white",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "40291629",
+      "name": "SELSVIKEN drawer front",
+      "finish": "high-gloss black",
+      "size": { "w": 600, "h": 260, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "10291635",
+      "name": "SELSVIKEN drawer front",
+      "finish": "high-gloss white",
+      "size": { "w": 600, "h": 260, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "00296313",
+      "name": "SINDVIK glass door",
+      "finish": "black-brown/clear glass",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "40296311",
+      "name": "SINDVIK glass door",
+      "finish": "black-brown/clear glass",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "10538806",
+      "name": "SINDVIK glass door",
+      "finish": "dark grey/clear glass",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "80538803",
+      "name": "SINDVIK glass door",
+      "finish": "dark grey/clear glass",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "10296317",
+      "name": "SINDVIK glass door",
+      "finish": "white stained oak effect/clear glass",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "50296315",
+      "name": "SINDVIK glass door",
+      "finish": "white stained oak effect/clear glass",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "80291854",
+      "name": "SINDVIK glass door",
+      "finish": "white/clear glass",
+      "size": { "w": 600, "h": 380, "d": 20 },
+      "rests_on": [ "besta_front" ]
+    },
+    {
+      "article": "90291858",
+      "name": "SINDVIK glass door",
+      "finish": "white/clear glass",
+      "size": { "w": 600, "h": 640, "d": 20 },
+      "rests_on": [ "besta_front" ]
     }
   ]
 }
