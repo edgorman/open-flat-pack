@@ -49,6 +49,16 @@ func TestSlots(t *testing.T) {
 		{"BILLY height extension unit", &appv1.Size{W: 400, H: 350}, []string{"billy_top"}, []string{"billy_front"}},
 		{"OXBERG glass door", &appv1.Size{W: 400, H: 1920}, []string{"billy_front"}, nil},
 		{"KALLAX insert with door", &appv1.Size{W: 330, H: 330}, []string{"cube"}, nil},
+		{"EKET cabinet", &appv1.Size{W: 350, H: 350}, []string{"floor", "eket_top"}, []string{"eket_top", "eket_front"}},
+		{"EKET cabinet with 2 drawers", &appv1.Size{W: 700, H: 350}, []string{"floor", "eket_top"}, []string{"eket_top"}},
+		{"EKET glass door", &appv1.Size{W: 310, H: 310}, []string{"eket_front"}, nil},
+		{"IVAR cabinet with doors", &appv1.Size{W: 800, H: 830}, []string{"floor"}, nil},
+		{"BESTÅ frame", &appv1.Size{W: 600, H: 1920}, []string{"floor", "besta_top"}, []string{"besta_front", "besta_top"}},
+		{"BESTÅ tv bench", &appv1.Size{W: 1800, H: 640}, []string{"floor", "besta_top"}, []string{"besta_front", "besta_top"}},
+		{"IVAR storage box on wheels", &appv1.Size{W: 780, H: 300}, nil, nil},
+		{"BESTÅ top panel for tv", &appv1.Size{W: 1800, H: 20}, []string{"besta_top"}, nil},
+		{"LAPPVIKEN door/drawer front", &appv1.Size{W: 600, H: 380}, []string{"besta_front"}, nil},
+		{"BESTÅ shelf", &appv1.Size{W: 560, H: 360}, nil, nil},
 		{"BILLY corner fittings", &appv1.Size{W: 10, H: 10}, nil, nil},
 	} {
 		restsOn, offers := slots(tt.name, tt.size)

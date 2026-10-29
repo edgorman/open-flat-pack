@@ -17,7 +17,7 @@ export function Landing() {
       <header className="hero">
         <span className="page-kicker text-muted">{config.siteName}</span>
         <h1 className="hero-title">Shelving from a sentence.</h1>
-        <p className="hero-lede text-muted">Describe the KALLAX or BILLY furniture you want, and get a layout of real IKEA parts with a parts list.</p>
+        <p className="hero-lede text-muted">Describe the IKEA storage you want, and get a layout of real IKEA parts with a parts list.</p>
         <div className="hero-actions">
           <Link to="/design" className="btn btn-primary btn-lg">
             Start a design

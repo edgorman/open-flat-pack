@@ -9,8 +9,21 @@ v2 widens the catalogue from KALLAX to IKEA UK's other modular storage ranges. E
 | BILLY bookcase | 40 and 80 cm wide, 106 and 202 cm high | `floor` | a `billy_front`; the 202 cm ones also a `billy_top` surface |
 | BILLY height extension unit | 40 and 80 cm wide, 35 cm high | `billy_top` | a `billy_front` |
 | OXBERG and HÖGBO doors | 40 cm wide, 35, 97 and 192 cm high | `billy_front` | - |
+| EKET cabinets and media shelf | 35 and 70 cm cubes and rectangles | `floor`, `eket_top` | an `eket_top` surface; the open cabinet and the one with 4 compartments also an `eket_front` |
+| EKET glass door | 31 by 31 cm | `eket_front` | - |
+| IVAR cabinets and shelving unit | 80 cm wide | `floor` | - |
+| BESTÅ frames and TV benches | 60, 120 and 180 cm wide | `floor`, `besta_top` | a `besta_front` and a `besta_top` surface |
+| BESTÅ top panels | 120, 180 and 240 cm wide | `besta_top` | - |
+| LAPPVIKEN, SELSVIKEN, HANVIKEN and SINDVIK doors and fronts | 60 cm wide, 26, 38 and 64 cm high | `besta_front` | - |
 
-BILLY shelves, corner fittings, the drawer on castors and the bookcase with a foldable table fit none of these rules and are left out. A BILLY bookcase comes with its shelves.
+Anything else in these ranges fits none of these rules and is left out:
+
+- BILLY shelves, corner fittings, the drawer on castors and the bookcase with a foldable table. A BILLY bookcase comes with its shelves.
+- EKET and BESTÅ legs and suspension rails. Every design stands on the floor.
+- BESTÅ shelves, drawer frames, boxes, hinges and runners.
+- IVAR side units, shelves, posts and the parts that hang between them.
+
+Search lists a BESTÅ top panel as width by depth, so the scraper gives it a 20 mm thickness. It lists IVAR cabinets with doors as width by height, so they get IVAR's 30 cm depth.
 
 Slot names are per range, `billy_top` rather than KALLAX's `top` and `billy_front` rather than a shared name, so that only a height extension stands on a BILLY and only BILLY's doors hang on it.
 

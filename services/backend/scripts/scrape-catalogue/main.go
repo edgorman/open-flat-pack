@@ -57,11 +57,12 @@ type product struct {
 }
 
 func main() {
-	filter := flag.String("filter", "^(KALLAX|DRÖNA|KUGGIS|BILLY|OXBERG|HÖGBO)$", "keep products whose name matches this regexp")
+	filter := flag.String("filter", "^(KALLAX|DRÖNA|KUGGIS|BILLY|OXBERG|HÖGBO|EKET|IVAR|BESTÅ|LAPPVIKEN|SELSVIKEN|HANVIKEN|SINDVIK)$", "keep products whose name matches this regexp")
 	flag.Parse()
 	queries := flag.Args()
 	if len(queries) == 0 {
-		queries = []string{"kallax", "dröna", "kuggis", "billy", "oxberg", "högbo"}
+		queries = []string{"kallax", "dröna", "kuggis", "billy", "oxberg", "högbo", "eket", "ivar", "bestå",
+			"lappviken", "selsviken", "hanviken", "sindvik"}
 	}
 	if err := run(queries, regexp.MustCompile(*filter)); err != nil {
 		fmt.Fprintln(os.Stderr, "scrape-catalogue:", err)
@@ -168,16 +169,22 @@ func entry(p product) *appv1.Part {
 		Finish:  p.ValidDesignText,
 		Size:    size(p.Measure),
 	}
+	// A top panel's measure is w x d, and it lies flat; 20 mm is near enough its thickness.
+	if strings.HasPrefix(part.Name, "BESTÅ top panel") && part.Size != nil && part.Size.D == 0 {
+		part.Size.D, part.Size.H = part.Size.H, 20
+	}
 	part.RestsOn, part.Offers = slots(part.Name, part.Size)
-	// Search gives frames, inserts and doors as w x h only. The KALLAX product pages list these
-	// depths; a door's is its thickness, near enough for the preview.
+	// Search gives frames, inserts and doors as w x h only. The product pages list these depths; a
+	// door's is its thickness, near enough for the preview.
 	if part.Size != nil && part.Size.D == 0 {
 		switch {
 		case part.Name == "KALLAX shelving unit":
 			part.Size.D = 390
 		case strings.HasPrefix(part.Name, "KALLAX insert"):
 			part.Size.D = 370
-		case strings.Contains(part.Name, "door"):
+		case strings.HasPrefix(part.Name, "IVAR cabinet"):
+			part.Size.D = 300
+		case len(part.RestsOn) == 1 && strings.HasSuffix(part.RestsOn[0], "_front"):
 			part.Size.D = 20
 		}
 	}
@@ -193,7 +200,7 @@ const (
 
 // slots gives a part's rests_on and offers from its name, per docs/design/v1/0002-catalogue.md and
 // docs/design/v2/0001-more-ranges.md.
-// A part it doesn't recognise, one without a size, or a box too small for a cube gets neither.
+// A part it doesn't recognise, one without a size, or a box that doesn't fit a cube gets neither.
 func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 	switch {
 	case size == nil:
@@ -209,7 +216,8 @@ func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 		return []string{"floor", "top", "base"}, offers
 	case name == "KALLAX underframe":
 		return []string{"floor"}, []*appv1.Slot{{Name: "base", Kind: "surface", Y: size.H, W: size.W}}
-	case (strings.Contains(name, "insert") || strings.Contains(name, "box")) && size.W >= 300 && size.H >= 300:
+	case (strings.Contains(name, "insert") || strings.Contains(name, "box")) && size.W >= 300 && size.H >= 300 &&
+		size.W <= cellMM && size.H <= cellMM:
 		return []string{"cube"}, nil
 	case name == "BILLY bookcase":
 		offers := []*appv1.Slot{{Name: "billy_front", Kind: "front", W: size.W, H: size.H}}
@@ -222,6 +230,27 @@ func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 		return []string{"billy_top"}, []*appv1.Slot{{Name: "billy_front", Kind: "front", W: size.W, H: size.H}}
 	case strings.HasPrefix(name, "OXBERG") || strings.HasPrefix(name, "HÖGBO"):
 		return []string{"billy_front"}, nil
+	case strings.HasPrefix(name, "EKET cabinet") || name == "EKET media shelf":
+		offers := []*appv1.Slot{{Name: "eket_top", Kind: "surface", Y: size.H, W: size.W}}
+		// Only the open cabinets take EKET's glass doors.
+		if name == "EKET cabinet" || name == "EKET cabinet with 4 compartments" {
+			offers = append(offers, &appv1.Slot{Name: "eket_front", Kind: "front", W: size.W, H: size.H})
+		}
+		return []string{"floor", "eket_top"}, offers
+	case name == "EKET glass door":
+		return []string{"eket_front"}, nil
+	case name == "IVAR shelving unit" || strings.HasPrefix(name, "IVAR cabinet"):
+		return []string{"floor"}, nil
+	case name == "BESTÅ frame" || name == "BESTÅ tv bench":
+		return []string{"floor", "besta_top"}, []*appv1.Slot{
+			{Name: "besta_front", Kind: "front", W: size.W, H: size.H},
+			{Name: "besta_top", Kind: "surface", Y: size.H, W: size.W},
+		}
+	case strings.HasPrefix(name, "BESTÅ top panel"):
+		return []string{"besta_top"}, nil
+	case strings.HasPrefix(name, "LAPPVIKEN") || strings.HasPrefix(name, "SELSVIKEN") ||
+		strings.HasPrefix(name, "HANVIKEN") || strings.HasPrefix(name, "SINDVIK"):
+		return []string{"besta_front"}, nil
 	}
 	return nil, nil
 }
