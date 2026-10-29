@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-const galleryRows = (page: import('@playwright/test').Page) => page.locator('a.feed-row')
+const galleryRows = (page: import('@playwright/test').Page) => page.locator('a.gallery-card')
 
 test('the gallery loads', async ({ page }) => {
   await page.goto('/designs')

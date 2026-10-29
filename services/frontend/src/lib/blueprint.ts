@@ -1,6 +1,6 @@
 /**
- * Builds the blueprint scene for a layout: plain boxes in their finish colour, outlined in black,
- * with a floor grid, dimension lines and a person for scale. See docs/design/v1/0005-preview.md.
+ * Builds the preview scene for a layout: parts as boxes in their finish colour with thin outlines,
+ * dimension lines, and a floor with a 10 cm grid and a scale bar. See docs/design/v1/0005-preview.md.
  *
  * Units are mm. x runs right and y up, as in the layout; z points at the viewer, with every part's
  * front face at z = 0 since they all stand against the same wall.
@@ -17,44 +17,39 @@ import {
   LineBasicMaterial,
   LineSegments,
   Mesh,
-  MeshLambertMaterial,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
   Path,
   PlaneGeometry,
+  ShadowMaterial,
   Shape,
   Vector3,
 } from 'three'
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js'
 import type { Catalogue, Layout, Part } from './api'
+import { finishColour } from './finishes'
 
-/** Preview colours for the catalogue's finishes. A two-tone finish ("black/off-white") not listed
- * here takes its first colour; anything else unknown is grey. */
-const FINISHES: Record<string, string> = {
-  white: '#f4f4f1',
-  'high-gloss white': '#ffffff',
-  black: '#2a2a2a',
-  'black-brown': '#3d2d26',
-  'brown walnut effect': '#6e4b34',
-  'brown-red': '#8c3b2c',
-  'grey/wood effect': '#9b958c',
-  'white stained oak effect': '#e3d7c3',
-  'pine/woven poplar': '#cfa974',
-  blue: '#3b64a8',
-  'dark blue/white': '#24395c',
-  'dark grey': '#555555',
-  'dotted/beige': '#d9c9a9',
-  'wave shaped/light grey-blue': '#a9b8c6',
-}
-
-export function finishColour(finish: string): string {
-  return FINISHES[finish] ?? FINISHES[finish.split('/')[0]] ?? '#b5b5b5'
-}
+export { finishColour }
 
 /** Gap between the drawing and its first dimension line, and between dimension lines. */
 const DIM_GAP = 150
 
+/** ink draws the floor grid and scale bar, paper fills the scale bar's light blocks, and accent
+ * draws the dimensions. */
+export interface Palette {
+  ink: string
+  paper: string
+  accent: string
+}
+
 export interface Blueprint {
+  /** The parts. */
   object: Group
-  /** The drawing's extent without the floor grid, for framing the camera. */
+  /** The dimension lines, shown or hidden together. */
+  measures: Group
+  /** The floor: grid, scale bar and the shadow the parts cast. */
+  floor: Group
+  /** The parts, dimensions and scale bar together, for framing the camera. */
   bounds: Box3
 }
 
@@ -66,7 +61,7 @@ interface Placed {
 
 type Interval = [number, number]
 
-export function buildBlueprint(layout: Layout, catalogue: Catalogue, ink: string): Blueprint {
+export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette): Blueprint {
   const parts = new Map(catalogue.parts.map((p) => [p.article, p]))
   const cellSlots = new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === 'cell').map((s) => s.name)))
   const placed: Placed[] = layout.parts.flatMap(({ article, x, y }) => {
@@ -77,43 +72,35 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, ink: string
   const structure = placed.filter((p) => !p.part.restsOn.some((name) => cellSlots.has(name)))
 
   const object = new Group()
-  const lines = new LineBasicMaterial({ color: ink })
-  // Parts keep a black outline in dark mode too, so a white part does not lose its edges.
-  const outline = new LineBasicMaterial({ color: '#111111' })
+  const measures = new Group()
+  const floor = new Group()
+  // A quiet outline in both themes, so a white part keeps its edges without looking drawn in pen.
+  const outline = new LineBasicMaterial({ color: '#1d2129', transparent: true, opacity: 0.3 })
   for (const p of placed) object.add(drawPart(p, outline))
-  if (placed.length === 0) return { object, bounds: new Box3(new Vector3(), new Vector3()) }
+  if (placed.length === 0) return { object, measures, floor, bounds: new Box3(new Vector3(), new Vector3()) }
 
-  const extent = new Box3().setFromObject(object)
-  const { min, max } = extent
-  const ticks: Group[] = []
+  const { min, max } = new Box3().setFromObject(object)
+  const lines = new LineBasicMaterial({ color: palette.accent })
+  const at = (x: number, y: number, z = 0) => new Vector3(x, y, z)
 
-  // Each structural part's width in rows under the floor, then the overall width.
+  // Each structural part's width in rows on the floor in front, then the overall width.
   const widths = rows(structure.map((p) => [p.x, p.x + p.part.size!.w] as Interval), [min.x, max.x])
   widths.forEach((row, i) =>
-    row.forEach(([a, b]) => ticks.push(dimension([a, 0], [b, 0], [0, -DIM_GAP * (i + 1)], lines))),
+    row.forEach(([a, b]) => measures.add(dimension(at(a, 0), at(b, 0), at(0, 0, DIM_GAP * (i + 1)), lines))),
   )
-  ticks.push(dimension([min.x, 0], [max.x, 0], [0, -DIM_GAP * (widths.length + 1)], lines))
+  measures.add(dimension(at(min.x, 0), at(max.x, 0), at(0, 0, DIM_GAP * (widths.length + 1)), lines))
 
   // Each structural part's height in columns on the right, and the overall height on the left.
   const heights = rows(structure.map((p) => [p.y, p.y + p.part.size!.h] as Interval), [0, max.y])
   heights.forEach((column, i) =>
-    column.forEach(([a, b]) => ticks.push(dimension([max.x, a], [max.x, b], [DIM_GAP * (i + 1), 0], lines))),
+    column.forEach(([a, b]) => measures.add(dimension(at(max.x, a), at(max.x, b), at(DIM_GAP * (i + 1), 0), lines))),
   )
-  ticks.push(dimension([min.x, 0], [min.x, max.y], [-DIM_GAP, 0], lines))
+  measures.add(dimension(at(min.x, 0), at(min.x, max.y), at(-DIM_GAP, 0), lines))
 
-  object.add(...ticks, person(min.x - DIM_GAP * 2 - 300, lines))
-  const bounds = new Box3().setFromObject(object)
-
-  // A line every 100 mm, reaching well past the drawing in every direction.
-  const span = Math.ceil((Math.max(bounds.max.x - bounds.min.x, max.y) + 2000) / 1000) * 1000
-  const grid = new GridHelper(span, span / 100, ink, ink)
-  grid.position.x = Math.round((bounds.min.x + bounds.max.x) / 200) * 100
-  const gridMaterial = grid.material as LineBasicMaterial
-  gridMaterial.transparent = true
-  gridMaterial.opacity = 0.12
-  object.add(grid)
-
-  return { object, bounds }
+  const drawing = new Box3().setFromObject(object).union(new Box3().setFromObject(measures))
+  const [bar, ...rest] = drawFloor(drawing, min.x, DIM_GAP * (widths.length + 2.5), palette)
+  floor.add(bar, ...rest)
+  return { object, measures, floor, bounds: drawing.union(new Box3().setFromObject(bar)) }
 }
 
 /** A part as a box, or, when it offers cells, as a carcass with a recessed cell at each. */
@@ -134,12 +121,64 @@ function drawPart({ part, x, y }: Placed, outline: LineBasicMaterial): Group {
     }
     geometry = new ExtrudeGeometry(shape, { depth: d, bevelEnabled: false }).translate(0, 0, -d)
     // A shaded back, so an empty cell reads as a recess rather than a hole.
-    const back = new Mesh(new PlaneGeometry(w, h), new MeshLambertMaterial({ color: colour.clone().multiplyScalar(0.7) }))
+    const back = new Mesh(new PlaneGeometry(w, h), finish(colour.clone().multiplyScalar(0.85)))
     back.position.set(w / 2, h / 2, -d + 1)
+    back.receiveShadow = true
     group.add(back)
   }
-  group.add(new Mesh(geometry, new MeshLambertMaterial({ color: colour })), new LineSegments(new EdgesGeometry(geometry), outline))
+  const body = new Mesh(geometry, finish(colour))
+  body.castShadow = true
+  body.receiveShadow = true
+  group.add(body, new LineSegments(new EdgesGeometry(geometry, 20), outline))
   return group
+}
+
+function finish(color: Color): MeshStandardMaterial {
+  return new MeshStandardMaterial({ color, roughness: 0.75, metalness: 0 })
+}
+
+/**
+ * The floor under the drawing: a grid with a line every 10 cm and a stronger one every metre, a
+ * plane that catches the parts' shadow, and a 0-100 cm scale bar `inFront` mm in front of the parts.
+ * The scale bar comes first, since it is framed with the drawing.
+ */
+function drawFloor(bounds: Box3, left: number, inFront: number, { ink, paper }: Palette) {
+  const span = Math.ceil((Math.max(bounds.max.x - bounds.min.x, bounds.max.y) + 3000) / 1000) * 1000
+  const centre = Math.round((bounds.min.x + bounds.max.x) / 200) * 100
+  const grid = (divisions: number, opacity: number) => {
+    const g = new GridHelper(span, divisions, ink, ink)
+    const m = g.material as LineBasicMaterial
+    m.transparent = true
+    m.opacity = opacity
+    m.depthWrite = false
+    g.position.set(centre, 0.5, 0)
+    return g
+  }
+
+  const shadow = new Mesh(new PlaneGeometry(span, span).rotateX(-Math.PI / 2), new ShadowMaterial({ opacity: 0.16 }))
+  shadow.position.set(centre, 0, 0)
+  shadow.receiveShadow = true
+
+  // Four 25 cm blocks, alternating ink and paper, outlined in ink.
+  const bar = new Group()
+  const blocks = [ink, paper, ink, paper].map((colour, i) => {
+    const block = new Mesh(new BoxGeometry(250, 4, 40).translate(125 + i * 250, 2, 0), new MeshBasicMaterial({ color: colour }))
+    return [block, new LineSegments(new EdgesGeometry(block.geometry), new LineBasicMaterial({ color: ink }))]
+  })
+  bar.add(...blocks.flat())
+  for (const [x, text] of [[0, '0'], [500, '50'], [1000, '100 cm']] as const) bar.add(label(text, 'blueprint-scale', new Vector3(x, 0, 90)))
+  bar.position.set(left, 0, inFront)
+
+  return [bar, grid(span / 100, 0.08), grid(span / 1000, 0.18), shadow]
+}
+
+function label(text: string, className: string, position: Vector3): CSS2DObject {
+  const el = document.createElement('span')
+  el.className = className
+  el.textContent = text
+  const o = new CSS2DObject(el)
+  o.position.copy(position)
+  return o
 }
 
 /**
@@ -158,50 +197,23 @@ function rows(intervals: Interval[], overall: Interval): Interval[][] {
   return out
 }
 
-/** A dimension line between two points in the front plane, drawn offset from them, with
- * extension lines, slash ticks and its length in cm. */
-function dimension(from: [number, number], to: [number, number], offset: [number, number], lines: LineBasicMaterial): Group {
-  const [ox, oy] = offset
-  const length = Math.hypot(ox, oy)
-  const [ux, uy] = [ox / length, oy / length]
-  const a = new Vector3(from[0] + ox, from[1] + oy, 0)
-  const b = new Vector3(to[0] + ox, to[1] + oy, 0)
-  const tick = new Vector3(30, 30, 0)
+/** A dimension line between two points, drawn `offset` away from them, with extension lines, end
+ * ticks and its length in cm. */
+function dimension(from: Vector3, to: Vector3, offset: Vector3, lines: LineBasicMaterial): Group {
+  const unit = offset.clone().normalize()
+  const a = from.clone().add(offset)
+  const b = to.clone().add(offset)
   const points = [
     a, b,
     // Extension lines, from just off the drawing to just past the dimension line.
-    new Vector3(from[0] + ux * 20, from[1] + uy * 20, 0), new Vector3(a.x + ux * 30, a.y + uy * 30, 0),
-    new Vector3(to[0] + ux * 20, to[1] + uy * 20, 0), new Vector3(b.x + ux * 30, b.y + uy * 30, 0),
-    a.clone().sub(tick), a.clone().add(tick),
-    b.clone().sub(tick), b.clone().add(tick),
+    from.clone().addScaledVector(unit, 20), a.clone().addScaledVector(unit, 30),
+    to.clone().addScaledVector(unit, 20), b.clone().addScaledVector(unit, 30),
+    // Short ticks across each end.
+    a.clone().addScaledVector(unit, -25), a.clone().addScaledVector(unit, 25),
+    b.clone().addScaledVector(unit, -25), b.clone().addScaledVector(unit, 25),
   ]
   const group = new Group()
   group.add(new LineSegments(new BufferGeometry().setFromPoints(points), lines))
-
-  const label = document.createElement('span')
-  label.className = 'blueprint-label'
-  label.textContent = `${+(a.distanceTo(b) / 10).toFixed(1)} cm`
-  const text = new CSS2DObject(label)
-  text.position.copy(a).lerp(b, 0.5)
-  group.add(text)
+  group.add(label(`${+(a.distanceTo(b) / 10).toFixed(1)} cm`, 'blueprint-label', a.clone().lerp(b, 0.5)))
   return group
-}
-
-/** A stick figure 1.75 m tall, standing on the floor at x, for scale. */
-function person(x: number, lines: LineBasicMaterial): LineSegments {
-  const p = (px: number, py: number) => new Vector3(x + px, py, 0)
-  const head: Vector3[] = []
-  for (let i = 0; i < 24; i++) {
-    const t0 = (i / 24) * Math.PI * 2
-    const t1 = ((i + 1) / 24) * Math.PI * 2
-    head.push(p(Math.cos(t0) * 110, 1640 + Math.sin(t0) * 110), p(Math.cos(t1) * 110, 1640 + Math.sin(t1) * 110))
-  }
-  const body = [
-    p(0, 1530), p(0, 850), // spine
-    p(0, 850), p(-180, 0), // legs
-    p(0, 850), p(180, 0),
-    p(0, 1420), p(-260, 900), // arms
-    p(0, 1420), p(260, 900),
-  ]
-  return new LineSegments(new BufferGeometry().setFromPoints([...head, ...body]), lines)
 }

@@ -81,13 +81,13 @@ export function DesignView() {
   }
 
   return (
-    <div className="page">
+    <div className="page page-wide">
       <PageMeta title={snippetFrom(design.prompt, 60)} description={snippetFrom(design.prompt)} path={designPath(design.id)} />
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-3)' }}>
+      <div className="view-bar">
         <Link to="/designs" className="text-muted back-link">
           ← Back to gallery
         </Link>
-        <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <div className="view-actions">
           <Link to="/design" state={{ fork: design } satisfies ForkState} className="btn btn-secondary">
             Fork
           </Link>
@@ -99,9 +99,9 @@ export function DesignView() {
         </div>
       </div>
       {deleteError && <p role="alert">{deleteError}</p>}
-      <header style={{ paddingBottom: 'var(--space-4)' }}>
+      <header className="view-header">
         <div className="post-meta">
-          {design.createdAt && <span className="text-muted feed-row-date">{formatDate(design.createdAt)}</span>}
+          {design.createdAt && <span className="text-muted">{formatDate(design.createdAt)}</span>}
           {design.forkedFrom && <ForkedFrom key={design.forkedFrom} id={design.forkedFrom} />}
         </div>
         <h1 className="title-post">{design.prompt}</h1>
@@ -110,12 +110,12 @@ export function DesignView() {
 
       {catalogueError && <p role="alert">{catalogueError}</p>}
       {catalogue && (
-        <>
-          <Suspense fallback={<p className="text-muted">Loading preview…</p>}>
+        <div className="design-grid">
+          <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
             <Preview layout={layout} catalogue={catalogue} />
           </Suspense>
           <PartsList layout={layout} catalogue={catalogue} notes={design.notes} />
-        </>
+        </div>
       )}
     </div>
   )

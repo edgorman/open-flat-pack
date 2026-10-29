@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageMeta } from '../components/PageMeta'
+import { Thumbnail } from '../components/Thumbnail'
 import { useApp } from '../context/AppContext'
+import { useCatalogue } from '../hooks/useCatalogue'
 import { designPath, errorMessage, type Design } from '../lib/api'
 import { formatDate, snippetFrom } from '../lib/format'
 
@@ -16,6 +18,8 @@ type State =
 /** Every published design, newest first, one page of `GET /designs` at a time. Readable signed out. */
 export function Gallery() {
   const { api } = useApp()
+  // Only for the thumbnails: without it the cards still list every design.
+  const { catalogue } = useCatalogue()
   const [state, setState] = useState<State>(api ? { phase: 'loading' } : { phase: 'unconfigured' })
 
   useEffect(() => {
@@ -54,7 +58,7 @@ export function Gallery() {
   }
 
   return (
-    <div className="page">
+    <div className="page page-wide">
       <PageMeta title="Gallery" path="/designs" />
       <header className="page-header">
         <span className="page-kicker text-muted">Gallery</span>
@@ -73,15 +77,18 @@ export function Gallery() {
       )}
       {state.phase === 'ready' && state.designs.length > 0 && (
         <>
-          {state.designs.map((design, i) => (
-            <Link key={design.id} to={designPath(design.id)} className="feed-row" style={{ animationDelay: `${i * 20}ms` }}>
-              <div className="feed-row-meta">
-                {design.createdAt && <span className="text-muted feed-row-date">{formatDate(design.createdAt)}</span>}
-                {design.authorUsername && <span className="text-muted feed-row-author">{design.authorUsername}</span>}
-              </div>
-              <h2 className="feed-title">{snippetFrom(design.prompt)}</h2>
-            </Link>
-          ))}
+          <div className="gallery">
+            {state.designs.map((design, i) => (
+              <Link key={design.id} to={designPath(design.id)} className="gallery-card" style={{ animationDelay: `${i * 20}ms` }}>
+                <div className="gallery-thumb">{catalogue && design.layout && <Thumbnail layout={design.layout} catalogue={catalogue} />}</div>
+                <h2 className="gallery-title">{snippetFrom(design.prompt, 90)}</h2>
+                <div className="gallery-meta text-muted">
+                  {design.authorUsername && <span>{design.authorUsername}</span>}
+                  {design.createdAt && <span>{formatDate(design.createdAt)}</span>}
+                </div>
+              </Link>
+            ))}
+          </div>
           {(state.hasMore || state.loadMoreError) && (
             <div className="feed-load-more">
               {state.loadMoreError && <p role="alert">{state.loadMoreError}</p>}

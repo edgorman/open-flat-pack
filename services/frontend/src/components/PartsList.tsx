@@ -1,5 +1,6 @@
 import type { Catalogue, Part } from '../gen/app/v1/catalogue'
 import type { Layout } from '../gen/app/v1/layout'
+import { finishColour } from '../lib/finishes'
 import { formatArticle } from '../lib/format'
 import { articleList, partsLines } from '../lib/partsList'
 
@@ -7,25 +8,30 @@ import { articleList, partsLines } from '../lib/partsList'
 export function PartsList({ layout, catalogue, notes }: { layout: Layout; catalogue: Catalogue; notes: string[] }) {
   const lines = partsLines(layout, catalogue)
   return (
-    <section>
+    <section className="card parts">
+      <h2 className="parts-title">Parts</h2>
       <table className="parts-list">
         <thead>
           <tr>
             <th>Part</th>
-            <th>Article number</th>
-            <th>Quantity</th>
+            <th>Qty</th>
           </tr>
         </thead>
         <tbody>
           {lines.map((line) => (
             <tr key={line.article}>
               <td>
-                <a href={`https://www.ikea.com/gb/en/p/-${line.article}/`} target="_blank" rel="noreferrer">
-                  {partLabel(line.part)}
-                </a>
+                <div className="parts-name">
+                  <span className="swatch" style={{ background: finishColour(line.part?.finish ?? '') }} aria-hidden="true" />
+                  <span>
+                    <a href={`https://www.ikea.com/gb/en/p/-${line.article}/`} target="_blank" rel="noreferrer">
+                      {partLabel(line.part)}
+                    </a>
+                    <span className="parts-article">{formatArticle(line.article)}</span>
+                  </span>
+                </div>
               </td>
-              <td>{formatArticle(line.article)}</td>
-              <td>{line.quantity}</td>
+              <td className="parts-qty">{line.quantity}</td>
             </tr>
           ))}
         </tbody>
@@ -34,7 +40,7 @@ export function PartsList({ layout, catalogue, notes }: { layout: Layout; catalo
         Copy article numbers
       </button>
       {notes.length > 0 && (
-        <ul>
+        <ul className="notes">
           {notes.map((note) => (
             <li key={note}>{note}</li>
           ))}

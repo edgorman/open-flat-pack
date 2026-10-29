@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { Api, Design } from '../lib/api'
+import { resetCatalogue } from '../hooks/useCatalogue'
 import { renderWithApp } from '../testUtils'
 import { Gallery } from './Gallery'
 
@@ -14,12 +15,14 @@ const design = (id: string, createdAt: string): Design => ({
 })
 
 describe('Gallery', () => {
+  beforeEach(resetCatalogue)
+
   it('lists designs newest first and pages on from the last one', async () => {
     const listDesigns = vi
       .fn()
       .mockResolvedValueOnce({ designs: [design('d1', '2026-10-02T00:00:00Z')], hasMore: true })
       .mockResolvedValueOnce({ designs: [design('d2', '2026-10-01T00:00:00Z')], hasMore: false })
-    renderWithApp(<Gallery />, { context: { api: { listDesigns } as unknown as Api }, route: '/designs' })
+    renderWithApp(<Gallery />, { context: { api: { listDesigns, getCatalogue: vi.fn().mockResolvedValue({ parts: [] }) } as unknown as Api }, route: '/designs' })
 
     expect(await screen.findByRole('link', { name: /A KALLAX d1/ })).toHaveAttribute('href', '/designs/d1')
     expect(screen.getByText('calm-smiling-kestrel')).toBeInTheDocument()
@@ -32,7 +35,7 @@ describe('Gallery', () => {
 
   it('says when there are no designs yet', async () => {
     const listDesigns = vi.fn().mockResolvedValue({ designs: [], hasMore: false })
-    renderWithApp(<Gallery />, { context: { api: { listDesigns } as unknown as Api }, route: '/designs' })
+    renderWithApp(<Gallery />, { context: { api: { listDesigns, getCatalogue: vi.fn().mockResolvedValue({ parts: [] }) } as unknown as Api }, route: '/designs' })
     expect(await screen.findByText(/No designs yet/)).toBeInTheDocument()
   })
 })
