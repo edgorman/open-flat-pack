@@ -5,7 +5,8 @@ import { buildBlueprint, finishColour, type Palette } from './blueprint'
 
 const palette: Palette = { ink: '#000', paper: '#fff', accent: '#00f' }
 
-// A 2x1 frame with two cells, a narrower underframe it stands on, and an insert for a cell.
+// A 2x1 frame with two cells, a narrower underframe it stands on, an insert for a cell, and a
+// bookcase with a door for its front.
 const catalogue: Catalogue = {
   parts: [
     {
@@ -35,6 +36,22 @@ const catalogue: Catalogue = {
       restsOn: ['cube'],
       offers: [],
     },
+    {
+      article: 'bookcase',
+      name: 'BILLY bookcase',
+      finish: 'white',
+      size: { w: 400, h: 1060, d: 280 },
+      restsOn: ['floor'],
+      offers: [{ name: 'front', kind: 'front', x: 0, y: 0, w: 400, h: 1060 }],
+    },
+    {
+      article: 'door',
+      name: 'OXBERG door',
+      finish: 'white',
+      size: { w: 400, h: 970, d: 20 },
+      restsOn: ['front'],
+      offers: [],
+    },
   ],
 }
 
@@ -47,6 +64,16 @@ function labels(layout: Layout): string[] {
 }
 
 describe('buildBlueprint', () => {
+  it("hangs a door on its bookcase's front face and leaves it out of the measures", () => {
+    const { object } = buildBlueprint(
+      { parts: [{ article: 'door', x: 0, y: 0 }, { article: 'bookcase', x: 0, y: 0 }] },
+      catalogue,
+      palette,
+    )
+    expect(object.children.map((g) => g.position.z)).toEqual([20, 0])
+    expect(labels({ parts: [{ article: 'bookcase', x: 0, y: 0 }, { article: 'door', x: 0, y: 0 }] })).toEqual(['106 cm', '40 cm'])
+  })
+
   it('measures each structural part and the whole, in cm', () => {
     const layout: Layout = {
       parts: [

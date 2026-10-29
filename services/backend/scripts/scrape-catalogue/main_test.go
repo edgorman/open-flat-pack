@@ -36,3 +36,28 @@ func TestCells(t *testing.T) {
 		}
 	}
 }
+
+func TestSlots(t *testing.T) {
+	for _, tt := range []struct {
+		name    string
+		size    *appv1.Size
+		restsOn []string
+		offers  []string
+	}{
+		{"BILLY bookcase", &appv1.Size{W: 800, H: 2020}, []string{"floor"}, []string{"billy_front", "billy_top"}},
+		{"BILLY bookcase", &appv1.Size{W: 800, H: 1060}, []string{"floor"}, []string{"billy_front"}},
+		{"BILLY height extension unit", &appv1.Size{W: 400, H: 350}, []string{"billy_top"}, []string{"billy_front"}},
+		{"OXBERG glass door", &appv1.Size{W: 400, H: 1920}, []string{"billy_front"}, nil},
+		{"KALLAX insert with door", &appv1.Size{W: 330, H: 330}, []string{"cube"}, nil},
+		{"BILLY corner fittings", &appv1.Size{W: 10, H: 10}, nil, nil},
+	} {
+		restsOn, offers := slots(tt.name, tt.size)
+		var names []string
+		for _, s := range offers {
+			names = append(names, s.Name)
+		}
+		if !slices.Equal(restsOn, tt.restsOn) || !slices.Equal(names, tt.offers) {
+			t.Errorf("slots(%q, %v) = %v, %v; want %v, %v", tt.name, tt.size, restsOn, names, tt.restsOn, tt.offers)
+		}
+	}
+}

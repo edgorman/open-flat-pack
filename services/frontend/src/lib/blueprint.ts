@@ -3,7 +3,7 @@
  * dimension lines, and a floor with a 10 cm grid and a scale bar. See docs/design/v1/0005-preview.md.
  *
  * Units are mm. x runs right and y up, as in the layout; z points at the viewer, with every part's
- * front face at z = 0 since they all stand against the same wall.
+ * front face at z = 0 since they all stand against the same wall, except doors, whose back is.
  */
 import {
   Box3,
@@ -57,19 +57,24 @@ interface Placed {
   part: Part
   x: number
   y: number
+  /** A door, which sits on its part's front face rather than behind it. */
+  inFront: boolean
 }
 
 type Interval = [number, number]
 
 export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette): Blueprint {
   const parts = new Map(catalogue.parts.map((p) => [p.article, p]))
-  const cellSlots = new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === 'cell').map((s) => s.name)))
+  const slotNames = (kind: string) =>
+    new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === kind).map((s) => s.name)))
+  const cellSlots = slotNames('cell')
+  const frontSlots = slotNames('front')
   const placed: Placed[] = layout.parts.flatMap(({ article, x, y }) => {
     const part = parts.get(article)
-    return part?.size ? [{ part, x, y }] : []
+    return part?.size ? [{ part, x, y, inFront: part.restsOn.some((name) => frontSlots.has(name)) }] : []
   })
-  // Structure is everything that does not sit in a cell: frames, underframes, legs.
-  const structure = placed.filter((p) => !p.part.restsOn.some((name) => cellSlots.has(name)))
+  // Structure is everything that does not sit in a cell or a front: frames, underframes, legs.
+  const structure = placed.filter((p) => !p.inFront && !p.part.restsOn.some((name) => cellSlots.has(name)))
 
   const object = new Group()
   const measures = new Group()
@@ -104,12 +109,12 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Pa
 }
 
 /** A part as a box, or, when it offers cells, as a carcass with a recessed cell at each. */
-function drawPart({ part, x, y }: Placed, outline: LineBasicMaterial): Group {
+function drawPart({ part, x, y, inFront }: Placed, outline: LineBasicMaterial): Group {
   const { w, h, d } = part.size!
   const colour = new Color(finishColour(part.finish))
   const cells = part.offers.filter((s) => s.kind === 'cell')
   const group = new Group()
-  group.position.set(x, y, 0)
+  group.position.set(x, y, inFront ? d : 0)
 
   let geometry: BufferGeometry
   if (cells.length === 0) {

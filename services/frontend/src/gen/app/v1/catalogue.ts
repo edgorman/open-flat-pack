@@ -51,12 +51,13 @@ export interface Size {
  * part's bottom-left corner, seen from the front.
  */
 export interface Slot {
-  /** What a resting part lists in its rests_on, e.g. "cube", "top" or "base". */
+  /** What a resting part lists in its rests_on, e.g. "cube", "top", "base" or "front". */
   name: string;
   /**
-   * "cell" (a resting part fills it exactly, one part per cell) or "surface" (a resting part sits
-   * wholly on it, possibly spanning several at the same height) - a plain string rather than an
-   * enum, see the "Contract Layer" section of `packages/protos/AGENTS.md`.
+   * "cell" (a resting part fills it exactly, one part per cell), "surface" (a resting part sits
+   * wholly on it, possibly spanning several at the same height) or "front" (resting parts lie
+   * wholly inside it, in front of the part, without overlapping each other) - a plain string
+   * rather than an enum, see the "Contract Layer" section of `packages/protos/AGENTS.md`.
    */
   kind: string;
   x: number;

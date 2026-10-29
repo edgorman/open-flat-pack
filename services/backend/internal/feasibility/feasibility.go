@@ -72,8 +72,9 @@ func Validate(layout *appv1.Layout, catalogue *appv1.Catalogue) *appv1.Validatio
 	}
 
 	// Rule 2: supported. Cells are claimed first, in layout order, so a later part that wants a
-	// taken cell is the one told about it and the nearest free cell is known for the rest.
-	host := make([]int, len(parts)) // the part whose cell each part sits in, or -1
+	// taken cell is the one told about it and the nearest free cell is known for the rest. A part in
+	// a front needs only to lie wholly inside one; rule 3 keeps the parts sharing it apart.
+	host := make([]int, len(parts)) // the part whose cell or front each part sits in, or -1
 	occupant := map[int]int{}       // index into slots -> the part in that cell
 	for i, part := range parts {
 		host[i] = -1
@@ -85,6 +86,8 @@ func Validate(layout *appv1.Layout, catalogue *appv1.Catalogue) *appv1.Validatio
 				occupant[c] = i
 				host[i] = slots[c].owner
 			}
+		} else if f := frontAround(slots, part.RestsOn, rects[i], i); f >= 0 {
+			host[i] = slots[f].owner
 		}
 	}
 	stacked := false
@@ -103,10 +106,12 @@ func Validate(layout *appv1.Layout, catalogue *appv1.Catalogue) *appv1.Validatio
 			v.Errors = append(v.Errors, partError(i, unsupported(slots, occupant, part, rects[i], i)))
 			unsupportedParts[i] = true
 		}
-		stacked = stacked || on == "top"
+		// Standing on another part's top makes a design stacked; the floor and an underframe's or
+		// legs' base don't.
+		stacked = stacked || (on != "" && on != "floor" && on != "base")
 	}
 
-	// Rule 3: no collisions, except a part and the part whose cell it sits in. A part with nothing
+	// Rule 3: no collisions, except a part and the part whose cell or front it sits in. A part with nothing
 	// to rest on has to move anyway, so what it overlaps where it is now is noise.
 	ok := func(i int) bool { return parts[i] != nil && !unsupportedParts[i] }
 	for j := range parts {
@@ -166,6 +171,18 @@ func cellAt(slots []slot, restsOn []string, r rect, self int) int {
 	return -1
 }
 
+// frontAround is the index of a front, named in restsOn and offered by another part, that holds
+// all of r, or -1.
+func frontAround(slots []slot, restsOn []string, r rect, self int) int {
+	for f, s := range slots {
+		if s.kind == "front" && s.owner != self && slices.Contains(restsOn, s.name) &&
+			r.x >= s.x && r.y >= s.y && r.x+r.w <= s.x+s.w && r.y+r.h <= s.y+s.h {
+			return f
+		}
+	}
+	return -1
+}
+
 // surfaceUnder is the name in restsOn of the surfaces that cover r's bottom edge, all but Overhang
 // mm of it, or "".
 // floor is a built-in surface at height 0 with no width limit.
@@ -202,8 +219,11 @@ func surfaceUnder(slots []slot, restsOn []string, r rect, self int) string {
 func unsupported(slots []slot, occupant map[int]int, part *appv1.Part, r rect, self int) string {
 	nearest := -1
 	var best int64
-	cellName := ""
+	cellName, frontName := "", ""
 	for c, s := range slots {
+		if s.kind == "front" && slices.Contains(part.RestsOn, s.name) {
+			frontName = s.name
+		}
 		if s.kind != "cell" || s.owner == self || !slices.Contains(part.RestsOn, s.name) {
 			continue
 		}
@@ -222,6 +242,8 @@ func unsupported(slots []slot, occupant map[int]int, part *appv1.Part, r rect, s
 		return fmt.Sprintf("%s does not fill a %s; nearest free %s is at x=%d, y=%d", describe(self, part), s.name, s.name, s.x, s.y)
 	case cellName != "":
 		return fmt.Sprintf("%s does not fill a %s, and every %s is taken", describe(self, part), cellName, cellName)
+	case frontName != "":
+		return fmt.Sprintf("%s does not lie wholly inside a %s", describe(self, part), frontName)
 	default:
 		return fmt.Sprintf("%s is not supported: its whole width must rest on %s", describe(self, part), strings.Join(part.RestsOn, " or "))
 	}
