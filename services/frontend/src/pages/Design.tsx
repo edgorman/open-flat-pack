@@ -129,6 +129,50 @@ export function Design() {
       })
   }
 
+  // Once there is a preview, the prompt sits under it, above the parts list on a phone.
+  const form = (
+    <form onSubmit={submit} className="prompt">
+      <label htmlFor="design-prompt" className="prompt-label">
+        {result ? 'What should change?' : 'What do you want?'}
+      </label>
+      <div className="prompt-bar">
+        <textarea
+          id="design-prompt"
+          className="prompt-input"
+          rows={2}
+          placeholder={result ? 'Make it one cube taller' : 'A white 4×4 KALLAX with two doors and legs'}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
+        <button type="submit" className="btn btn-primary" disabled={working || !prompt.trim()}>
+          {working ? 'Designing…' : result ? 'Refine' : 'Design'}
+        </button>
+      </div>
+      {result && (
+        <div className="prompt-actions">
+          {/* A fork needs a change before it is a new design, and a design needs a prompt. */}
+          {result.prompt && (
+            <button type="button" className="btn btn-accent" onClick={publish} disabled={working || invalid.length > 0}>
+              Publish
+            </button>
+          )}
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => {
+              setResult(null)
+              setForkedFrom('')
+              setInvalid([])
+            }}
+            disabled={working}
+          >
+            Start over
+          </button>
+        </div>
+      )}
+    </form>
+  )
+
   return (
     <div className="page page-wide">
       <header className="page-header">
@@ -136,46 +180,7 @@ export function Design() {
         <h1 className="title-editor">{result ? 'Refine your design' : 'Describe your shelving'}</h1>
       </header>
 
-      <form onSubmit={submit} className="prompt">
-        <label htmlFor="design-prompt" className="prompt-label">
-          {result ? 'What should change?' : 'What do you want?'}
-        </label>
-        <div className="prompt-bar">
-          <textarea
-            id="design-prompt"
-            className="prompt-input"
-            rows={2}
-            placeholder={result ? 'Make it one cube taller' : 'A white 4×4 KALLAX with two doors and legs'}
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-          />
-          <button type="submit" className="btn btn-primary" disabled={working || !prompt.trim()}>
-            {working ? 'Designing…' : result ? 'Refine' : 'Design'}
-          </button>
-        </div>
-        {result && (
-          <div className="prompt-actions">
-            {/* A fork needs a change before it is a new design, and a design needs a prompt. */}
-            {result.prompt && (
-              <button type="button" className="btn btn-accent" onClick={publish} disabled={working || invalid.length > 0}>
-                Publish
-              </button>
-            )}
-            <button
-              type="button"
-              className="btn btn-ghost"
-              onClick={() => {
-                setResult(null)
-                setForkedFrom('')
-                setInvalid([])
-              }}
-              disabled={working}
-            >
-              Start over
-            </button>
-          </div>
-        )}
-      </form>
+      {!(result && catalogue) && form}
 
       {designing && !result && <Designing />}
       {error && <p role="alert">{error}</p>}
@@ -202,16 +207,19 @@ export function Design() {
       {result && catalogue && <p className="text-muted">Press and hold a part to drag it somewhere else.</p>}
       {result && catalogue && (
         <div className="design-grid">
-          <div className="preview-frame">
-            <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
-              <Preview layout={result.layout} catalogue={catalogue} marks={marks} onDrop={working ? undefined : place} />
-            </Suspense>
-            {designing && (
-              <div className="preview-veil">
-                <span className="swirl" aria-hidden="true" />
-                <Designing />
-              </div>
-            )}
+          <div className="design-main">
+            <div className="preview-frame">
+              <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
+                <Preview layout={result.layout} catalogue={catalogue} marks={marks} onDrop={working ? undefined : place} />
+              </Suspense>
+              {designing && (
+                <div className="preview-veil">
+                  <span className="swirl" aria-hidden="true" />
+                  <Designing />
+                </div>
+              )}
+            </div>
+            {form}
           </div>
           <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />
         </div>
