@@ -6,6 +6,8 @@ import {
   DirectionalLight,
   HemisphereLight,
   type Material,
+  Mesh,
+  MeshBasicMaterial,
   type Object3D,
   PerspectiveCamera,
   Plane,
@@ -187,6 +189,13 @@ export function Preview({
     const down = new Vector2()
     let hold = 0
     let drag: { index: number; start: Vector3; moving: { o: Object3D; at: Vector3 }[]; by: Vector3 } | null = null
+    // While dragging, every other part is a faint ghost so its outline shows what it can go on.
+    const ghost = new MeshBasicMaterial({ color: palette.ink, transparent: true, opacity: 0.05, depthWrite: false })
+    let ghosted: { mesh: Mesh; material: Mesh['material'] }[] = []
+    const unghost = () => {
+      for (const { mesh, material } of ghosted) mesh.material = material
+      ghosted = []
+    }
     const onDown = (e: PointerEvent) => {
       down.set(e.clientX, e.clientY)
       window.clearTimeout(hold)
@@ -201,6 +210,15 @@ export function Preview({
         object.traverse((o) => {
           if (o.userData.name && held.has(o.userData.part as number)) moving.push({ o, at: o.position.clone() })
         })
+        for (const part of object.children.flatMap((c) => (c === fronts ? c.children : [c]))) {
+          if (held.has(part.userData.part as number)) continue
+          part.traverse((o) => {
+            if (o instanceof Mesh) {
+              ghosted.push({ mesh: o, material: o.material })
+              o.material = ghost
+            }
+          })
+        }
         controls.enabled = false
         tag.visible = false
         drag = { index, start, moving, by: new Vector3() }
@@ -229,6 +247,7 @@ export function Preview({
         container.classList.remove('dragging')
         // Back where it was until the new layout, if any, redraws the scene.
         for (const { o, at } of moving) o.position.copy(at)
+        unghost()
         render()
         const from = layout.parts[index]
         dropped.current?.(index, from.x + by.x, from.y + by.y)
@@ -275,6 +294,8 @@ export function Preview({
 
     return () => {
       window.clearTimeout(hold)
+      unghost()
+      ghost.dispose()
       saved.current = { position: camera.position.clone(), target: controls.target.clone() }
       view.current = null
       observer.disconnect()
