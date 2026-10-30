@@ -1,7 +1,7 @@
 import { ExtrudeGeometry, Mesh, type MeshStandardMaterial } from 'three'
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js'
 import type { Catalogue, Layout } from './api'
-import { buildBlueprint, finishColour, scramble, type Palette } from './blueprint'
+import { buildBlueprint, finishColour, type Palette } from './blueprint'
 
 const palette: Palette = { ink: '#000', paper: '#fff', accent: '#00f' }
 
@@ -119,18 +119,5 @@ describe('finishColour', () => {
   it('falls back to the first tone, then to grey', () => {
     expect(finishColour('black/off-white')).toBe(finishColour('black'))
     expect(finishColour('chartreuse')).toBe('#b5b5b5')
-  })
-})
-
-describe('scramble', () => {
-  it('stands random floor parts side by side', () => {
-    const rolls = [0.99, 0, 0.99, 0, 0.99]
-    const { parts } = scramble(catalogue, () => rolls.shift()!)
-    expect(parts).toEqual([
-      { article: 'frame', x: 0, y: 0 },
-      { article: 'bookcase', x: 770, y: 0 },
-      { article: 'frame', x: 1170, y: 0 },
-      { article: 'bookcase', x: 1940, y: 0 },
-    ])
   })
 })

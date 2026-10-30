@@ -31,9 +31,8 @@ describe('Design', () => {
 
     await userEvent.type(screen.getByLabelText('What do you want?'), 'A 2x2 KALLAX')
     await userEvent.click(screen.getByRole('button', { name: 'Design' }))
-    // The shuffling preview shows while designing, so wait for the real result's notes.
-    expect(await screen.findByText('Fix to the wall.')).toBeInTheDocument()
-    expect(screen.getByText('preview')).toBeInTheDocument()
+    expect(await screen.findByText('preview')).toBeInTheDocument()
+    expect(screen.getByText('Fix to the wall.')).toBeInTheDocument()
     expect(createLayout).toHaveBeenCalledWith({ prompt: 'A 2x2 KALLAX', baseLayout: undefined })
 
     await userEvent.type(screen.getByLabelText('What should change?'), 'Taller')
@@ -41,18 +40,21 @@ describe('Design', () => {
     expect(createLayout).toHaveBeenLastCalledWith({ prompt: 'Taller', baseLayout: layout })
   })
 
-  it('shuffles the preview behind a veil while designing', async () => {
+  it('veils the current design while refining it', async () => {
     let resolve!: (v: unknown) => void
-    setup(vi.fn(() => new Promise((r) => (resolve = r))) as Api['createLayout'])
+    const createLayout = vi.fn().mockResolvedValueOnce({ layout, validation: { errors: [], notes: [] } })
+    createLayout.mockImplementationOnce(() => new Promise((r) => (resolve = r)))
+    setup(createLayout)
 
     await userEvent.type(screen.getByLabelText('What do you want?'), 'A 2x2 KALLAX')
     await userEvent.click(screen.getByRole('button', { name: 'Design' }))
+    await userEvent.type(await screen.findByLabelText('What should change?'), 'Taller')
+    await userEvent.click(screen.getByRole('button', { name: 'Refine' }))
     expect(await screen.findByRole('status')).toHaveTextContent('Designing')
     expect(screen.getByText('preview')).toBeInTheDocument()
 
     resolve({ layout, validation: { errors: [], notes: [] } })
     await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument())
-    expect(screen.getByLabelText('What should change?')).toBeInTheDocument()
   })
 
   it('lists the remaining errors on a 422', async () => {
