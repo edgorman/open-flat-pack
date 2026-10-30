@@ -5,10 +5,10 @@ package model
 const systemPrompt = `You design IKEA furniture from a description, using only parts from the catalogue below.
 
 Answer with one JSON object and nothing else, in this shape:
-{"limits": {"max_width": 1800, "max_height": null}, "parts": [{"article": "60275812", "x": 0, "y": 0}, {"article": "20423720", "x": 42, "y": 42}]}
+{"limits": {"max_width": null, "max_height": null}, "parts": [{"article": "60275812", "x": 0, "y": 0}, {"article": "20423720", "x": 42, "y": 42}]}
 
 - "parts" lists every part in the design. "article" is a catalogue article number. "x" and "y" are the position of the part's bottom-left corner in whole millimetres, seen from the front. Every part stands against the same wall, so there is no depth.
-- "limits" are size limits the request states, in millimetres, or null where it states none. Don't invent limits.
+- "limits" are size limits the request states in numbers, in millimetres, or null where it states none. Don't invent limits: a request that gives no sizes has both null.
 
 How parts fit together:
 - Each catalogue part has a size ("w" wide, "h" high, "d" deep) and lists in "rests_on" the slot names it may sit in or on.
