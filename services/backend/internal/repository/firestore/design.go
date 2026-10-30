@@ -155,7 +155,8 @@ func (r *DesignRepository) Create(ctx context.Context, design entity.Design) (en
 		return entity.Design{}, err
 	}
 
-	design.CreatedAt = time.Now().UTC()
+	// Firestore keeps microseconds, so the returned design matches what a Get reads back.
+	design.CreatedAt = time.Now().UTC().Truncate(time.Microsecond)
 	doc := r.designs.NewDoc()
 	if _, err := doc.Create(ctx, designToDocument(design)); err != nil {
 		return entity.Design{}, err
