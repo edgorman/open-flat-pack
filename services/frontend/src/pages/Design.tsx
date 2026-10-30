@@ -1,10 +1,11 @@
-import { lazy, Suspense, useMemo, useRef, useState, type FormEvent } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GoogleSignInButton } from '../components/GoogleSignInButton'
 import { PartsList } from '../components/PartsList'
 import { useApp } from '../context/AppContext'
 import { useCatalogue } from '../hooks/useCatalogue'
 import { ApiError, designPath, errorMessage, type Design as DesignType, type Layout, type Validation } from '../lib/api'
+import { scramble } from '../lib/blueprint'
 import { move, type Direction } from '../lib/move'
 
 // Three.js is most of the bundle, so it loads only once there is something to draw.
@@ -49,6 +50,11 @@ export function Design() {
     fork ? { layout: fork.layout ?? { parts: [] }, notes: fork.notes, prompt: '' } : null,
   )
   const [working, setWorking] = useState(false)
+  // Set while a prompt is with the model, as opposed to publishing.
+  const [designing, setDesigning] = useState(false)
+  // A made-up layout the preview shuffles through behind a veil while designing, numbered so each
+  // one is a fresh preview, framed to fit, rather than keeping the last one's camera.
+  const [shuffle, setShuffle] = useState<{ layout: Layout; frame: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [problems, setProblems] = useState<string[]>([])
   // The part being moved, and what the validator says about the layout after the last move.
@@ -62,6 +68,18 @@ export function Design() {
     if (selected !== null) out[selected] = SELECTED
     return out
   }, [invalid, selected])
+
+  useEffect(() => {
+    if (!designing || !catalogue) return
+    let frame = 0
+    const next = () => setShuffle({ layout: scramble(catalogue), frame: frame++ })
+    next()
+    const timer = setInterval(next, 2500)
+    return () => {
+      clearInterval(timer)
+      setShuffle(null)
+    }
+  }, [designing, catalogue])
 
   if (!api) {
     return (
@@ -82,6 +100,7 @@ export function Design() {
   const submit = (e: FormEvent) => {
     e.preventDefault()
     setWorking(true)
+    setDesigning(true)
     setError(null)
     setProblems([])
     checks.current++
@@ -97,7 +116,10 @@ export function Design() {
         setProblems(problemsOf(e))
         setError(problemsOf(e).length ? "Couldn't make a buildable design from that. Try rephrasing it." : errorMessage(e, 'Failed to design'))
       })
-      .finally(() => setWorking(false))
+      .finally(() => {
+        setWorking(false)
+        setDesigning(false)
+      })
   }
 
   // Moves the selected part, then has the backend check the result; it stays editable either way.
@@ -182,7 +204,7 @@ export function Design() {
         )}
       </form>
 
-      {working && <p className="text-muted">Designing - this can take a few seconds…</p>}
+      {designing && !shuffle && <Designing />}
       {error && <p role="alert">{error}</p>}
       {problems.length > 0 && (
         <ul>
@@ -223,14 +245,39 @@ export function Design() {
           )}
         </div>
       )}
-      {result && catalogue && (
+      {(result || shuffle) && catalogue && (
         <div className="design-grid">
-          <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
-            <Preview layout={result.layout} catalogue={catalogue} marks={marks} onPick={working ? undefined : setSelected} />
-          </Suspense>
-          <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />
+          <div className="preview-frame">
+            <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
+              {shuffle ? (
+                <Preview key={shuffle.frame} layout={shuffle.layout} catalogue={catalogue} />
+              ) : (
+                <Preview key="design" layout={result!.layout} catalogue={catalogue} marks={marks} onPick={working ? undefined : setSelected} />
+              )}
+            </Suspense>
+            {shuffle && (
+              <div className="preview-veil">
+                <Designing />
+              </div>
+            )}
+          </div>
+          {result && <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />}
         </div>
       )}
     </div>
+  )
+}
+
+/** The status shown while a prompt is with the model, its ellipsis animated in CSS. */
+function Designing() {
+  return (
+    <p role="status" className="text-muted designing">
+      Designing
+      <span className="ellipsis" aria-hidden="true">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+      </span>
+    </p>
   )
 }
