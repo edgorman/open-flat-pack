@@ -6,8 +6,11 @@ import {
   DirectionalLight,
   HemisphereLight,
   type Material,
+  Mesh,
+  MeshBasicMaterial,
   type Object3D,
   PerspectiveCamera,
+  Plane,
   Raycaster,
   Scene,
   Sphere,
@@ -20,9 +23,12 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { CSS2DObject, CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js'
 import { useApp } from '../context/AppContext'
 import type { Catalogue, Layout } from '../lib/api'
+import { carried } from '../lib/move'
 import { buildBlueprint, type Palette } from '../lib/blueprint'
 
 const FOV = 30
+/** How long a part must be pressed before it can be dragged, in ms. */
+const HOLD_MS = 350
 
 /** Scene colours per theme, matching the page tokens in index.css. */
 const PALETTES: Record<'light' | 'dark', Palette> = {
@@ -56,19 +62,20 @@ function declutter(root: HTMLElement) {
 }
 
 /**
- * With `onPick`, tapping a part also calls it with the part's index in the layout, and tapping
- * nothing with null. `marks` tints parts by index. The camera stays put when the layout changes.
+ * With `onDrop`, pressing and holding a part picks it up, with everything it holds, to drag across
+ * the wall; letting go calls `onDrop` with its index in the layout and where its bottom-left corner
+ * was dropped, in mm. `marks` tints parts by index. The camera stays put when the layout changes.
  */
 export function Preview({
   layout,
   catalogue,
   marks,
-  onPick,
+  onDrop,
 }: {
   layout: Layout
   catalogue: Catalogue
   marks?: Record<number, string>
-  onPick?: (index: number | null) => void
+  onDrop?: (index: number, x: number, y: number) => void
 }) {
   const { theme } = useApp()
   const ref = useRef<HTMLDivElement>(null)
@@ -89,9 +96,9 @@ export function Preview({
   )
   // Where the camera was when the scene was last torn down, so a rebuild keeps the view.
   const saved = useRef<{ position: Vector3; target: Vector3 } | null>(null)
-  const pick = useRef(onPick)
+  const dropped = useRef(onDrop)
   useEffect(() => {
-    pick.current = onPick
+    dropped.current = onDrop
   })
 
   useEffect(() => {
@@ -159,25 +166,104 @@ export function Preview({
     tag.visible = false
     scene.add(tag)
     const raycaster = new Raycaster()
-    const down = new Vector2()
-    const onDown = (e: PointerEvent) => down.set(e.clientX, e.clientY)
-    const onUp = (e: PointerEvent) => {
-      if (down.distanceTo(new Vector2(e.clientX, e.clientY)) > 5) return
+    const aim = (x: number, y: number) => {
       const r = renderer.domElement.getBoundingClientRect()
-      raycaster.setFromCamera(new Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera)
+      raycaster.setFromCamera(new Vector2(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1), camera)
+    }
+    const partAt = (x: number, y: number) => {
+      aim(x, y)
       const shown = (o: Object3D | null): boolean => !o || (o.visible && shown(o.parent))
       const hit = raycaster.intersectObject(object).find((i) => shown(i.object))
       let part: Object3D | null = hit?.object ?? null
       while (part && !part.userData.name) part = part.parent
-      tag.visible = !!part
-      if (hit && part) {
-        tag.element.textContent = part.userData.name
+      return hit && part ? { part, point: hit.point } : null
+    }
+    // Where the pointer meets the wall plane, which every part's front stands on.
+    const wall = new Plane(new Vector3(0, 0, 1), 0)
+    const onWall = (x: number, y: number) => {
+      aim(x, y)
+      return raycaster.ray.intersectPlane(wall, new Vector3())
+    }
+
+    // Holding a part still for a moment picks it up, and the orbit stops while it is dragged.
+    const down = new Vector2()
+    let hold = 0
+    let drag: { index: number; start: Vector3; moving: { o: Object3D; at: Vector3 }[]; by: Vector3 } | null = null
+    // While dragging, every other part is a faint ghost so its outline shows what it can go on.
+    const ghost = new MeshBasicMaterial({ color: palette.ink, transparent: true, opacity: 0.05, depthWrite: false })
+    let ghosted: { mesh: Mesh; material: Mesh['material'] }[] = []
+    const unghost = () => {
+      for (const { mesh, material } of ghosted) mesh.material = material
+      ghosted = []
+    }
+    const onDown = (e: PointerEvent) => {
+      down.set(e.clientX, e.clientY)
+      window.clearTimeout(hold)
+      if (!dropped.current) return
+      hold = window.setTimeout(() => {
+        const hit = partAt(down.x, down.y)
+        const start = onWall(down.x, down.y)
+        if (!hit || !start) return
+        const index = hit.part.userData.part as number
+        const held = carried(layout, catalogue, index)
+        const moving: { o: Object3D; at: Vector3 }[] = []
+        object.traverse((o) => {
+          if (o.userData.name && held.has(o.userData.part as number)) moving.push({ o, at: o.position.clone() })
+        })
+        for (const part of object.children.flatMap((c) => (c === fronts ? c.children : [c]))) {
+          if (held.has(part.userData.part as number)) continue
+          part.traverse((o) => {
+            if (o instanceof Mesh) {
+              ghosted.push({ mesh: o, material: o.material })
+              o.material = ghost
+            }
+          })
+        }
+        controls.enabled = false
+        tag.visible = false
+        drag = { index, start, moving, by: new Vector3() }
+        container.classList.add('dragging')
+        navigator.vibrate?.(15)
+        render()
+      }, HOLD_MS)
+    }
+    const onMove = (e: PointerEvent) => {
+      if (!drag) {
+        if (down.distanceTo(new Vector2(e.clientX, e.clientY)) > 5) window.clearTimeout(hold)
+        return
+      }
+      const at = onWall(e.clientX, e.clientY)
+      if (!at) return
+      drag.by.set(at.x - drag.start.x, at.y - drag.start.y, 0)
+      for (const { o, at: from } of drag.moving) o.position.copy(from).add(drag.by)
+      render()
+    }
+    const onUp = (e: PointerEvent) => {
+      window.clearTimeout(hold)
+      if (drag) {
+        const { index, moving, by } = drag
+        drag = null
+        controls.enabled = true
+        container.classList.remove('dragging')
+        // Back where it was until the new layout, if any, redraws the scene.
+        for (const { o, at } of moving) o.position.copy(at)
+        unghost()
+        render()
+        const from = layout.parts[index]
+        dropped.current?.(index, from.x + by.x, from.y + by.y)
+        return
+      }
+      if (down.distanceTo(new Vector2(e.clientX, e.clientY)) > 5) return
+      const hit = partAt(e.clientX, e.clientY)
+      tag.visible = !!hit
+      if (hit) {
+        tag.element.textContent = hit.part.userData.name
         tag.position.copy(hit.point)
       }
       render()
-      pick.current?.(part ? (part.userData.part as number) : null)
     }
     renderer.domElement.addEventListener('pointerdown', onDown)
+    renderer.domElement.addEventListener('pointermove', onMove)
     renderer.domElement.addEventListener('pointerup', onUp)
 
     measures.visible = measuresOn.current
@@ -207,6 +293,9 @@ export function Preview({
     observer.observe(container)
 
     return () => {
+      window.clearTimeout(hold)
+      unghost()
+      ghost.dispose()
       saved.current = { position: camera.position.clone(), target: controls.target.clone() }
       view.current = null
       observer.disconnect()

@@ -17,7 +17,7 @@ A Three.js scene in the browser, drawn from the layout and the catalogue, so it 
 
 ## Moving parts
 
-While a design is unpublished, clicking a part selects it and arrow buttons move it. Each press jumps the part to the nearest spot in that direction where it can rest: a free cell, a surface such as a frame's top, or the floor beside another part. Sideways moves keep to the nearest row, up and down to the nearest column. Everything resting in or on the part moves with it, so moving an underframe carries its frame and inserts.
+While a design is unpublished, pressing and holding a part picks it up, and dragging moves it across the wall. While it is dragged every other part fades to its outline. Letting go snaps it to the nearest spot where it can rest: a free cell, a surface such as a frame's top, or the floor where it was dropped or beside another part. Everything resting in or on the part moves with it, so moving an underframe carries its frame and inserts. A short tap still names the part, and a drag that starts without the hold orbits the view.
 
 After each move the layout goes to `POST /layouts/check`, which runs [feasibility](0004-feasibility.md) alone, with no model call, and answers with its errors and build notes. Parts with errors are tinted red and Publish waits until there are none; a refine prompt can fix them too, since it starts from the edited layout.
 

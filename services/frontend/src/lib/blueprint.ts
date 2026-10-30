@@ -74,7 +74,7 @@ interface Placed {
 type Interval = [number, number]
 
 /**
- * `marks` tints parts by their index in the layout, such as the one selected for moving. Each
+ * `marks` tints parts by their index in the layout, such as ones the validator objects to. Each
  * part's group carries that index as `userData.part`, for picking.
  */
 export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette, marks: Record<number, string> = {}): Blueprint {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Catalogue } from './api'
-import { move } from './move'
+import { carried, drop } from './move'
 
 // A 2x1 frame, the underframe it stands on, an insert for its cells and a bookcase.
 const catalogue: Catalogue = {
@@ -32,28 +32,28 @@ const catalogue: Catalogue = {
 const frame = { article: 'frame', x: 0, y: 0 }
 const insert = { article: 'insert', x: 42, y: 37 }
 
-describe('move', () => {
-  it('steps an insert to the next free cell, and no further', () => {
-    const moved = move({ parts: [frame, insert] }, catalogue, 1, 'right')
-    expect(moved?.parts[1]).toMatchObject({ x: 392, y: 37 })
-    expect(move(moved!, catalogue, 1, 'right')).toBeNull()
+describe('drop', () => {
+  it('snaps an insert to the free cell nearest where it was dropped', () => {
+    expect(drop({ parts: [frame, insert] }, catalogue, 1, 500, 100)?.parts[1]).toMatchObject({ x: 392, y: 37 })
   })
 
   it('skips a taken cell', () => {
-    expect(move({ parts: [frame, insert, { article: 'insert', x: 392, y: 37 }] }, catalogue, 1, 'right')).toBeNull()
+    const layout = { parts: [frame, insert, { article: 'insert', x: 392, y: 37 }] }
+    expect(drop(layout, catalogue, 1, 392, 37)?.parts[1]).toMatchObject({ x: 42, y: 37 })
   })
 
-  it('carries what stands on a part, up to its neighbour on the floor and then past it', () => {
+  it('carries what stands on a part, and stands it on the floor where it was dropped', () => {
     const layout = {
       parts: [{ article: 'underframe', x: 0, y: 0 }, { article: 'frame', x: 0, y: 180 }, { article: 'insert', x: 42, y: 217 }, { article: 'bookcase', x: 800, y: 0 }],
     }
-    const touching = move(layout, catalogue, 0, 'right')!
-    expect(touching.parts.map((p) => p.x)).toEqual([40, 40, 82, 800])
-    expect(move(touching, catalogue, 0, 'right')?.parts).toEqual([
-      { article: 'underframe', x: 1200, y: 0 },
-      { article: 'frame', x: 1200, y: 180 },
-      { article: 'insert', x: 1242, y: 217 },
+    expect([...carried(layout, catalogue, 0)]).toEqual([0, 1, 2])
+    expect(drop(layout, catalogue, 0, 1500, 300)?.parts).toEqual([
+      { article: 'underframe', x: 1500, y: 0 },
+      { article: 'frame', x: 1500, y: 180 },
+      { article: 'insert', x: 1542, y: 217 },
       { article: 'bookcase', x: 800, y: 0 },
     ])
+    // Dropped overlapping the bookcase, it snaps beside it instead.
+    expect(drop(layout, catalogue, 0, 1000, 0)?.parts[0]).toMatchObject({ x: 1200, y: 0 })
   })
 })

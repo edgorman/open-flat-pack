@@ -521,14 +521,6 @@ a {
   gap: var(--space-2);
   padding-left: var(--space-3);
 }
-.move-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: 36px;
-  margin-bottom: var(--space-2);
-}
 .design-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
@@ -675,6 +667,13 @@ a {
 .blueprint-canvas {
   position: absolute;
   inset: 0;
+  /* A long press drags a part, so it mustn't select text or open a callout. */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.blueprint-canvas.dragging {
+  cursor: grabbing;
 }
 .blueprint-labels {
   position: absolute;
