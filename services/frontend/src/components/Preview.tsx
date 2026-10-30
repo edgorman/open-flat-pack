@@ -6,8 +6,11 @@ import {
   DirectionalLight,
   HemisphereLight,
   type Material,
+  type Object3D,
   PerspectiveCamera,
+  Raycaster,
   Scene,
+  Vector2,
   Sphere,
   Vector3,
   VSMShadowMap,
@@ -52,7 +55,21 @@ function declutter(root: HTMLElement) {
   }
 }
 
-export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Catalogue }) {
+/**
+ * With `onPick`, a click on a part calls it with the part's index in the layout, and a click on
+ * nothing with null. `marks` tints parts by index. The camera stays put when the layout changes.
+ */
+export function Preview({
+  layout,
+  catalogue,
+  marks,
+  onPick,
+}: {
+  layout: Layout
+  catalogue: Catalogue
+  marks?: Record<number, string>
+  onPick?: (index: number | null) => void
+}) {
   const { theme } = useApp()
   const ref = useRef<HTMLDivElement>(null)
   const [showMeasures, setShowMeasures] = useState(true)
@@ -60,11 +77,17 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
   const measuresOn = useRef(true)
   // Set by the scene once it is built, so the toolbar can move the camera and hide the dimensions.
   const view = useRef<{ look: (from: Vector3) => void; measures: (on: boolean) => void } | null>(null)
+  // Where the camera was when the scene was last torn down, so a rebuild keeps the view.
+  const saved = useRef<{ position: Vector3; target: Vector3 } | null>(null)
+  const pick = useRef(onPick)
+  useEffect(() => {
+    pick.current = onPick
+  })
 
   useEffect(() => {
     const container = ref.current!
     const palette = PALETTES[theme]
-    const { object, measures, floor, bounds } = buildBlueprint(layout, catalogue, palette)
+    const { object, measures, floor, bounds } = buildBlueprint(layout, catalogue, palette, marks)
 
     const scene = new Scene()
     scene.background = new Color(palette.paper)
@@ -129,13 +152,34 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
       },
     }
     resize()
-    look(START)
+    if (saved.current) {
+      camera.position.copy(saved.current.position)
+      controls.target.copy(saved.current.target)
+      controls.update()
+      render()
+    } else look(START)
+
+    // A click, not the end of an orbit, picks the part under the pointer.
+    let down = new Vector2()
+    const onDown = (e: PointerEvent) => (down = new Vector2(e.clientX, e.clientY))
+    const onUp = (e: PointerEvent) => {
+      if (!pick.current || down.distanceTo(new Vector2(e.clientX, e.clientY)) > 4) return
+      const box = renderer.domElement.getBoundingClientRect()
+      const ray = new Raycaster()
+      ray.setFromCamera(new Vector2(((e.clientX - box.left) / box.width) * 2 - 1, -((e.clientY - box.top) / box.height) * 2 + 1), camera)
+      let hit: Object3D | null = ray.intersectObject(object).find((h) => h.object.type === 'Mesh')?.object ?? null
+      while (hit && hit.userData.part === undefined) hit = hit.parent
+      pick.current(hit ? (hit.userData.part as number) : null)
+    }
+    renderer.domElement.addEventListener('pointerdown', onDown)
+    renderer.domElement.addEventListener('pointerup', onUp)
 
     controls.addEventListener('change', render)
     const observer = new ResizeObserver(resize)
     observer.observe(container)
 
     return () => {
+      saved.current = { position: camera.position.clone(), target: controls.target.clone() }
       view.current = null
       observer.disconnect()
       controls.dispose()
@@ -147,7 +191,7 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
       renderer.domElement.remove()
       labels.domElement.remove()
     }
-  }, [layout, catalogue, theme])
+  }, [layout, catalogue, theme, marks])
 
   return (
     <div className="blueprint">

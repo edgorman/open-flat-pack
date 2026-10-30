@@ -55,6 +55,8 @@ export interface Blueprint {
 
 interface Placed {
   part: Part
+  /** Its index in the layout. */
+  index: number
   x: number
   y: number
   /** A door, which sits on its part's front face rather than behind it. */
@@ -63,15 +65,19 @@ interface Placed {
 
 type Interval = [number, number]
 
-export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette): Blueprint {
+/**
+ * `marks` tints parts by their index in the layout, such as the one selected for moving. Each
+ * part's group carries that index as `userData.part`, for picking.
+ */
+export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette, marks: Record<number, string> = {}): Blueprint {
   const parts = new Map(catalogue.parts.map((p) => [p.article, p]))
   const slotNames = (kind: string) =>
     new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === kind).map((s) => s.name)))
   const heldSlots = new Set([...slotNames('cell'), ...slotNames('inside')])
   const frontSlots = slotNames('front')
-  const placed: Placed[] = layout.parts.flatMap(({ article, x, y }) => {
+  const placed: Placed[] = layout.parts.flatMap(({ article, x, y }, index) => {
     const part = parts.get(article)
-    return part?.size ? [{ part, x, y, inFront: part.restsOn.some((name) => frontSlots.has(name)) }] : []
+    return part?.size ? [{ part, index, x, y, inFront: part.restsOn.some((name) => frontSlots.has(name)) }] : []
   })
   // Structure is everything that does not sit in a cell, a front or an inside: frames, underframes.
   const structure = placed.filter((p) => !p.inFront && !p.part.restsOn.some((name) => heldSlots.has(name)))
@@ -81,7 +87,7 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Pa
   const floor = new Group()
   // A quiet outline in both themes, so a white part keeps its edges without looking drawn in pen.
   const outline = new LineBasicMaterial({ color: '#1d2129', transparent: true, opacity: 0.3 })
-  for (const p of placed) object.add(drawPart(p, outline))
+  for (const p of placed) object.add(drawPart(p, outline, marks[p.index]))
   if (placed.length === 0) return { object, measures, floor, bounds: new Box3(new Vector3(), new Vector3()) }
 
   const { min, max } = new Box3().setFromObject(object)
@@ -109,12 +115,17 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Pa
 }
 
 /** A part as a box, or, when it offers cells or an inside, as a carcass with a recess at each. */
-function drawPart({ part, x, y, inFront }: Placed, outline: LineBasicMaterial): Group {
+function drawPart({ part, index, x, y, inFront }: Placed, outline: LineBasicMaterial, mark?: string): Group {
   const { w, h, d } = part.size!
   const colour = new Color(finishColour(part.finish))
   const cells = part.offers.filter((s) => s.kind === 'cell' || s.kind === 'inside')
   const group = new Group()
   group.position.set(x, y, inFront ? d : 0)
+  group.userData.part = index
+  if (mark) {
+    colour.lerp(new Color(mark), 0.45)
+    outline = new LineBasicMaterial({ color: mark })
+  }
 
   let geometry: BufferGeometry
   if (cells.length === 0) {

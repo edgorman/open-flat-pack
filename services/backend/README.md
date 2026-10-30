@@ -24,6 +24,7 @@ JSON:
 | `GET /health`, `/debug`  | none     | The Debug Endpoint Contract above                             |
 | `GET /catalogue`         | none     | Every part a design may use; cacheable for an hour            |
 | `POST /layouts`          | required | Turn a prompt into a buildable layout; 422 with the errors if the model can't, 503 past the daily call limit |
+| `POST /layouts/check`    | none     | Validate a hand-edited layout; always 200 with its errors and build notes |
 | `GET /designs`           | none     | One page of designs, newest first, each with its build notes  |
 | `GET /designs/{id}`      | none     | One design                                                    |
 | `POST /designs`          | required | Publish a layout as a design; 422 with the errors if it isn't buildable |
