@@ -1,11 +1,10 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
+import { lazy, Suspense, useMemo, useRef, useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GoogleSignInButton } from '../components/GoogleSignInButton'
 import { PartsList } from '../components/PartsList'
 import { useApp } from '../context/AppContext'
 import { useCatalogue } from '../hooks/useCatalogue'
 import { ApiError, designPath, errorMessage, type Design as DesignType, type Layout, type Validation } from '../lib/api'
-import { scramble } from '../lib/blueprint'
 import { drop } from '../lib/move'
 
 // Three.js is most of the bundle, so it loads only once there is something to draw.
@@ -44,9 +43,6 @@ export function Design() {
   const [working, setWorking] = useState(false)
   // Set while a prompt is with the model, as opposed to publishing.
   const [designing, setDesigning] = useState(false)
-  // A made-up layout the preview shuffles through behind a veil while designing, numbered so each
-  // one is a fresh preview, framed to fit, rather than keeping the last one's camera.
-  const [shuffle, setShuffle] = useState<{ layout: Layout; frame: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [problems, setProblems] = useState<string[]>([])
   // What the validator says about the layout after the last move.
@@ -58,18 +54,6 @@ export function Design() {
     for (const e of invalid) if (e.part !== undefined) out[e.part] = INVALID
     return out
   }, [invalid])
-
-  useEffect(() => {
-    if (!designing || !catalogue) return
-    let frame = 0
-    const next = () => setShuffle({ layout: scramble(catalogue), frame: frame++ })
-    next()
-    const timer = setInterval(next, 2500)
-    return () => {
-      clearInterval(timer)
-      setShuffle(null)
-    }
-  }, [designing, catalogue])
 
   if (!api) {
     return (
@@ -193,7 +177,7 @@ export function Design() {
         )}
       </form>
 
-      {designing && !shuffle && <Designing />}
+      {designing && !result && <Designing />}
       {error && <p role="alert">{error}</p>}
       {problems.length > 0 && (
         <ul>
@@ -215,24 +199,21 @@ export function Design() {
       )}
 
       {result && catalogueError && <p role="alert">{catalogueError}</p>}
-      {result && catalogue && !shuffle && <p className="text-muted">Press and hold a part to drag it somewhere else.</p>}
-      {(result || shuffle) && catalogue && (
+      {result && catalogue && <p className="text-muted">Press and hold a part to drag it somewhere else.</p>}
+      {result && catalogue && (
         <div className="design-grid">
           <div className="preview-frame">
             <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
-              {shuffle ? (
-                <Preview key={shuffle.frame} layout={shuffle.layout} catalogue={catalogue} />
-              ) : (
-                <Preview key="design" layout={result!.layout} catalogue={catalogue} marks={marks} onDrop={working ? undefined : place} />
-              )}
+              <Preview layout={result.layout} catalogue={catalogue} marks={marks} onDrop={working ? undefined : place} />
             </Suspense>
-            {shuffle && (
+            {designing && (
               <div className="preview-veil">
+                <span className="swirl" aria-hidden="true" />
                 <Designing />
               </div>
             )}
           </div>
-          {result && <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />}
+          <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />
         </div>
       )}
     </div>
