@@ -62,7 +62,7 @@ func (s *Service) CreateLayout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var validation *appv1.Validation
-	for range layoutRetries + 1 {
+	for attempt := range layoutRetries + 1 {
 		spent, err := s.modelCalls.Spend(r.Context(), time.Now().UTC().Format(time.DateOnly), s.cfg.ModelDailyCallLimit)
 		if err != nil {
 			s.logger().Error("counting a model call failed", "error", err)
@@ -77,6 +77,7 @@ func (s *Service) CreateLayout(w http.ResponseWriter, r *http.Request) {
 		layout, err := conversation.Next(r.Context())
 		if errors.Is(err, model.ErrUnparseable) {
 			validation = &appv1.Validation{Errors: []*appv1.LayoutError{{Message: err.Error()}}}
+			s.logger().Info("layout attempt failed", "attempt", attempt, "errors", []string{err.Error()})
 			conversation.Reject([]string{err.Error()})
 			continue
 		}
@@ -95,6 +96,7 @@ func (s *Service) CreateLayout(w http.ResponseWriter, r *http.Request) {
 		for i, e := range validation.Errors {
 			problems[i] = e.Message
 		}
+		s.logger().Info("layout attempt failed", "attempt", attempt, "errors", problems)
 		conversation.Reject(problems)
 	}
 	writeProto(w, http.StatusUnprocessableEntity, validation)

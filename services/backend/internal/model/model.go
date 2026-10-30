@@ -64,11 +64,31 @@ func Start(chat Chat, catalogue *appv1.Catalogue, prompt string, base *appv1.Lay
 	}}, nil
 }
 
+// rangesFor maps everyday words in a prompt to the ranges that make them, so "a bookcase" is
+// treated like naming BILLY and KALLAX.
+var rangesFor = map[string][]string{
+	"bookcase": {"billy", "kallax"},
+	"bookshel": {"billy", "kallax"},
+	"cabinet":  {"eket", "ivar", "bestå"},
+	"tv":       {"bestå"},
+	"media":    {"bestå"},
+	"wardrobe": {"pax"},
+	"cube":     {"kallax"},
+}
+
 // relevant is the part of the catalogue a request needs, so a big catalogue doesn't make every call
-// big: the ranges the prompt names or base uses, plus every part those can hold or stand on, and so
-// on. A request naming no range gets the whole catalogue.
+// big: the ranges the prompt names (or describes, see rangesFor) or base uses, plus every part those
+// can hold or stand on, and so on. A request naming no range gets the whole catalogue.
 func relevant(catalogue *appv1.Catalogue, prompt string, base *appv1.Layout) *appv1.Catalogue {
 	prompt = strings.ToLower(prompt)
+	named := map[string]bool{}
+	for word, ranges := range rangesFor {
+		if strings.Contains(prompt, word) {
+			for _, r := range ranges {
+				named[r] = true
+			}
+		}
+	}
 	inBase := map[string]bool{}
 	for _, p := range base.GetParts() {
 		inBase[p.Article] = true
@@ -76,7 +96,8 @@ func relevant(catalogue *appv1.Catalogue, prompt string, base *appv1.Layout) *ap
 	keep := map[*appv1.Part]bool{}
 	for _, part := range catalogue.Parts {
 		r, _, _ := strings.Cut(part.Name, " ")
-		if inBase[part.Article] || strings.Contains(prompt, strings.ToLower(r)) {
+		r = strings.ToLower(r)
+		if inBase[part.Article] || named[r] || strings.Contains(prompt, r) {
 			keep[part] = true
 		}
 	}
@@ -140,7 +161,8 @@ func (c *Conversation) Next(ctx context.Context) (*appv1.Layout, error) {
 // Reject tells the model what is wrong with its last answer, for the next call to Next.
 func (c *Conversation) Reject(problems []string) {
 	c.messages = append(c.messages, Message{Role: "user", Content: "That layout is not buildable:\n- " +
-		strings.Join(problems, "\n- ") + "\n\nAnswer with the whole corrected layout."})
+		strings.Join(problems, "\n- ") + "\n\nAnswer with the whole corrected layout. Fix positions rather than " +
+		"removing parts: keep every part the request asks for."})
 }
 
 // Vertex is a Chat that calls model (publisher/model, e.g. deepseek-ai/deepseek-v4.1-flash-maas)

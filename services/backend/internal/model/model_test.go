@@ -132,7 +132,9 @@ func TestRelevant(t *testing.T) {
 		want   string
 	}{
 		{"a white Kallax", nil, "kallax underframe drona"},
-		{"a wardrobe", nil, "kallax underframe drona pax door"},
+		{"a lamp", nil, "kallax underframe drona pax door"},
+		{"a wardrobe", nil, "pax door"},
+		{"cube storage", nil, "kallax underframe drona"},
 		{"add doors", &appv1.Layout{Parts: []*appv1.LayoutPart{{Article: "pax"}}}, "pax door"},
 	} {
 		if got := articles(relevant(full, tt.prompt, tt.base)); got != tt.want {
