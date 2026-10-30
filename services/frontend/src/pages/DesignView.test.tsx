@@ -58,10 +58,16 @@ describe('DesignView', () => {
     expect(await screen.findByText('Design not found.')).toBeInTheDocument()
   })
 
-  it('offers a fork to anyone but delete only to the owner', async () => {
+  it('offers a fork to anyone but edit and delete only to the owner', async () => {
     renderDesign(vi.fn().mockResolvedValue(design()), {}, 'someone-else')
     expect(await screen.findByRole('link', { name: 'Fork' })).toHaveAttribute('href', '/design')
+    expect(screen.queryByRole('link', { name: 'Edit' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument()
+  })
+
+  it('offers its owner an edit', async () => {
+    renderDesign(vi.fn().mockResolvedValue(design()), {}, 'calm-smiling-kestrel')
+    expect(await screen.findByRole('link', { name: 'Edit' })).toHaveAttribute('href', '/design')
   })
 
   it('deletes after the owner confirms', async () => {

@@ -86,10 +86,11 @@ var policy = map[Resource]map[Action]Access{
 		ActionRead:   AccessPublic,
 		ActionCreate: AccessPrivate,
 	},
-	// Every design is public, and none can be updated: changing one publishes a fork.
+	// Every design is public, and only its owner may change or delete it.
 	ResourceDesign: {
 		ActionRead:   AccessPublic,
 		ActionCreate: AccessPrivate,
+		ActionUpdate: AccessPrivate,
 		ActionDelete: AccessPrivate,
 	},
 }

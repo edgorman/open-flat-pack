@@ -27,10 +27,12 @@ function setup(
   createLayout: Api["createLayout"],
   createDesign?: Api["createDesign"],
   state?: unknown,
+  updateDesign?: Api["updateDesign"],
 ) {
   const api = {
     createLayout,
     createDesign,
+    updateDesign,
     getCatalogue: vi.fn().mockResolvedValue(catalogue),
   } as unknown as Api;
   renderWithApp(<Design />, {
@@ -196,6 +198,30 @@ describe("Design", () => {
       layout,
       forkedFrom: "d0",
     });
+  });
+
+  it("edits a design: renames it and saves it in place", async () => {
+    const original = {
+      id: "d0",
+      prompt: "A shelf",
+      layout,
+      notes: [],
+    } as unknown as DesignType;
+    const createDesign = vi.fn();
+    const updateDesign = vi.fn().mockResolvedValue({ id: "d0" });
+    setup(vi.fn(), createDesign, { edit: original }, updateDesign);
+
+    const title = await screen.findByLabelText("Title");
+    expect(title).toHaveValue("A shelf");
+    await userEvent.clear(title);
+    expect(screen.getByRole("button", { name: "Save" })).toBeDisabled();
+    await userEvent.type(title, "My media wall");
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
+    expect(updateDesign).toHaveBeenCalledWith("d0", {
+      prompt: "My media wall",
+      layout,
+    });
+    expect(createDesign).not.toHaveBeenCalled();
   });
 
   it("changes a tapped part to another finish of the same article size, and checks it", async () => {

@@ -8,7 +8,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1";
 
 // Design is a published layout as a client sees it - see docs/design/v1/0007-gallery.md. Every
-// design is public and never changes once published; the owner's uid has no field here.
+// design is public and only its owner may change it; the owner's uid has no field here.
 message Design {
   string id = 1;
   // The owner's username, resolved on read. Empty for a design whose owner holds no profile.
@@ -41,4 +41,11 @@ message CreateDesignRequest {
   string prompt = 1;
   Layout layout = 2;
   string forked_from = 3;
+}
+
+// UpdateDesignRequest is the body of `PUT /designs/{id}`: the owner's new title (its prompt) and
+// layout. The layout is validated again as for CreateDesignRequest.
+message UpdateDesignRequest {
+  string prompt = 1;
+  Layout layout = 2;
 }

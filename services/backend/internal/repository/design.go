@@ -19,8 +19,7 @@ type ListParams struct {
 	StartAfter time.Time
 }
 
-// DesignRepository persists designs. Every design is public, so nothing here filters by caller,
-// and none is ever updated.
+// DesignRepository persists designs. Every design is public, so nothing here filters by caller.
 type DesignRepository interface {
 	// Get returns ErrNotFound if no design holds id, including an id that could not be a key at all.
 	Get(ctx context.Context, id string) (entity.Design, error)
@@ -29,6 +28,9 @@ type DesignRepository interface {
 	// Create writes a new design under an id the repository assigns, stamping its creation time. It
 	// rejects a design that fails entity.Design.Validate without writing anything.
 	Create(ctx context.Context, design entity.Design) (entity.Design, error)
+	// Update replaces the prompt and layout of the design at design.ID, returning ErrNotFound if
+	// there is none. It rejects a design that fails entity.Design.Validate without writing anything.
+	Update(ctx context.Context, design entity.Design) error
 	// Delete removes the design at id, returning ErrNotFound if there is none.
 	Delete(ctx context.Context, id string) error
 	// DeleteOwned removes every design ownerID holds. It is for erasing an account.

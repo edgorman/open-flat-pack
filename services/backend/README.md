@@ -28,7 +28,8 @@ JSON:
 | `GET /designs`           | none     | One page of designs, newest first, each with its build notes  |
 | `GET /designs/{id}`      | none     | One design                                                    |
 | `POST /designs`          | required | Publish a layout as a design; 422 with the errors if it isn't buildable |
-| `DELETE /designs/{id}`   | required | Delete a design (owner only); designs are never updated       |
+| `PUT /designs/{id}`      | required | Replace a design's prompt (its title) and layout (owner only); 422 as for POST |
+| `DELETE /designs/{id}`   | required | Delete a design (owner only)                                  |
 | `GET /users/me`          | required | The caller's own profile                                      |
 | `PUT /users/me`          | required | Create or update it; a profile with no username is given one  |
 | `DELETE /users/me`       | required | Erase the account: its designs, then the profile              |

@@ -11,8 +11,8 @@ const (
 	MaxLayoutParts  = 200
 )
 
-// Design is a published layout. Every design is public and none ever changes once published:
-// changing one, your own included, publishes a fork. Whether the layout can be built is checked
+// Design is a published layout. Every design is public; its owner may change its prompt (which is
+// its title) and layout, and anybody else changes it by publishing a fork. Whether the layout can be built is checked
 // against the catalogue by internal/feasibility, not here.
 //
 // ID is assigned by the repository at creation and never changes.
@@ -80,8 +80,8 @@ func (d Design) Validate() error {
 	return candidate.SetLayout(d.Layout)
 }
 
-// Permission is who may do what to a design: anybody reads it, and creating or deleting it is
-// the owner's alone.
+// Permission is who may do what to a design: anybody reads it, and creating, updating or deleting
+// it is the owner's alone.
 func (d Design) Permission(action Action) Permission {
 	permission := PermissionFor(ResourceDesign, action)
 	permission.OwnerID = d.OwnerID

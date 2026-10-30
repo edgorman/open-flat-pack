@@ -49,7 +49,7 @@ func TestDesign_Validate(t *testing.T) {
 	}
 }
 
-// Anybody reads a design; only its owner deletes it, and nobody updates one.
+// Anybody reads a design; only its owner updates or deletes it.
 func TestDesign_Permission(t *testing.T) {
 	design := Design{OwnerID: "ann"}
 	for _, tt := range []struct {
@@ -63,7 +63,8 @@ func TestDesign_Permission(t *testing.T) {
 		{ActionCreate, "", false},
 		{ActionDelete, "ann", true},
 		{ActionDelete, "bob", false},
-		{ActionUpdate, "ann", false},
+		{ActionUpdate, "ann", true},
+		{ActionUpdate, "bob", false},
 	} {
 		if got := design.Permission(tt.action).Allows(tt.uid); got != tt.want {
 			t.Errorf("%s by %q = %v, want %v", tt.action, tt.uid, got, tt.want)
