@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { resetCatalogue } from '../hooks/useCatalogue'
 import { ApiError, type Api, type Catalogue, type Design as DesignType, type Layout } from '../lib/api'
@@ -38,6 +38,20 @@ describe('Design', () => {
     await userEvent.type(screen.getByLabelText('What should change?'), 'Taller')
     await userEvent.click(screen.getByRole('button', { name: 'Refine' }))
     expect(createLayout).toHaveBeenLastCalledWith({ prompt: 'Taller', baseLayout: layout })
+  })
+
+  it('shuffles the preview behind a veil while designing', async () => {
+    let resolve!: (v: unknown) => void
+    setup(vi.fn(() => new Promise((r) => (resolve = r))) as Api['createLayout'])
+
+    await userEvent.type(screen.getByLabelText('What do you want?'), 'A 2x2 KALLAX')
+    await userEvent.click(screen.getByRole('button', { name: 'Design' }))
+    expect(await screen.findByRole('status')).toHaveTextContent('Designing')
+    expect(screen.getByText('preview')).toBeInTheDocument()
+
+    resolve({ layout, validation: { errors: [], notes: [] } })
+    await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument())
+    expect(screen.getByLabelText('What should change?')).toBeInTheDocument()
   })
 
   it('lists the remaining errors on a 422', async () => {

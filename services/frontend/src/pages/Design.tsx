@@ -1,10 +1,11 @@
-import { lazy, Suspense, useState, type FormEvent } from 'react'
+import { lazy, Suspense, useEffect, useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GoogleSignInButton } from '../components/GoogleSignInButton'
 import { PartsList } from '../components/PartsList'
 import { useApp } from '../context/AppContext'
 import { useCatalogue } from '../hooks/useCatalogue'
 import { ApiError, designPath, errorMessage, type Design as DesignType, type Layout, type Validation } from '../lib/api'
+import { scramble } from '../lib/blueprint'
 
 // Three.js is most of the bundle, so it loads only once there is something to draw.
 const Preview = lazy(() => import('../components/Preview').then((m) => ({ default: m.Preview })))
@@ -37,8 +38,23 @@ export function Design() {
     fork ? { layout: fork.layout ?? { parts: [] }, notes: fork.notes, prompt: '' } : null,
   )
   const [working, setWorking] = useState(false)
+  // Set while a prompt is with the model, as opposed to publishing.
+  const [designing, setDesigning] = useState(false)
+  // A made-up layout the preview shuffles through behind a veil while designing.
+  const [shuffle, setShuffle] = useState<Layout | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [problems, setProblems] = useState<string[]>([])
+
+  useEffect(() => {
+    if (!designing || !catalogue) return
+    const next = () => setShuffle(scramble(catalogue))
+    next()
+    const timer = setInterval(next, 2500)
+    return () => {
+      clearInterval(timer)
+      setShuffle(null)
+    }
+  }, [designing, catalogue])
 
   if (!api) {
     return (
@@ -59,6 +75,7 @@ export function Design() {
   const submit = (e: FormEvent) => {
     e.preventDefault()
     setWorking(true)
+    setDesigning(true)
     setError(null)
     setProblems([])
     api
@@ -71,7 +88,10 @@ export function Design() {
         setProblems(problemsOf(e))
         setError(problemsOf(e).length ? "Couldn't make a buildable design from that. Try rephrasing it." : errorMessage(e, 'Failed to design'))
       })
-      .finally(() => setWorking(false))
+      .finally(() => {
+        setWorking(false)
+        setDesigning(false)
+      })
   }
 
   const publish = () => {
@@ -136,7 +156,7 @@ export function Design() {
         )}
       </form>
 
-      {working && <p className="text-muted">Designing - this can take a few seconds…</p>}
+      {designing && !shuffle && <Designing />}
       {error && <p role="alert">{error}</p>}
       {problems.length > 0 && (
         <ul>
@@ -147,14 +167,35 @@ export function Design() {
       )}
 
       {result && catalogueError && <p role="alert">{catalogueError}</p>}
-      {result && catalogue && (
+      {(result || shuffle) && catalogue && (
         <div className="design-grid">
-          <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
-            <Preview layout={result.layout} catalogue={catalogue} />
-          </Suspense>
-          <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />
+          <div className="preview-frame">
+            <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
+              <Preview layout={shuffle ?? result!.layout} catalogue={catalogue} />
+            </Suspense>
+            {shuffle && (
+              <div className="preview-veil">
+                <Designing />
+              </div>
+            )}
+          </div>
+          {result && <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />}
         </div>
       )}
     </div>
+  )
+}
+
+/** The status shown while a prompt is with the model, its ellipsis animated in CSS. */
+function Designing() {
+  return (
+    <p role="status" className="text-muted designing">
+      Designing
+      <span className="ellipsis" aria-hidden="true">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+      </span>
+    </p>
   )
 }
