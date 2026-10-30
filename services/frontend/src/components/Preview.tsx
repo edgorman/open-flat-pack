@@ -55,7 +55,21 @@ function declutter(root: HTMLElement) {
   }
 }
 
-export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Catalogue }) {
+/**
+ * With `onPick`, tapping a part also calls it with the part's index in the layout, and tapping
+ * nothing with null. `marks` tints parts by index. The camera stays put when the layout changes.
+ */
+export function Preview({
+  layout,
+  catalogue,
+  marks,
+  onPick,
+}: {
+  layout: Layout
+  catalogue: Catalogue
+  marks?: Record<number, string>
+  onPick?: (index: number | null) => void
+}) {
   const { theme } = useApp()
   const ref = useRef<HTMLDivElement>(null)
   const [showMeasures, setShowMeasures] = useState(true)
@@ -73,11 +87,17 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
   const view = useRef<{ look: (from: Vector3) => void; measures: (on: boolean) => void; fronts: (on: boolean) => void } | null>(
     null,
   )
+  // Where the camera was when the scene was last torn down, so a rebuild keeps the view.
+  const saved = useRef<{ position: Vector3; target: Vector3 } | null>(null)
+  const pick = useRef(onPick)
+  useEffect(() => {
+    pick.current = onPick
+  })
 
   useEffect(() => {
     const container = ref.current!
     const palette = PALETTES[theme]
-    const { object, fronts, measures, floor, bounds } = buildBlueprint(layout, catalogue, palette)
+    const { object, fronts, measures, floor, bounds } = buildBlueprint(layout, catalogue, palette, marks)
 
     const scene = new Scene()
     scene.background = new Color(palette.paper)
@@ -155,6 +175,7 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
         tag.position.copy(hit.point)
       }
       render()
+      pick.current?.(part ? (part.userData.part as number) : null)
     }
     renderer.domElement.addEventListener('pointerdown', onDown)
     renderer.domElement.addEventListener('pointerup', onUp)
@@ -174,13 +195,19 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
       },
     }
     resize()
-    look(START)
+    if (saved.current) {
+      camera.position.copy(saved.current.position)
+      controls.target.copy(saved.current.target)
+      controls.update()
+      render()
+    } else look(START)
 
     controls.addEventListener('change', render)
     const observer = new ResizeObserver(resize)
     observer.observe(container)
 
     return () => {
+      saved.current = { position: camera.position.clone(), target: controls.target.clone() }
       view.current = null
       observer.disconnect()
       controls.dispose()
@@ -192,7 +219,7 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
       renderer.domElement.remove()
       labels.domElement.remove()
     }
-  }, [layout, catalogue, theme])
+  }, [layout, catalogue, theme, marks])
 
   return (
     <div className="blueprint">

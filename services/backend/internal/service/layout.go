@@ -101,3 +101,20 @@ func (s *Service) CreateLayout(w http.ResponseWriter, r *http.Request) {
 	}
 	writeProto(w, http.StatusUnprocessableEntity, validation)
 }
+
+// CheckLayout validates a layout the caller edited by hand, answering 200 with its Validation
+// whether or not it is buildable. It calls no model and stores nothing, so it needs no sign-in.
+func (s *Service) CheckLayout(w http.ResponseWriter, r *http.Request) {
+	if !requirePermission(w, r, entity.PermissionFor(entity.ResourceLayout, entity.ActionRead)) {
+		return
+	}
+	var layout appv1.Layout
+	if !readProto(w, r, &layout) {
+		return
+	}
+	if len(layout.Parts) > entity.MaxLayoutParts {
+		writeError(w, http.StatusBadRequest, "layout has too many parts")
+		return
+	}
+	writeProto(w, http.StatusOK, feasibility.Validate(&layout, s.catalogue))
+}

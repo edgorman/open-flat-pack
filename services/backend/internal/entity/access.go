@@ -80,8 +80,10 @@ var policy = map[Resource]map[Action]Access{
 		ActionRead: AccessPublic,
 	},
 	// Generating a layout calls the model, which costs money, so it takes an account. Nothing is
-	// stored: the layout is the caller's own until they publish it as a design.
+	// stored: the layout is the caller's own until they publish it as a design. Checking one only
+	// runs the validator, so anybody may.
 	ResourceLayout: {
+		ActionRead:   AccessPublic,
 		ActionCreate: AccessPrivate,
 	},
 	// Every design is public, and none can be updated: changing one publishes a fork.

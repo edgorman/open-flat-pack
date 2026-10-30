@@ -100,6 +100,8 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("GET /catalogue", s.GetCatalogue)
 	// Each request can make several paid model calls, so it has a tighter budget of its own.
 	mux.Handle("POST /layouts", authed(rateLimited(s.layoutLimiter, callerKey, s.CreateLayout)))
+	// Checking a hand-edited layout is the validator alone: cheap, so the per-IP budget covers it.
+	mux.HandleFunc("POST /layouts/check", s.CheckLayout)
 	// Every design is public, so reading one needs no caller at all.
 	mux.HandleFunc("GET /designs", s.ListDesigns)
 	mux.HandleFunc("GET /designs/{id}", s.GetDesign)

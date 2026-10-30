@@ -1,13 +1,25 @@
-import { lazy, Suspense, useState, type FormEvent } from 'react'
+import { lazy, Suspense, useMemo, useRef, useState, type FormEvent } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GoogleSignInButton } from '../components/GoogleSignInButton'
 import { PartsList } from '../components/PartsList'
 import { useApp } from '../context/AppContext'
 import { useCatalogue } from '../hooks/useCatalogue'
 import { ApiError, designPath, errorMessage, type Design as DesignType, type Layout, type Validation } from '../lib/api'
+import { move, type Direction } from '../lib/move'
 
 // Three.js is most of the bundle, so it loads only once there is something to draw.
 const Preview = lazy(() => import('../components/Preview').then((m) => ({ default: m.Preview })))
+
+/** How the preview tints the part being moved, and parts the validator objects to. */
+const SELECTED = '#2753c9'
+const INVALID = '#d1453b'
+
+const ARROWS: [Direction, string][] = [
+  ['left', '←'],
+  ['up', '↑'],
+  ['down', '↓'],
+  ['right', '→'],
+]
 
 // prompt is the first one typed here, which is what a published design is titled by.
 type Result = { layout: Layout; notes: string[]; prompt: string }
@@ -39,6 +51,17 @@ export function Design() {
   const [working, setWorking] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [problems, setProblems] = useState<string[]>([])
+  // The part being moved, and what the validator says about the layout after the last move.
+  const [selected, setSelected] = useState<number | null>(null)
+  const [invalid, setInvalid] = useState<Validation['errors']>([])
+  // Bumped by every check and refine, so only the latest check's answer is shown.
+  const checks = useRef(0)
+  const marks = useMemo(() => {
+    const out: Record<number, string> = {}
+    for (const e of invalid) if (e.part !== undefined) out[e.part] = INVALID
+    if (selected !== null) out[selected] = SELECTED
+    return out
+  }, [invalid, selected])
 
   if (!api) {
     return (
@@ -61,9 +84,12 @@ export function Design() {
     setWorking(true)
     setError(null)
     setProblems([])
+    checks.current++
     api
       .createLayout({ prompt, baseLayout: result?.layout })
       .then((res) => {
+        setSelected(null)
+        setInvalid([])
         setResult({ layout: res.layout ?? { parts: [] }, notes: res.validation?.notes ?? [], prompt: result?.prompt || prompt })
         setPrompt('')
       })
@@ -72,6 +98,24 @@ export function Design() {
         setError(problemsOf(e).length ? "Couldn't make a buildable design from that. Try rephrasing it." : errorMessage(e, 'Failed to design'))
       })
       .finally(() => setWorking(false))
+  }
+
+  // Moves the selected part, then has the backend check the result; it stays editable either way.
+  const nudge = (direction: Direction) => {
+    if (!result || !catalogue || selected === null) return
+    const layout = move(result.layout, catalogue, selected, direction)
+    setError(layout ? null : 'Nowhere free to move it that way.')
+    if (!layout) return
+    setResult({ ...result, layout })
+    const check = ++checks.current
+    api
+      .checkLayout(layout)
+      .then((v) => {
+        if (check !== checks.current) return
+        setInvalid(v.errors)
+        setResult((r) => r && { ...r, notes: v.notes })
+      })
+      .catch((e: unknown) => check === checks.current && setError(errorMessage(e, 'Failed to check the design')))
   }
 
   const publish = () => {
@@ -117,7 +161,7 @@ export function Design() {
           <div className="prompt-actions">
             {/* A fork needs a change before it is a new design, and a design needs a prompt. */}
             {result.prompt && (
-              <button type="button" className="btn btn-accent" onClick={publish} disabled={working}>
+              <button type="button" className="btn btn-accent" onClick={publish} disabled={working || invalid.length > 0}>
                 Publish
               </button>
             )}
@@ -127,6 +171,8 @@ export function Design() {
               onClick={() => {
                 setResult(null)
                 setForkedFrom('')
+                setSelected(null)
+                setInvalid([])
               }}
               disabled={working}
             >
@@ -146,11 +192,41 @@ export function Design() {
         </ul>
       )}
 
+      {invalid.length > 0 && (
+        <div role="alert">
+          <p>This can't be built as it is. Move the parts marked in red, or refine it.</p>
+          <ul>
+            {invalid.map((p) => (
+              <li key={p.message}>{p.message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {result && catalogueError && <p role="alert">{catalogueError}</p>}
+      {result && catalogue && (
+        <div className="move-bar">
+          {selected === null ? (
+            <span className="text-muted">Click a part in the preview to move it.</span>
+          ) : (
+            <>
+              <span>Move {catalogue.parts.find((p) => p.article === result.layout.parts[selected]?.article)?.name ?? 'part'}</span>
+              {ARROWS.map(([direction, arrow]) => (
+                <button key={direction} type="button" className="chip" aria-label={`Move ${direction}`} onClick={() => nudge(direction)} disabled={working}>
+                  {arrow}
+                </button>
+              ))}
+              <button type="button" className="btn btn-ghost" onClick={() => setSelected(null)}>
+                Done
+              </button>
+            </>
+          )}
+        </div>
+      )}
       {result && catalogue && (
         <div className="design-grid">
           <Suspense fallback={<div className="blueprint text-muted center-note">Loading preview…</div>}>
-            <Preview layout={result.layout} catalogue={catalogue} />
+            <Preview layout={result.layout} catalogue={catalogue} marks={marks} onPick={working ? undefined : setSelected} />
           </Suspense>
           <PartsList layout={result.layout} catalogue={catalogue} notes={result.notes} />
         </div>

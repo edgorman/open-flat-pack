@@ -9,7 +9,7 @@
 import type { CurrentUser, UpdateCurrentUserRequest, User } from '../gen/app/v1/user'
 import type { ErrorResponse } from '../gen/app/v1/error'
 import type { Catalogue } from '../gen/app/v1/catalogue'
-import type { CreateLayoutRequest, CreateLayoutResponse } from '../gen/app/v1/layout'
+import type { CreateLayoutRequest, CreateLayoutResponse, Layout, Validation } from '../gen/app/v1/layout'
 import type { CreateDesignRequest, Design, DesignPage, ListDesignsParams } from '../gen/app/v1/design'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
@@ -121,6 +121,8 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
     // Can take several seconds: the model may be called up to three times. A 422 carries the
     // remaining errors as a Validation in ApiError.body.
     createLayout: (req: CreateLayoutRequest) => request<CreateLayoutResponse>('POST', '/layouts', req),
+    // The validator alone, for a layout edited by hand: errors come back in a 200.
+    checkLayout: (layout: Layout) => request<Validation>('POST', '/layouts/check', layout),
 
     listDesigns: (params?: ListDesignsParams) => request<DesignPage>('GET', listPath('/designs', params)),
     getDesign: (id: string) => request<Design>('GET', designPath(id)),
