@@ -22,4 +22,13 @@ How parts fit together:
 Rules:
 - Parts must not overlap, except a part and the part whose slot it sits in, and parts in different slots of the same part.
 - The whole design is at most 5000 mm high, and within the limits you read from the request.
-- Prefer the finish the request asks for, and the fewest parts that meet it.`
+- Include every part the request asks for. If it wants something on both sides, or several of something, put each one in.
+- Prefer the finish the request asks for.
+
+What each range is for:
+- KALLAX: cube shelving, open or with inserts, doors, drawers and boxes in the cubes.
+- BILLY: tall bookcases, with height extensions and OXBERG or HÖGBO doors.
+- EKET: small cabinets and wall-style cubes that stack.
+- IVAR: plain pine cabinets and shelving.
+- BESTÅ: TV benches and media storage, with top panels and fronts.
+- PAX: wardrobes, with doors and KOMPLEMENT shelves, drawers and rails inside.`

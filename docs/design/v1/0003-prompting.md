@@ -8,7 +8,7 @@ DeepSeek V4.1 Flash on Vertex AI (Model Garden, pay per token, served from the `
 
 ## Input
 
-- A fixed system prompt explaining the [slot model](0002-catalogue.md#slots) and the output format.
+- A fixed system prompt explaining the [slot model](0002-catalogue.md#slots), the output format and what each range is for. It asks for every part the request names, on both sides where it says so, rather than the fewest parts.
 - The catalogue.
 - The user's prompt.
 - When changing an existing design, that design's layout.
@@ -33,7 +33,7 @@ The layout is the whole design. Prices, sizes and colours are always read from t
 
 ## Retries
 
-If the layout fails validation, the errors go back to the model in the same conversation with a request to fix them. After two failed retries the user sees the remaining errors and can rephrase. Each error names the part and, where it helps, the nearest valid position, so the model has something concrete to correct.
+If the layout fails validation, the errors go back to the model in the same conversation with a request to fix them by moving parts rather than removing them. Each failed attempt is logged with its errors. After two failed retries the user sees the remaining errors and can rephrase. Each error names the part and, where it helps, the nearest valid position, so the model has something concrete to correct.
 
 ## API
 
