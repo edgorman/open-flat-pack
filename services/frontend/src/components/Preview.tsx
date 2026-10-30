@@ -10,14 +10,14 @@ import {
   PerspectiveCamera,
   Raycaster,
   Scene,
-  Vector2,
   Sphere,
+  Vector2,
   Vector3,
   VSMShadowMap,
   WebGLRenderer,
 } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js'
+import { CSS2DObject, CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js'
 import { useApp } from '../context/AppContext'
 import type { Catalogue, Layout } from '../lib/api'
 import { buildBlueprint, type Palette } from '../lib/blueprint'
@@ -41,11 +41,11 @@ const FRONT = new Vector3(0, 0, 1)
  */
 /**
  * Hides each dimension label that would cover one already shown, since overlapping labels can't be
- * read; orbiting or zooming in brings them back. The scale bar's labels always show, and the
- * overall dimensions, drawn last, are placed first.
+ * read; orbiting or zooming in brings them back. The scale bar's labels and a tapped part's name
+ * always show, and the overall dimensions, drawn last, are placed first.
  */
 function declutter(root: HTMLElement) {
-  const shown = [...root.querySelectorAll('.blueprint-scale')].map((el) => el.getBoundingClientRect())
+  const shown = [...root.querySelectorAll('.blueprint-scale, .blueprint-tag')].map((el) => el.getBoundingClientRect())
   for (const el of [...root.querySelectorAll<HTMLElement>('.blueprint-label')].reverse()) {
     el.style.visibility = ''
     const r = el.getBoundingClientRect()
@@ -56,7 +56,7 @@ function declutter(root: HTMLElement) {
 }
 
 /**
- * With `onPick`, a click on a part calls it with the part's index in the layout, and a click on
+ * With `onPick`, tapping a part also calls it with the part's index in the layout, and tapping
  * nothing with null. `marks` tints parts by index. The camera stays put when the layout changes.
  */
 export function Preview({
@@ -73,10 +73,20 @@ export function Preview({
   const { theme } = useApp()
   const ref = useRef<HTMLDivElement>(null)
   const [showMeasures, setShowMeasures] = useState(true)
-  // The same toggle, read when the scene is rebuilt without the toggle rebuilding it.
+  const [showFronts, setShowFronts] = useState(true)
+  // Whether any part hangs on a front slot, so the Doors toggle has something to hide.
+  const frontSlots = new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === 'front').map((s) => s.name)))
+  const hasFronts = layout.parts.some(({ article }) =>
+    catalogue.parts.some((p) => p.article === article && p.restsOn.some((name) => frontSlots.has(name))),
+  )
+  // The same toggles, read when the scene is rebuilt without the toggles rebuilding it.
   const measuresOn = useRef(true)
-  // Set by the scene once it is built, so the toolbar can move the camera and hide the dimensions.
-  const view = useRef<{ look: (from: Vector3) => void; measures: (on: boolean) => void } | null>(null)
+  const frontsOn = useRef(true)
+  // Set by the scene once it is built, so the toolbar can move the camera and hide the dimensions
+  // and the fronts.
+  const view = useRef<{ look: (from: Vector3) => void; measures: (on: boolean) => void; fronts: (on: boolean) => void } | null>(
+    null,
+  )
   // Where the camera was when the scene was last torn down, so a rebuild keeps the view.
   const saved = useRef<{ position: Vector3; target: Vector3 } | null>(null)
   const pick = useRef(onPick)
@@ -87,7 +97,7 @@ export function Preview({
   useEffect(() => {
     const container = ref.current!
     const palette = PALETTES[theme]
-    const { object, measures, floor, bounds } = buildBlueprint(layout, catalogue, palette, marks)
+    const { object, fronts, measures, floor, bounds } = buildBlueprint(layout, catalogue, palette, marks)
 
     const scene = new Scene()
     scene.background = new Color(palette.paper)
@@ -143,11 +153,44 @@ export function Preview({
       render()
     }
 
+    // Tapping a part names it in a tag where it was tapped; tapping elsewhere clears the tag. A drag
+    // that orbits the view is not a tap.
+    const tag = new CSS2DObject(Object.assign(document.createElement('span'), { className: 'blueprint-tag' }))
+    tag.visible = false
+    scene.add(tag)
+    const raycaster = new Raycaster()
+    const down = new Vector2()
+    const onDown = (e: PointerEvent) => down.set(e.clientX, e.clientY)
+    const onUp = (e: PointerEvent) => {
+      if (down.distanceTo(new Vector2(e.clientX, e.clientY)) > 5) return
+      const r = renderer.domElement.getBoundingClientRect()
+      raycaster.setFromCamera(new Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1), camera)
+      const shown = (o: Object3D | null): boolean => !o || (o.visible && shown(o.parent))
+      const hit = raycaster.intersectObject(object).find((i) => shown(i.object))
+      let part: Object3D | null = hit?.object ?? null
+      while (part && !part.userData.name) part = part.parent
+      tag.visible = !!part
+      if (hit && part) {
+        tag.element.textContent = part.userData.name
+        tag.position.copy(hit.point)
+      }
+      render()
+      pick.current?.(part ? (part.userData.part as number) : null)
+    }
+    renderer.domElement.addEventListener('pointerdown', onDown)
+    renderer.domElement.addEventListener('pointerup', onUp)
+
     measures.visible = measuresOn.current
+    fronts.visible = frontsOn.current
     view.current = {
       look,
       measures: (on) => {
         measures.visible = on
+        render()
+      },
+      fronts: (on) => {
+        fronts.visible = on
+        tag.visible = false
         render()
       },
     }
@@ -158,21 +201,6 @@ export function Preview({
       controls.update()
       render()
     } else look(START)
-
-    // A click, not the end of an orbit, picks the part under the pointer.
-    let down = new Vector2()
-    const onDown = (e: PointerEvent) => (down = new Vector2(e.clientX, e.clientY))
-    const onUp = (e: PointerEvent) => {
-      if (!pick.current || down.distanceTo(new Vector2(e.clientX, e.clientY)) > 4) return
-      const box = renderer.domElement.getBoundingClientRect()
-      const ray = new Raycaster()
-      ray.setFromCamera(new Vector2(((e.clientX - box.left) / box.width) * 2 - 1, -((e.clientY - box.top) / box.height) * 2 + 1), camera)
-      let hit: Object3D | null = ray.intersectObject(object).find((h) => h.object.type === 'Mesh')?.object ?? null
-      while (hit && hit.userData.part === undefined) hit = hit.parent
-      pick.current(hit ? (hit.userData.part as number) : null)
-    }
-    renderer.domElement.addEventListener('pointerdown', onDown)
-    renderer.domElement.addEventListener('pointerup', onUp)
 
     controls.addEventListener('change', render)
     const observer = new ResizeObserver(resize)
@@ -209,6 +237,20 @@ export function Preview({
         >
           Dimensions
         </button>
+        {hasFronts && (
+          <button
+            type="button"
+            className="chip"
+            aria-pressed={showFronts}
+            onClick={() => {
+              frontsOn.current = !showFronts
+              setShowFronts(!showFronts)
+              view.current?.fronts(!showFronts)
+            }}
+          >
+            Doors
+          </button>
+        )}
         <button type="button" className="chip" onClick={() => view.current?.look(FRONT)}>
           Front
         </button>
