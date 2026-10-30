@@ -27,6 +27,11 @@ const StackedNote = "Fix to the wall: this design is stacked."
 
 type rect struct{ x, y, w, h int32 }
 
+// String is how errors place a rectangle, so the model can see what to move where.
+func (a rect) String() string {
+	return fmt.Sprintf("%dx%d mm at x=%d, y=%d", a.w, a.h, a.x, a.y)
+}
+
 // overlaps is true when two rectangles share area; touching edges don't count.
 func (a rect) overlaps(b rect) bool {
 	return a.x < b.x+b.w && b.x < a.x+a.w && a.y < b.y+b.h && b.y < a.y+a.h
@@ -123,7 +128,8 @@ func Validate(layout *appv1.Layout, catalogue *appv1.Catalogue) *appv1.Validatio
 	for j := range parts {
 		for i := range j {
 			if ok(i) && ok(j) && host[i] != j && host[j] != i && !apart(i, j) && rects[i].overlaps(rects[j]) {
-				v.Errors = append(v.Errors, partError(j, fmt.Sprintf("%s overlaps part %d (%s)", describe(j, parts[j]), i, parts[i].Name)))
+				v.Errors = append(v.Errors, partError(j, fmt.Sprintf("%s is %s and overlaps part %d (%s), which is %s",
+					describe(j, parts[j]), rects[j], i, parts[i].Name, rects[i])))
 			}
 		}
 	}
@@ -254,8 +260,8 @@ func unsupported(slots []slot, occupant map[int]int, part *appv1.Part, r rect, s
 		return fmt.Sprintf("%s does not fill a %s, and every %s is taken", describe(self, part), cellName, cellName)
 	case area >= 0:
 		s := slots[area]
-		return fmt.Sprintf("%s does not lie wholly inside a %s; it is %dx%d mm at x=%d, y=%d, and the nearest %s is %dx%d mm at x=%d, y=%d",
-			describe(self, part), s.name, r.w, r.h, r.x, r.y, s.name, s.w, s.h, s.x, s.y)
+		return fmt.Sprintf("%s does not lie wholly inside a %s; it is %s, and the nearest %s is %s",
+			describe(self, part), s.name, r, s.name, s.rect)
 	default:
 		return fmt.Sprintf("%s is not supported: its whole width must rest on %s", describe(self, part), strings.Join(part.RestsOn, " or "))
 	}
