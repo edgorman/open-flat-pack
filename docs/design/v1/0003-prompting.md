@@ -1,6 +1,6 @@
 # 3. Prompting
 
-One model call turns a prompt into a layout. The model gets the whole catalogue, and [feasibility](0004-feasibility.md) checks its answer.
+One model call turns a prompt into a plan of parts, and the backend places them as a layout. The model gets the whole catalogue, and [feasibility](0004-feasibility.md) checks its answer.
 
 ## The model
 
@@ -13,23 +13,40 @@ DeepSeek V4.1 Flash on Vertex AI (Model Garden, pay per token, served from the `
 - The user's prompt.
 - When changing an existing design, that design's layout.
 
-## Output: the layout
+## Output: a plan and its parts
+
+The model says what each part is for and what it stands on, never where it is. The backend works out the positions.
 
 ```json
 {
-  "limits": { "max_width": 1800, "max_height": null },
+  "limits": { "max_width": null, "max_height": null },
+  "plan": ["left bookcase", "TV bench", "right bookcase"],
   "parts": [
-    { "article": "80275887", "x": 0,  "y": 0 },
-    { "article": "60351886", "x": 15, "y": 15 },
-    { "article": "80275887", "x": 0,  "y": 770 }
+    { "id": "left", "article": "40477340", "for": "left bookcase" },
+    { "article": "20528246", "on": "left", "for": "left bookcase" },
+    { "article": "70474062", "for": "TV bench" },
+    { "article": "40477340", "for": "right bookcase" }
   ]
 }
 ```
 
 - `limits` are any size limits the model read from the prompt, in mm, or `null` where the prompt gave none. They can only tighten the fixed limits in [feasibility](0004-feasibility.md#rules), never relax them: a prompt asking for 6 m is still held to 5 m.
-- Each part is an article number and the position of its bottom-left corner in mm, seen from the front. Every part stands against the same wall, so there is no depth coordinate.
+- `plan` lists what the request asks for, each side of an "either side" separately. Every plan item needs at least one part whose `for` names it, or the answer goes back to the model like a validation error.
+- `on` is the `id` of an earlier part this one sits in or on, and it takes the first slot of that part's it can rest on. A part without `on` stands on the floor.
+- When changing a design, the model copies each kept part with its `x` and `y`.
 
-The layout is the whole design. Prices, sizes and colours are always read from the catalogue.
+## Placing
+
+The backend turns the answer into the layout, the list of parts with the position of each bottom-left corner in mm, seen from the front:
+
+- Floor parts stand side by side, left to right, in the order listed.
+- A part in a cell takes the host's next free cell, bottom row first and left to right, or the one `cell` picks by index.
+- Parts on a front or an inside fill it left to right, then the next row up.
+- Parts on a surface stand side by side from its left edge. A wider part carries on over its neighbours at the same height, so a top panel goes on the leftmost frame it covers.
+
+There are no gaps: floor parts touch, and a front fills from its bottom-left corner.
+
+Every part stands against the same wall, so there is no depth coordinate. The layout is the whole design: prices, sizes and colours are always read from the catalogue.
 
 ## Retries
 

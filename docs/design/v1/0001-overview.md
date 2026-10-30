@@ -30,7 +30,7 @@ prompt ──► model call ──► layout ──► validate ──► valid 
 ```
 
 1. A signed-in user types a prompt, or opens a design and types a change ("make it one cube taller").
-2. The backend sends the prompt and the catalogue to the model, which returns a layout: a list of parts and their positions ([3](0003-prompting.md)).
+2. The backend sends the prompt and the catalogue to the model, which returns a plan and the parts for it. The backend places those parts as a layout: a list of parts and their positions ([3](0003-prompting.md)).
 3. The backend validates the layout. On failure it sends the errors back to the model and retries ([4](0004-feasibility.md)).
 4. The frontend draws the valid layout in 3D ([5](0005-preview.md)) and lists its parts ([6](0006-parts-list.md)).
 5. The user can publish it to the gallery, where anyone can fork it ([7](0007-gallery.md)).

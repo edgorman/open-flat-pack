@@ -58,7 +58,7 @@ func TestConversation(t *testing.T) {
 		{"system", `"rests_on":["floor"]`},
 		{"user", "Request: a white bookcase"},
 		{"assistant", "not json"},
-		{"user", "not a layout"},
+		{"user", "can't be laid out"},
 	} {
 		if second[i].Role != want.role || !strings.Contains(second[i].Content, want.contains) {
 			t.Errorf("message %d = %+v, want role %s containing %q", i, second[i], want.role, want.contains)
