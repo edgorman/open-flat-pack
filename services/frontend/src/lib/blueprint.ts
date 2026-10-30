@@ -262,19 +262,3 @@ function dimension(from: Vector3, to: Vector3, offset: Vector3, lines: LineBasic
   group.add(label(`${+(a.distanceTo(b) / 10).toFixed(1)} cm`, 'blueprint-label', a.clone().lerp(b, 0.5)))
   return group
 }
-
-/**
- * A made-up layout for the preview to show while the real one is being designed: one to four
- * random floor-standing parts side by side. It is only for looks and is never validated or saved.
- */
-export function scramble(catalogue: Catalogue, random = Math.random): Layout {
-  const standing = catalogue.parts.filter((p) => p.size && p.restsOn.includes('floor'))
-  let x = 0
-  return {
-    parts: Array.from({ length: standing.length ? 1 + Math.floor(random() * 4) : 0 }, () => {
-      const part = standing[Math.floor(random() * standing.length)]
-      x += part.size!.w
-      return { article: part.article, x: x - part.size!.w, y: 0 }
-    }),
-  }
-}
