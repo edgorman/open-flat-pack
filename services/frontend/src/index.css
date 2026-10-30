@@ -534,10 +534,12 @@ a {
   display: flex;
   gap: var(--space-2);
   padding-left: var(--space-3);
+  min-width: 0;
 }
 .title-input {
   width: auto;
   flex: 1;
+  min-width: 0;
   max-width: 360px;
 }
 .design-grid {
@@ -546,6 +548,14 @@ a {
   gap: var(--space-4);
   align-items: start;
   margin-top: var(--space-4);
+}
+.design-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+.design-main .prompt {
+  margin-bottom: 0;
 }
 @media (max-width: 900px) {
   .design-grid {

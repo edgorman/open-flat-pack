@@ -200,6 +200,78 @@ export function Design() {
       });
   };
 
+  // Once there is a preview, the prompt sits under it, above the parts list on a phone.
+  const form = (
+    <form onSubmit={submit} className="prompt">
+      <label htmlFor="design-prompt" className="prompt-label">
+        {result ? "What should change?" : "What do you want?"}
+      </label>
+      <div className="prompt-bar">
+        <textarea
+          id="design-prompt"
+          className="prompt-input"
+          rows={2}
+          placeholder={
+            result
+              ? "Make it one cube taller"
+              : "A white 4×4 KALLAX with two doors and legs"
+          }
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={working || !prompt.trim()}
+        >
+          {working ? "Designing…" : result ? "Refine" : "Design"}
+        </button>
+      </div>
+      {result && (
+        <div className="prompt-actions">
+          {/* A fork needs a change before it is a new design, and a design needs a title. */}
+          {result.prompt !== undefined && (
+            <>
+              <input
+                className="input title-input"
+                aria-label="Title"
+                placeholder="Title"
+                value={result.prompt}
+                onChange={(e) =>
+                  setResult({ ...result, prompt: e.target.value })
+                }
+              />
+              <button
+                type="button"
+                className="btn btn-accent"
+                onClick={publish}
+                disabled={
+                  working || invalid.length > 0 || !result.prompt.trim()
+                }
+              >
+                {editing ? "Save" : "Publish"}
+              </button>
+            </>
+          )}
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => {
+              setResult(null);
+              setForkedFrom("");
+              setEditing("");
+              setInvalid([]);
+              setSelected(null);
+            }}
+            disabled={working}
+          >
+            Start over
+          </button>
+        </div>
+      )}
+    </form>
+  );
+
   return (
     <div className="page page-wide">
       <header className="page-header">
@@ -211,74 +283,7 @@ export function Design() {
         </h1>
       </header>
 
-      <form onSubmit={submit} className="prompt">
-        <label htmlFor="design-prompt" className="prompt-label">
-          {result ? "What should change?" : "What do you want?"}
-        </label>
-        <div className="prompt-bar">
-          <textarea
-            id="design-prompt"
-            className="prompt-input"
-            rows={2}
-            placeholder={
-              result
-                ? "Make it one cube taller"
-                : "A white 4×4 KALLAX with two doors and legs"
-            }
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={working || !prompt.trim()}
-          >
-            {working ? "Designing…" : result ? "Refine" : "Design"}
-          </button>
-        </div>
-        {result && (
-          <div className="prompt-actions">
-            {/* A fork needs a change before it is a new design, and a design needs a title. */}
-            {result.prompt !== undefined && (
-              <>
-                <input
-                  className="input title-input"
-                  aria-label="Title"
-                  placeholder="Title"
-                  value={result.prompt}
-                  onChange={(e) =>
-                    setResult({ ...result, prompt: e.target.value })
-                  }
-                />
-                <button
-                  type="button"
-                  className="btn btn-accent"
-                  onClick={publish}
-                  disabled={
-                    working || invalid.length > 0 || !result.prompt.trim()
-                  }
-                >
-                  {editing ? "Save" : "Publish"}
-                </button>
-              </>
-            )}
-            <button
-              type="button"
-              className="btn btn-ghost"
-              onClick={() => {
-                setResult(null);
-                setForkedFrom("");
-                setEditing("");
-                setInvalid([]);
-                setSelected(null);
-              }}
-              disabled={working}
-            >
-              Start over
-            </button>
-          </div>
-        )}
-      </form>
+      {!(result && catalogue) && form}
 
       {designing && !result && <Designing />}
       {error && <p role="alert">{error}</p>}
@@ -313,49 +318,52 @@ export function Design() {
       )}
       {result && catalogue && (
         <div className="design-grid">
-          <div className="preview-frame">
-            <Suspense
-              fallback={
-                <div className="blueprint text-muted center-note">
-                  Loading preview…
-                </div>
-              }
-            >
-              <Preview
-                layout={result.layout}
-                catalogue={catalogue}
-                marks={marks}
-                onDrop={working ? undefined : place}
-                onSelect={setSelected}
-              />
-            </Suspense>
-            {finishes.length > 1 && (
-              <div
-                className="finish-picker"
-                role="group"
-                aria-label={`Colour of ${finishes[0].name}`}
+          <div className="design-main">
+            <div className="preview-frame">
+              <Suspense
+                fallback={
+                  <div className="blueprint text-muted center-note">
+                    Loading preview…
+                  </div>
+                }
               >
-                {finishes.map((p) => (
-                  <button
-                    key={p.article}
-                    type="button"
-                    className="swatch"
-                    style={{ background: finishColour(p.finish) }}
-                    title={p.finish}
-                    aria-label={p.finish}
-                    aria-pressed={p.article === tapped?.article}
-                    disabled={working}
-                    onClick={() => recolour(p.article)}
-                  />
-                ))}
-              </div>
-            )}
-            {designing && (
-              <div className="preview-veil">
-                <span className="swirl" aria-hidden="true" />
-                <Designing />
-              </div>
-            )}
+                <Preview
+                  layout={result.layout}
+                  catalogue={catalogue}
+                  marks={marks}
+                  onDrop={working ? undefined : place}
+                  onSelect={setSelected}
+                />
+              </Suspense>
+              {finishes.length > 1 && (
+                <div
+                  className="finish-picker"
+                  role="group"
+                  aria-label={`Colour of ${finishes[0].name}`}
+                >
+                  {finishes.map((p) => (
+                    <button
+                      key={p.article}
+                      type="button"
+                      className="swatch"
+                      style={{ background: finishColour(p.finish) }}
+                      title={p.finish}
+                      aria-label={p.finish}
+                      aria-pressed={p.article === tapped?.article}
+                      disabled={working}
+                      onClick={() => recolour(p.article)}
+                    />
+                  ))}
+                </div>
+              )}
+              {designing && (
+                <div className="preview-veil">
+                  <span className="swirl" aria-hidden="true" />
+                  <Designing />
+                </div>
+              )}
+            </div>
+            {form}
           </div>
           <PartsList
             layout={result.layout}
