@@ -211,7 +211,9 @@ describe("Design", () => {
     const updateDesign = vi.fn().mockResolvedValue({ id: "d0" });
     setup(vi.fn(), createDesign, { edit: original }, updateDesign);
 
-    const title = await screen.findByLabelText("Title");
+    // The prompt moves under the preview once the catalogue has loaded.
+    await screen.findByText("preview");
+    const title = screen.getByLabelText("Title");
     expect(title).toHaveValue("A shelf");
     await userEvent.clear(title);
     expect(screen.getByRole("button", { name: "Save" })).toBeDisabled();
