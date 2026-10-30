@@ -19,6 +19,8 @@ A Three.js scene in the browser, drawn from the layout and the catalogue, so it 
 
 While a design is unpublished, pressing and holding a part picks it up, and dragging moves it across the wall. While it is dragged every other part fades to its outline. Letting go snaps it to the nearest spot where it can rest: a free cell, a surface such as a frame's top, or the floor where it was dropped or beside another part. Everything resting in or on the part moves with it, so moving an underframe carries its frame and inserts. A short tap still names the part, and a drag that starts without the hold orbits the view.
 
-After each move the layout goes to `POST /layouts/check`, which runs [feasibility](0004-feasibility.md) alone, with no model call, and answers with its errors and build notes. Parts with errors are tinted red and Publish waits until there are none; a refine prompt can fix them too, since it starts from the edited layout.
+Tapping a part also shows a swatch for each finish IKEA sells it in. A finish is its own article, so these are the catalogue entries with the same name, size and slots, and picking one swaps the part's article.
+
+After each move or colour change the layout goes to `POST /layouts/check`, which runs [feasibility](0004-feasibility.md) alone, with no model call, and answers with its errors and build notes. Parts with errors are tinted red and Publish waits until there are none; a refine prompt can fix them too, since it starts from the edited layout.
 
 Parts face the front and stand against one wall, so there is no rotation.

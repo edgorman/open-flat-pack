@@ -1,53 +1,66 @@
+import type { Catalogue, Part } from "./api";
+
 /** Preview colours for the catalogue's finishes. A two-tone finish ("black/off-white") not listed
  * here takes its first colour; anything else unknown is grey. Kept apart from lib/blueprint so the
  * gallery and parts list can use it without pulling in Three.js. */
 const FINISHES: Record<string, string> = {
-  white: '#f4f4f1',
-  'high-gloss white': '#ffffff',
-  black: '#2a2a2a',
-  'black-brown': '#3d2d26',
-  'brown walnut effect': '#6e4b34',
-  'brown-red': '#8c3b2c',
-  'grey/wood effect': '#9b958c',
-  'white stained oak effect': '#e3d7c3',
-  'pine/woven poplar': '#cfa974',
-  blue: '#3b64a8',
-  'dark blue/white': '#24395c',
-  'dark grey': '#555555',
-  'dotted/beige': '#d9c9a9',
-  'wave shaped/light grey-blue': '#a9b8c6',
-  beige: '#d8c8ad',
-  'light beige': '#e6dccb',
-  'high-gloss beige': '#e0d2b8',
-  'high-gloss dark beige': '#b9a585',
-  'grey-beige': '#b8b0a2',
-  'light grey-beige': '#cfc9bf',
-  grey: '#8f8f8f',
-  'high-gloss light grey': '#d2d4d6',
-  'grey-green': '#8a9a8a',
-  'grey-green mesh': '#8a9a8a',
-  'dark grey-blue': '#4a5868',
-  'high-gloss dark olive-green': '#4b5236',
-  'high-gloss black': '#1a1a1a',
-  'black mesh': '#2a2a2a',
-  'black oak effect': '#2e2925',
-  'off-white': '#ecebe4',
-  'pale lilac': '#cfc2d6',
-  pine: '#d9b47f',
-  'oak effect': '#c8a77b',
-  'dark brown': '#4a3527',
-  'oak veneer': '#c9a571',
-  oak: '#c9a571',
-  'brown stained oak veneer': '#7a5536',
-  brown: '#6b4a33',
-  'walnut veneer': '#6e4b34',
-  'clear glass': '#cfe0e3',
-  'mirror glass': '#c9d1d6',
-  glass: '#cfe0e3',
-  'glass black': '#2a2a2a',
-  'glass white': '#f4f4f1',
-}
+  white: "#f4f4f1",
+  "high-gloss white": "#ffffff",
+  black: "#2a2a2a",
+  "black-brown": "#3d2d26",
+  "brown walnut effect": "#6e4b34",
+  "brown-red": "#8c3b2c",
+  "grey/wood effect": "#9b958c",
+  "white stained oak effect": "#e3d7c3",
+  "pine/woven poplar": "#cfa974",
+  blue: "#3b64a8",
+  "dark blue/white": "#24395c",
+  "dark grey": "#555555",
+  "dotted/beige": "#d9c9a9",
+  "wave shaped/light grey-blue": "#a9b8c6",
+  beige: "#d8c8ad",
+  "light beige": "#e6dccb",
+  "high-gloss beige": "#e0d2b8",
+  "high-gloss dark beige": "#b9a585",
+  "grey-beige": "#b8b0a2",
+  "light grey-beige": "#cfc9bf",
+  grey: "#8f8f8f",
+  "high-gloss light grey": "#d2d4d6",
+  "grey-green": "#8a9a8a",
+  "grey-green mesh": "#8a9a8a",
+  "dark grey-blue": "#4a5868",
+  "high-gloss dark olive-green": "#4b5236",
+  "high-gloss black": "#1a1a1a",
+  "black mesh": "#2a2a2a",
+  "black oak effect": "#2e2925",
+  "off-white": "#ecebe4",
+  "pale lilac": "#cfc2d6",
+  pine: "#d9b47f",
+  "oak effect": "#c8a77b",
+  "dark brown": "#4a3527",
+  "oak veneer": "#c9a571",
+  oak: "#c9a571",
+  "brown stained oak veneer": "#7a5536",
+  brown: "#6b4a33",
+  "walnut veneer": "#6e4b34",
+  "clear glass": "#cfe0e3",
+  "mirror glass": "#c9d1d6",
+  glass: "#cfe0e3",
+  "glass black": "#2a2a2a",
+  "glass white": "#f4f4f1",
+};
 
 export function finishColour(finish: string): string {
-  return FINISHES[finish] ?? FINISHES[finish.split('/')[0]] ?? '#b5b5b5'
+  return FINISHES[finish] ?? FINISHES[finish.split("/")[0]] ?? "#b5b5b5";
+}
+
+/**
+ * The same part in every finish IKEA sells it in, this one included: catalogue entries with its name,
+ * size and slots. Each finish is its own article, so changing colour means swapping the article.
+ */
+export function finishesOf(catalogue: Catalogue, article: string): Part[] {
+  const key = (p: Part) =>
+    JSON.stringify([p.name, p.size, p.restsOn, p.offers]);
+  const part = catalogue.parts.find((p) => p.article === article);
+  return part ? catalogue.parts.filter((p) => key(p) === key(part)) : [];
 }

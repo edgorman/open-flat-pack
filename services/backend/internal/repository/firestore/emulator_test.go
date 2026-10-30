@@ -65,6 +65,18 @@ func TestEmulatorDesign(t *testing.T) {
 		t.Fatalf("Get = %+v, %v; want the created design", got, err)
 	}
 
+	one.Prompt = "one, renamed"
+	if err := designs.Update(ctx, one); err != nil {
+		t.Fatalf("Update: %v", err)
+	}
+	if got, _ := designs.Get(ctx, one.ID); got.Prompt != one.Prompt || !got.CreatedAt.Equal(one.CreatedAt) {
+		t.Fatalf("Get after Update = %+v, want the new prompt and the same createdAt", got)
+	}
+	one.Prompt = "one"
+	if err := designs.Update(ctx, one); err != nil {
+		t.Fatalf("Update back: %v", err)
+	}
+
 	first, hasMore, err := designs.List(ctx, repository.ListParams{Limit: 2})
 	if err != nil || !slices.Equal(prompts(first), []string{"three", "two"}) || !hasMore {
 		t.Fatalf("first page = %v (hasMore %v, err %v), want [three two] with more", prompts(first), hasMore, err)

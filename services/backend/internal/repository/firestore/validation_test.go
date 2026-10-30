@@ -20,6 +20,11 @@ func TestRepositoriesRejectInvalidEntitiesBeforeWriting(t *testing.T) {
 		assertValidationError(t, err)
 	})
 
+	t.Run("design update", func(t *testing.T) {
+		err := (&DesignRepository{}).Update(ctx, entity.Design{ID: "a", Prompt: "x", Layout: entity.Layout{Parts: []entity.PlacedPart{{Article: "1"}}}})
+		assertValidationError(t, err)
+	})
+
 	t.Run("user put", func(t *testing.T) {
 		_, err := (&UserRepository{}).Put(ctx, entity.User{Username: "sly-dancing-monkey"})
 		assertValidationError(t, err)
@@ -62,6 +67,9 @@ func TestDesignRepositoryRefusesUnaddressableIDs(t *testing.T) {
 	for _, id := range []string{"", "a/b", ".."} {
 		if _, err := designs.Get(ctx, id); !errors.Is(err, repository.ErrNotFound) {
 			t.Errorf("Get(%q) = %v, want ErrNotFound", id, err)
+		}
+		if err := designs.Update(ctx, entity.Design{ID: id, OwnerID: "o", Prompt: "x", Layout: entity.Layout{Parts: []entity.PlacedPart{{Article: "1"}}}}); !errors.Is(err, repository.ErrNotFound) {
+			t.Errorf("Update(%q) = %v, want ErrNotFound", id, err)
 		}
 		if err := designs.Delete(ctx, id); !errors.Is(err, repository.ErrNotFound) {
 			t.Errorf("Delete(%q) = %v, want ErrNotFound", id, err)

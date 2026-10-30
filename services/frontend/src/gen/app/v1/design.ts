@@ -15,7 +15,7 @@ export const protobufFileName = "app/v1/design.proto";
 
 /**
  * Design is a published layout as a client sees it - see docs/design/v1/0007-gallery.md. Every
- * design is public and never changes once published; the owner's uid has no field here.
+ * design is public and only its owner may change it; the owner's uid has no field here.
  */
 export interface Design {
   id: string;
@@ -57,6 +57,15 @@ export interface CreateDesignRequest {
   prompt: string;
   layout?: Layout | undefined;
   forkedFrom: string;
+}
+
+/**
+ * UpdateDesignRequest is the body of `PUT /designs/{id}`: the owner's new title (its prompt) and
+ * layout. The layout is validated again as for CreateDesignRequest.
+ */
+export interface UpdateDesignRequest {
+  prompt: string;
+  layout?: Layout | undefined;
 }
 
 function createBaseDesign(): Design {
@@ -521,6 +530,93 @@ export const CreateDesignRequest: MessageFns<CreateDesignRequest> = {
       ? Layout.fromPartial(object.layout)
       : undefined;
     message.forkedFrom = object.forkedFrom ?? "";
+    return message;
+  },
+};
+
+function createBaseUpdateDesignRequest(): UpdateDesignRequest {
+  return { prompt: "", layout: undefined };
+}
+
+export const UpdateDesignRequest: MessageFns<UpdateDesignRequest> = {
+  encode(message: UpdateDesignRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.prompt !== "") {
+      writer.uint32(10).string(message.prompt);
+    }
+    if (message.layout !== undefined) {
+      Layout.encode(message.layout, writer.uint32(18).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): UpdateDesignRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const previousRecursionDepth = (reader as any).__tsProtoDecodeDepth ?? 0;
+    if (previousRecursionDepth >= 100) {
+      throw new globalThis.Error("protobuf decode recursion limit exceeded");
+    }
+    (reader as any).__tsProtoDecodeDepth = previousRecursionDepth + 1;
+    try {
+      const end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseUpdateDesignRequest();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1: {
+            if (tag !== 10) {
+              break;
+            }
+
+            message.prompt = reader.string();
+            continue;
+          }
+          case 2: {
+            if (tag !== 18) {
+              break;
+            }
+
+            message.layout = Layout.decode(reader, reader.uint32());
+            continue;
+          }
+        }
+        if ((tag & 7) === 4 || tag === 0) {
+          break;
+        }
+        reader.skip(tag & 7);
+      }
+      return message;
+    } finally {
+      (reader as any).__tsProtoDecodeDepth = previousRecursionDepth;
+    }
+  },
+
+  fromJSON(object: any): UpdateDesignRequest {
+    return {
+      prompt: isSet(object.prompt) ? globalThis.String(object.prompt) : "",
+      layout: isSet(object.layout) ? Layout.fromJSON(object.layout) : undefined,
+    };
+  },
+
+  toJSON(message: UpdateDesignRequest): unknown {
+    const obj: any = {};
+    if (message.prompt !== "") {
+      obj.prompt = message.prompt;
+    }
+    if (message.layout !== undefined) {
+      obj.layout = Layout.toJSON(message.layout);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UpdateDesignRequest>, I>>(base?: I): UpdateDesignRequest {
+    return UpdateDesignRequest.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<UpdateDesignRequest>, I>>(object: I): UpdateDesignRequest {
+    const message = createBaseUpdateDesignRequest();
+    message.prompt = object.prompt ?? "";
+    message.layout = (object.layout !== undefined && object.layout !== null)
+      ? Layout.fromPartial(object.layout)
+      : undefined;
     return message;
   },
 };

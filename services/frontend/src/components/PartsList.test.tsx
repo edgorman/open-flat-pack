@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { Catalogue } from '../gen/app/v1/catalogue'
 import type { Layout } from '../gen/app/v1/layout'
-import { articleList, partsLines } from '../lib/partsList'
+import { articleList, partIcon, partsLines } from '../lib/partsList'
 import { PartsList } from './PartsList'
 
 const frame = { article: '80275887', name: 'KALLAX shelving unit', finish: 'white', size: { w: 770, h: 1470, d: 390 }, restsOn: ['floor'], offers: [] }
@@ -53,5 +53,15 @@ describe('PartsList', () => {
     render(<PartsList layout={layout} catalogue={catalogue} notes={[]} />)
     await user.click(screen.getByRole('button', { name: 'Copy article numbers' }))
     expect(await navigator.clipboard.readText()).toBe('802.758.87 × 1\n106.257.14 × 2')
+  })
+})
+
+describe('partIcon', () => {
+  it('draws doors, drawers and frames apart, with a parcel for anything else', () => {
+    expect(partIcon('KALLAX insert with door')).toBe(partIcon('TONSTAD door'))
+    expect(partIcon('KALLAX insert with 2 drawers')).toBe(partIcon('KOMPLEMENT drawer'))
+    expect(partIcon('KALLAX shelving unit')).toBe(partIcon('PAX wardrobe frame'))
+    expect(partIcon('KALLAX shelving unit')).not.toBe(partIcon('TONSTAD door'))
+    expect(partIcon('')).not.toBe(partIcon('KALLAX shelving unit'))
   })
 })
