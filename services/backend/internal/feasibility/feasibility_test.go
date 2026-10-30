@@ -40,6 +40,15 @@ func at(article string, x, y int32) *appv1.LayoutPart {
 	return &appv1.LayoutPart{Article: article, X: x, Y: y}
 }
 
+// tower is n 2x2 frames stacked from the floor.
+func tower(n int32) []*appv1.LayoutPart {
+	var parts []*appv1.LayoutPart
+	for i := range n {
+		parts = append(parts, at("2x2", 0, i*770))
+	}
+	return parts
+}
+
 func TestValidate(t *testing.T) {
 	for _, tt := range []struct {
 		name   string
@@ -92,11 +101,10 @@ func TestValidate(t *testing.T) {
 			want: []string{"overlaps part 1 (KOMPLEMENT drawer)"}},
 		{name: "drawer outside the frame's inside", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 0, 20)},
 			want: []string{"part 1 (KOMPLEMENT drawer) does not lie wholly inside a pax_inside"}},
-		{name: "taller than 2.5 m", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 0, 770), at("2x2", 0, 1540), at("2x2", 0, 2310)},
-			want: []string{"the design is 3080 mm tall; the limit is 2500 mm"}, stacked: true},
-		{name: "prompt limit above 2.5 m", limits: &appv1.Limits{MaxHeight: proto.Int32(4000)},
-			parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 0, 770), at("2x2", 0, 1540), at("2x2", 0, 2310)},
-			want:  []string{"the limit is 2500 mm"}, stacked: true},
+		{name: "taller than 5 m", parts: tower(7),
+			want: []string{"the design is 5390 mm tall; the limit is 5000 mm"}, stacked: true},
+		{name: "prompt limit above 5 m", limits: &appv1.Limits{MaxHeight: proto.Int32(6000)}, parts: tower(7),
+			want: []string{"the limit is 5000 mm"}, stacked: true},
 		{name: "prompt height limit", limits: &appv1.Limits{MaxHeight: proto.Int32(700)}, parts: []*appv1.LayoutPart{at("2x2", 0, 0)},
 			want: []string{"the design is 770 mm tall; the limit is 700 mm"}},
 		{name: "prompt width limit", limits: &appv1.Limits{MaxWidth: proto.Int32(1000)}, parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 770, 0)},

@@ -11,7 +11,7 @@ Every part is a rectangle (its `size.w` by `size.h` at its `x`, `y`), and every 
    - on a **cell**, its position is the cell's bottom-left corner, and no other part uses that cell. Its size isn't compared with the cell's: the slot name already says it fits;
    - on a **surface**, its bottom edge is at the surface's height and its width is covered by one unbroken run of surfaces of that type at that height, all but at most 10 mm of it. One frame can span two frames below it, and a frame fits on its underframe, which IKEA lists 10 mm narrower; anything more is overhang and is refused.
 3. **No collisions.** No two parts overlap, except a part and the part whose cell it sits in.
-4. **Height.** The tallest point is at most 2500 mm, and at most `limits.max_height` if that is lower.
+4. **Height.** The tallest point is at most 5000 mm, and at most `limits.max_height` if that is lower.
 5. **Width.** The overall width is at most `limits.max_width` if given.
 
 ## Results

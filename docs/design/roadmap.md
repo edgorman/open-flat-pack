@@ -8,7 +8,7 @@ Designed in [`v1/`](v1/0001-overview.md).
 
 - KALLAX shelving, every KALLAX part, and the DRÖNA and KUGGIS boxes that fit its cubes.
 - IKEA UK only.
-- A prompt becomes a layout through one model call, checked against physical rules, with stacking up to 2.5 m.
+- A prompt becomes a layout through one model call, checked against physical rules, with stacking up to 5 m.
 - A 3D blueprint preview in the browser.
 - A parts list with product links and a copyable list of article numbers.
 - A public gallery of designs that anyone can fork.

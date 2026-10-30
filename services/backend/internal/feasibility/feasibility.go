@@ -15,7 +15,7 @@ import (
 )
 
 // MaxHeight is the tallest a design may be, in mm. A prompt's limits only ever lower it.
-const MaxHeight = 2500
+const MaxHeight = 5000
 
 // Overhang is how much of a part's width, in mm, may stick out past the surfaces it rests on.
 // IKEA rounds sizes to whole centimetres, and a KALLAX underframe is listed 10 mm narrower than

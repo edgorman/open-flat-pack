@@ -21,5 +21,5 @@ How parts fit together:
 
 Rules:
 - Parts must not overlap, except a part and the part whose slot it sits in, and parts in different slots of the same part.
-- The whole design is at most 2500 mm high, and within the limits you read from the request.
+- The whole design is at most 5000 mm high, and within the limits you read from the request.
 - Prefer the finish the request asks for, and the fewest parts that meet it.`
