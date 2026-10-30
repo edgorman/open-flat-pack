@@ -136,3 +136,28 @@ func TestCreateLayout_Refused(t *testing.T) {
 		t.Errorf("signed out: status = %d", rec.Code)
 	}
 }
+
+// A check answers 200 either way, signed out, with the errors in the body.
+func TestCheckLayout(t *testing.T) {
+	for _, tt := range []struct {
+		body   string
+		status int
+		errors int
+	}{
+		{validLayout, http.StatusOK, 0},
+		{floatingFrame, http.StatusOK, 1},
+		{`{"parts":[` + strings.Repeat(`{"article":"80275887"},`, entity.MaxLayoutParts) + `{"article":"80275887"}]}`, http.StatusBadRequest, 0},
+	} {
+		rec := httptest.NewRecorder()
+		newTestService(nil, nil).Handler().ServeHTTP(rec, httptest.NewRequest(http.MethodPost, "/layouts/check", strings.NewReader(tt.body)))
+		var body struct {
+			Errors []struct {
+				Message string `json:"message"`
+			} `json:"errors"`
+		}
+		_ = json.NewDecoder(rec.Body).Decode(&body)
+		if rec.Code != tt.status || len(body.Errors) != tt.errors {
+			t.Errorf("status = %d, errors = %+v; want %d, %d errors", rec.Code, body.Errors, tt.status, tt.errors)
+		}
+	}
+}

@@ -34,6 +34,12 @@ export { finishColour }
 /** Gap between the drawing and its first dimension line, and between dimension lines. */
 const DIM_GAP = 150
 
+/** Board thickness of a bookcase or cabinet's sides, top, bottom and shelves. */
+const BOARD = 18
+
+/** Roughly how far apart shelves sit in a bookcase or cabinet that takes a front. */
+const SHELF_PITCH = 350
+
 /** ink draws the floor grid and scale bar, paper fills the scale bar's light blocks, and accent
  * draws the dimensions. */
 export interface Palette {
@@ -43,8 +49,10 @@ export interface Palette {
 }
 
 export interface Blueprint {
-  /** The parts. */
+  /** The parts. Each part's group carries its catalogue name as `userData.name`. */
   object: Group
+  /** The doors and drawer fronts, a group inside `object`, hidden to show what is behind them. */
+  fronts: Group
   /** The dimension lines, shown or hidden together. */
   measures: Group
   /** The floor: grid, scale bar and the shadow the parts cast. */
@@ -55,6 +63,8 @@ export interface Blueprint {
 
 interface Placed {
   part: Part
+  /** Its index in the layout. */
+  index: number
   x: number
   y: number
   /** A door, which sits on its part's front face rather than behind it. */
@@ -63,26 +73,32 @@ interface Placed {
 
 type Interval = [number, number]
 
-export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette): Blueprint {
+/**
+ * `marks` tints parts by their index in the layout, such as the one selected for moving. Each
+ * part's group carries that index as `userData.part`, for picking.
+ */
+export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Palette, marks: Record<number, string> = {}): Blueprint {
   const parts = new Map(catalogue.parts.map((p) => [p.article, p]))
   const slotNames = (kind: string) =>
     new Set(catalogue.parts.flatMap((p) => p.offers.filter((s) => s.kind === kind).map((s) => s.name)))
   const heldSlots = new Set([...slotNames('cell'), ...slotNames('inside')])
   const frontSlots = slotNames('front')
-  const placed: Placed[] = layout.parts.flatMap(({ article, x, y }) => {
+  const placed: Placed[] = layout.parts.flatMap(({ article, x, y }, index) => {
     const part = parts.get(article)
-    return part?.size ? [{ part, x, y, inFront: part.restsOn.some((name) => frontSlots.has(name)) }] : []
+    return part?.size ? [{ part, index, x, y, inFront: part.restsOn.some((name) => frontSlots.has(name)) }] : []
   })
   // Structure is everything that does not sit in a cell, a front or an inside: frames, underframes.
   const structure = placed.filter((p) => !p.inFront && !p.part.restsOn.some((name) => heldSlots.has(name)))
 
   const object = new Group()
+  const fronts = new Group()
+  object.add(fronts)
   const measures = new Group()
   const floor = new Group()
   // A quiet outline in both themes, so a white part keeps its edges without looking drawn in pen.
   const outline = new LineBasicMaterial({ color: '#1d2129', transparent: true, opacity: 0.3 })
-  for (const p of placed) object.add(drawPart(p, outline))
-  if (placed.length === 0) return { object, measures, floor, bounds: new Box3(new Vector3(), new Vector3()) }
+  for (const p of placed) (p.inFront ? fronts : object).add(drawPart(p, outline, marks[p.index]))
+  if (placed.length === 0) return { object, fronts, measures, floor, bounds: new Box3(new Vector3(), new Vector3()) }
 
   const { min, max } = new Box3().setFromObject(object)
   const lines = new LineBasicMaterial({ color: palette.accent })
@@ -105,16 +121,23 @@ export function buildBlueprint(layout: Layout, catalogue: Catalogue, palette: Pa
   const drawing = new Box3().setFromObject(object).union(new Box3().setFromObject(measures))
   const [bar, ...rest] = drawFloor(drawing, min.x, DIM_GAP * (widths.length + 2.5), palette)
   floor.add(bar, ...rest)
-  return { object, measures, floor, bounds: drawing.union(new Box3().setFromObject(bar)) }
+  return { object, fronts, measures, floor, bounds: drawing.union(new Box3().setFromObject(bar)) }
 }
 
-/** A part as a box, or, when it offers cells or an inside, as a carcass with a recess at each. */
-function drawPart({ part, x, y, inFront }: Placed, outline: LineBasicMaterial): Group {
+/** A part as a box, or, when it offers cells, an inside or a front, as a carcass with a recess at each
+ * cell or compartment. */
+function drawPart({ part, index, x, y, inFront }: Placed, outline: LineBasicMaterial, mark?: string): Group {
   const { w, h, d } = part.size!
   const colour = new Color(finishColour(part.finish))
-  const cells = part.offers.filter((s) => s.kind === 'cell' || s.kind === 'inside')
+  const cells = recesses(part)
   const group = new Group()
+  group.userData.name = part.name
   group.position.set(x, y, inFront ? d : 0)
+  group.userData.part = index
+  if (mark) {
+    colour.lerp(new Color(mark), 0.45)
+    outline = new LineBasicMaterial({ color: mark })
+  }
 
   let geometry: BufferGeometry
   if (cells.length === 0) {
@@ -136,6 +159,22 @@ function drawPart({ part, x, y, inFront }: Placed, outline: LineBasicMaterial): 
   body.receiveShadow = true
   group.add(body, new LineSegments(new EdgesGeometry(geometry, 20), outline))
   return group
+}
+
+/**
+ * The openings to recess in a part's face: its cells or inside, or, for a bookcase or cabinet that
+ * only takes a front, the space within its boards split by evenly spaced shelves.
+ */
+function recesses(part: Part): { x: number; y: number; w: number; h: number }[] {
+  const cells = part.offers.filter((s) => s.kind === 'cell' || s.kind === 'inside')
+  if (cells.length > 0 || !part.offers.some((s) => s.kind === 'front')) return cells
+  const { w, h } = part.size!
+  // ponytail: the catalogue has no shelf positions, so shelves are spaced evenly about SHELF_PITCH
+  // apart; add them to the catalogue if a part's real shelf count matters.
+  const inner = h - 2 * BOARD
+  const n = Math.max(1, Math.round(inner / SHELF_PITCH))
+  const each = (inner - (n - 1) * BOARD) / n
+  return Array.from({ length: n }, (_, i) => ({ x: BOARD, y: BOARD + i * (each + BOARD), w: w - 2 * BOARD, h: each }))
 }
 
 function finish(color: Color): MeshStandardMaterial {

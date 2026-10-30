@@ -521,6 +521,14 @@ a {
   gap: var(--space-2);
   padding-left: var(--space-3);
 }
+.move-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  margin-bottom: var(--space-2);
+}
 .design-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
@@ -688,6 +696,16 @@ a {
   border-radius: 6px;
   box-shadow: var(--shadow-sm);
   white-space: nowrap;
+}
+.blueprint-tag {
+  font: 500 12px var(--font-body);
+  color: var(--color-text);
+  background: var(--color-card);
+  padding: 3px 9px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+  transform: translateY(-18px);
 }
 .blueprint-scale {
   font: 500 11px var(--font-mono);
