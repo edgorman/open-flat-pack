@@ -188,11 +188,12 @@ function label(text: string, className: string, position: Vector3): CSS2DObject 
 
 /**
  * Sorts the distinct intervals into rows that do not overlap, so each row is one chain of
- * dimensions. A lone interval spanning the whole drawing is left to the overall dimension.
+ * dimensions. An interval spanning the whole drawing is left to the overall dimension.
  */
 function rows(intervals: Interval[], overall: Interval): Interval[][] {
-  const distinct = [...new Map(intervals.map((i) => [i.join(), i])).values()].sort((a, b) => a[0] - b[0] || a[1] - b[1])
-  if (distinct.length === 1 && distinct[0].join() === overall.join()) return []
+  const distinct = [...new Map(intervals.map((i) => [i.join(), i])).values()]
+    .filter((i) => i.join() !== overall.join())
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1])
   const out: Interval[][] = []
   for (const interval of distinct) {
     const row = out.find((r) => r[r.length - 1][1] <= interval[0])
