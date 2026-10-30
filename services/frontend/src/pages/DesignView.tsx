@@ -31,7 +31,7 @@ function Message({ children, alert }: { children: string; alert?: boolean }) {
 
 /**
  * One published design: its prompt, author, preview and parts list. Readable signed out. Anyone can
- * fork it into the design page, and its owner can delete it.
+ * fork it into the design page, and its owner can edit or delete it.
  */
 export function DesignView() {
   const { id } = useParams<{ id: string }>()
@@ -91,6 +91,11 @@ export function DesignView() {
           <Link to="/design" state={{ fork: design } satisfies ForkState} className="btn btn-secondary">
             Fork
           </Link>
+          {isAuthor(profile, design.authorUsername) && (
+            <Link to="/design" state={{ edit: design } satisfies ForkState} className="btn btn-secondary">
+              Edit
+            </Link>
+          )}
           {isAuthor(profile, design.authorUsername) && (
             <button type="button" className="btn btn-ghost" onClick={remove} disabled={deleting}>
               {deleting ? 'Deleting…' : 'Delete'}

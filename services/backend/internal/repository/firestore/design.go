@@ -164,6 +164,22 @@ func (r *DesignRepository) Create(ctx context.Context, design entity.Design) (en
 	return design, nil
 }
 
+func (r *DesignRepository) Update(ctx context.Context, design entity.Design) error {
+	if err := design.Validate(); err != nil {
+		return err
+	}
+	if !idPattern.MatchString(design.ID) {
+		return repository.ErrNotFound
+	}
+
+	doc := designToDocument(design)
+	_, err := r.designs.Doc(design.ID).Update(ctx, []fs.Update{{Path: "prompt", Value: doc.Prompt}, {Path: "layout", Value: doc.Layout}})
+	if status.Code(err) == codes.NotFound {
+		return repository.ErrNotFound
+	}
+	return err
+}
+
 func (r *DesignRepository) Delete(ctx context.Context, id string) error {
 	if !idPattern.MatchString(id) {
 		return repository.ErrNotFound

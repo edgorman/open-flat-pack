@@ -72,6 +72,17 @@ func (r *fakeDesignRepository) Create(_ context.Context, design entity.Design) (
 	return design, nil
 }
 
+func (r *fakeDesignRepository) Update(_ context.Context, design entity.Design) error {
+	if err := design.Validate(); err != nil {
+		return err
+	}
+	if _, ok := r.designs[design.ID]; !ok {
+		return repository.ErrNotFound
+	}
+	r.seed(design)
+	return nil
+}
+
 func (r *fakeDesignRepository) Delete(_ context.Context, id string) error {
 	if _, ok := r.designs[id]; !ok {
 		return repository.ErrNotFound
@@ -235,11 +246,41 @@ func TestDeleteDesign_OwnerOnly(t *testing.T) {
 	}
 }
 
-// There is no update route: a design never changes once published.
-func TestDesigns_CannotBeUpdated(t *testing.T) {
-	s, _ := newDesignTestService()
-	rec := serve(s, signedIn(httptest.NewRequest(http.MethodPut, "/designs/old", strings.NewReader(`{}`))))
-	assertStatus(t, rec, http.StatusMethodNotAllowed)
+func TestUpdateDesign(t *testing.T) {
+	put := func(s *Service, id, body string) *httptest.ResponseRecorder {
+		return serve(s, signedIn(httptest.NewRequest(http.MethodPut, "/designs/"+id, strings.NewReader(body))))
+	}
+	mine := entity.Design{ID: "mine", OwnerID: "caller", Prompt: "x", Layout: buildableLayout, ForkedFrom: "old"}
+
+	t.Run("by its owner", func(t *testing.T) {
+		s, designs := newDesignTestService()
+		designs.seed(mine)
+		rec := put(s, "mine", `{"prompt":" my shelf ","layout":`+validLayout+`}`)
+		assertStatus(t, rec, http.StatusOK)
+		got := designs.designs["mine"]
+		if got.Prompt != "my shelf" || got.ForkedFrom != "old" || got.OwnerID != "caller" {
+			t.Errorf("stored = %+v", got)
+		}
+	})
+
+	for _, tt := range []struct {
+		name, id, body string
+		want           int
+	}{
+		{"someone else's", "old", `{"prompt":"y","layout":` + validLayout + `}`, http.StatusForbidden},
+		{"missing", "missing", `{"prompt":"y","layout":` + validLayout + `}`, http.StatusNotFound},
+		{"no prompt", "mine", `{"layout":` + validLayout + `}`, http.StatusBadRequest},
+		{"unbuildable", "mine", `{"prompt":"y","layout":` + floatingFrame + `}`, http.StatusUnprocessableEntity},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			s, designs := newDesignTestService()
+			designs.seed(mine)
+			assertStatus(t, put(s, tt.id, tt.body), tt.want)
+			if designs.designs["mine"].Prompt != "x" || designs.designs["old"].Prompt != "a shelf" {
+				t.Error("a rejected update was stored")
+			}
+		})
+	}
 }
 
 func TestDeleteUser_ErasesDesigns(t *testing.T) {

@@ -199,6 +199,44 @@ func (s *Service) CreateDesign(w http.ResponseWriter, r *http.Request) {
 	s.writeDesign(w, r, http.StatusCreated, created)
 }
 
+// UpdateDesign replaces a design's prompt and layout. Only the owner may; the layout is checked
+// again as for CreateDesign. Forks hold their own copy, so they are unchanged.
+func (s *Service) UpdateDesign(w http.ResponseWriter, r *http.Request) {
+	design, ok := s.requireDesignPermission(w, r, entity.ActionUpdate)
+	if !ok {
+		return
+	}
+
+	var req appv1.UpdateDesignRequest
+	if !readProto(w, r, &req) {
+		return
+	}
+	err := design.SetPrompt(req.Prompt)
+	if err == nil {
+		err = design.SetLayout(layoutFromMessage(req.Layout))
+	}
+	if err != nil {
+		writeValidationError(w, err)
+		return
+	}
+
+	if validation := feasibility.Validate(layoutMessage(design.Layout), s.catalogue); len(validation.Errors) > 0 {
+		writeProto(w, http.StatusUnprocessableEntity, validation)
+		return
+	}
+
+	err = s.designs.Update(r.Context(), design)
+	if errors.Is(err, repository.ErrNotFound) {
+		writeError(w, http.StatusNotFound, "design not found")
+		return
+	}
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "internal error")
+		return
+	}
+	s.writeDesign(w, r, http.StatusOK, design)
+}
+
 // DeleteDesign removes a design. Only the owner may delete it; forks of it keep their forkedFrom.
 func (s *Service) DeleteDesign(w http.ResponseWriter, r *http.Request) {
 	design, ok := s.requireDesignPermission(w, r, entity.ActionDelete)

@@ -106,6 +106,7 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("GET /designs", s.ListDesigns)
 	mux.HandleFunc("GET /designs/{id}", s.GetDesign)
 	mux.Handle("POST /designs", authed(s.CreateDesign))
+	mux.Handle("PUT /designs/{id}", authed(s.UpdateDesign))
 	mux.Handle("DELETE /designs/{id}", authed(s.DeleteDesign))
 	// A profile is addressed by its username, never by the Google `sub` it is keyed by, so the id
 	// stays an internal detail rather than a public handle. "me" is the one exception, for a client

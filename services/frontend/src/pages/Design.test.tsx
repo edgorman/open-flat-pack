@@ -12,8 +12,8 @@ const user = { id: 'uid-1', email: 'a@b.com', name: 'Ada' }
 const catalogue = { parts: [] } as unknown as Catalogue
 const layout: Layout = { parts: [{ article: '80275887', x: 0, y: 0 }] }
 
-function setup(createLayout: Api['createLayout'], createDesign?: Api['createDesign'], state?: unknown) {
-  const api = { createLayout, createDesign, getCatalogue: vi.fn().mockResolvedValue(catalogue) } as unknown as Api
+function setup(createLayout: Api['createLayout'], createDesign?: Api['createDesign'], state?: unknown, updateDesign?: Api['updateDesign']) {
+  const api = { createLayout, createDesign, updateDesign, getCatalogue: vi.fn().mockResolvedValue(catalogue) } as unknown as Api
   renderWithApp(<Design />, { context: { api, user }, route: '/design', state })
 }
 
@@ -94,5 +94,21 @@ describe('Design', () => {
     expect(createLayout).toHaveBeenCalledWith({ prompt: 'Add legs', baseLayout: original.layout })
     await userEvent.click(await screen.findByRole('button', { name: 'Publish' }))
     expect(createDesign).toHaveBeenCalledWith({ prompt: 'Add legs', layout, forkedFrom: 'd0' })
+  })
+
+  it('edits a design: renames it and saves it in place', async () => {
+    const original = { id: 'd0', prompt: 'A shelf', layout, notes: [] } as unknown as DesignType
+    const createDesign = vi.fn()
+    const updateDesign = vi.fn().mockResolvedValue({ id: 'd0' })
+    setup(vi.fn(), createDesign, { edit: original }, updateDesign)
+
+    const title = await screen.findByLabelText('Title')
+    expect(title).toHaveValue('A shelf')
+    await userEvent.clear(title)
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled()
+    await userEvent.type(title, 'My media wall')
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }))
+    expect(updateDesign).toHaveBeenCalledWith('d0', { prompt: 'My media wall', layout })
+    expect(createDesign).not.toHaveBeenCalled()
   })
 })

@@ -10,7 +10,7 @@ import type { CurrentUser, UpdateCurrentUserRequest, User } from '../gen/app/v1/
 import type { ErrorResponse } from '../gen/app/v1/error'
 import type { Catalogue } from '../gen/app/v1/catalogue'
 import type { CreateLayoutRequest, CreateLayoutResponse, Layout, Validation } from '../gen/app/v1/layout'
-import type { CreateDesignRequest, Design, DesignPage, ListDesignsParams } from '../gen/app/v1/design'
+import type { CreateDesignRequest, Design, DesignPage, ListDesignsParams, UpdateDesignRequest } from '../gen/app/v1/design'
 
 export type { User, CurrentUser } from '../gen/app/v1/user'
 export type { Catalogue, Part } from '../gen/app/v1/catalogue'
@@ -128,6 +128,8 @@ export function createApi(baseUrl: string, authHeaders: AuthHeaders, onUnauthori
     getDesign: (id: string) => request<Design>('GET', designPath(id)),
     // A 422 carries the layout's Validation, as createLayout's does.
     createDesign: (req: CreateDesignRequest) => request<Design>('POST', '/designs', req),
+    // Owner only; a 422 as for createDesign.
+    updateDesign: (id: string, req: UpdateDesignRequest) => request<Design>('PUT', designPath(id), req),
     deleteDesign: (id: string) => request<void>('DELETE', designPath(id)),
   }
 }

@@ -23,7 +23,7 @@ const (
 )
 
 // Design is a published layout as a client sees it - see docs/design/v1/0007-gallery.md. Every
-// design is public and never changes once published; the owner's uid has no field here.
+// design is public and only its owner may change it; the owner's uid has no field here.
 type Design struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -288,6 +288,60 @@ func (x *CreateDesignRequest) GetForkedFrom() string {
 	return ""
 }
 
+// UpdateDesignRequest is the body of `PUT /designs/{id}`: the owner's new title (its prompt) and
+// layout. The layout is validated again as for CreateDesignRequest.
+type UpdateDesignRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Prompt        string                 `protobuf:"bytes,1,opt,name=prompt,proto3" json:"prompt,omitempty"`
+	Layout        *Layout                `protobuf:"bytes,2,opt,name=layout,proto3" json:"layout,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateDesignRequest) Reset() {
+	*x = UpdateDesignRequest{}
+	mi := &file_app_v1_design_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateDesignRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateDesignRequest) ProtoMessage() {}
+
+func (x *UpdateDesignRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_v1_design_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateDesignRequest.ProtoReflect.Descriptor instead.
+func (*UpdateDesignRequest) Descriptor() ([]byte, []int) {
+	return file_app_v1_design_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UpdateDesignRequest) GetPrompt() string {
+	if x != nil {
+		return x.Prompt
+	}
+	return ""
+}
+
+func (x *UpdateDesignRequest) GetLayout() *Layout {
+	if x != nil {
+		return x.Layout
+	}
+	return nil
+}
+
 var File_app_v1_design_proto protoreflect.FileDescriptor
 
 const file_app_v1_design_proto_rawDesc = "" +
@@ -317,7 +371,10 @@ const file_app_v1_design_proto_rawDesc = "" +
 	"\x06prompt\x18\x01 \x01(\tR\x06prompt\x12&\n" +
 	"\x06layout\x18\x02 \x01(\v2\x0e.app.v1.LayoutR\x06layout\x12\x1f\n" +
 	"\vforked_from\x18\x03 \x01(\tR\n" +
-	"forkedFromBPZNgithub.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1b\x06proto3"
+	"forkedFrom\"U\n" +
+	"\x13UpdateDesignRequest\x12\x16\n" +
+	"\x06prompt\x18\x01 \x01(\tR\x06prompt\x12&\n" +
+	"\x06layout\x18\x02 \x01(\v2\x0e.app.v1.LayoutR\x06layoutBPZNgithub.com/edgorman/webapp-template/services/backend/internal/gen/app/v1;appv1b\x06proto3"
 
 var (
 	file_app_v1_design_proto_rawDescOnce sync.Once
@@ -331,25 +388,27 @@ func file_app_v1_design_proto_rawDescGZIP() []byte {
 	return file_app_v1_design_proto_rawDescData
 }
 
-var file_app_v1_design_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_app_v1_design_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_app_v1_design_proto_goTypes = []any{
 	(*Design)(nil),                // 0: app.v1.Design
 	(*DesignPage)(nil),            // 1: app.v1.DesignPage
 	(*ListDesignsParams)(nil),     // 2: app.v1.ListDesignsParams
 	(*CreateDesignRequest)(nil),   // 3: app.v1.CreateDesignRequest
-	(*Layout)(nil),                // 4: app.v1.Layout
-	(*timestamppb.Timestamp)(nil), // 5: google.protobuf.Timestamp
+	(*UpdateDesignRequest)(nil),   // 4: app.v1.UpdateDesignRequest
+	(*Layout)(nil),                // 5: app.v1.Layout
+	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
 }
 var file_app_v1_design_proto_depIdxs = []int32{
-	4, // 0: app.v1.Design.layout:type_name -> app.v1.Layout
-	5, // 1: app.v1.Design.created_at:type_name -> google.protobuf.Timestamp
+	5, // 0: app.v1.Design.layout:type_name -> app.v1.Layout
+	6, // 1: app.v1.Design.created_at:type_name -> google.protobuf.Timestamp
 	0, // 2: app.v1.DesignPage.designs:type_name -> app.v1.Design
-	4, // 3: app.v1.CreateDesignRequest.layout:type_name -> app.v1.Layout
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	5, // 3: app.v1.CreateDesignRequest.layout:type_name -> app.v1.Layout
+	5, // 4: app.v1.UpdateDesignRequest.layout:type_name -> app.v1.Layout
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_app_v1_design_proto_init() }
@@ -365,7 +424,7 @@ func file_app_v1_design_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_app_v1_design_proto_rawDesc), len(file_app_v1_design_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

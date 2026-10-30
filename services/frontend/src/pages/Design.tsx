@@ -13,11 +13,12 @@ const Preview = lazy(() => import('../components/Preview').then((m) => ({ defaul
 /** How the preview tints parts the validator objects to. */
 const INVALID = '#d1453b'
 
-// prompt is the first one typed here, which is what a published design is titled by.
-type Result = { layout: Layout; notes: string[]; prompt: string }
+// prompt is the design's title: the first one typed here, or the edited design's, and renamable.
+// It is unset on a fork until its first change.
+type Result = { layout: Layout; notes: string[]; prompt?: string }
 
-/** What a design page's Fork link passes: the design to start from. */
-export type ForkState = { fork?: DesignType }
+/** What a design page's Fork or Edit link passes: the design to start from. */
+export type ForkState = { fork?: DesignType; edit?: DesignType }
 
 /** Why a layout was refused: a 422's remaining errors, or none for any other failure. */
 function problemsOf(e: unknown): string[] {
@@ -28,17 +29,19 @@ function problemsOf(e: unknown): string[] {
  * Where a signed-in user designs something: a prompt goes to `POST /layouts`, and the layout comes
  * back as a preview and parts list. It stays unpublished in the page; another prompt refines it,
  * and Publish saves it with `POST /designs`. Opened from a design's Fork link, it starts from that
- * design's layout and publishes with `forkedFrom` set.
+ * design's layout and publishes with `forkedFrom` set; from its Edit link, Save replaces that design.
  */
 export function Design() {
   const { api, user, authError, authReady, renderSignInButton } = useApp()
   const { catalogue, error: catalogueError } = useCatalogue()
   const [prompt, setPrompt] = useState('')
   const navigate = useNavigate()
-  const fork = (useLocation().state as ForkState | null)?.fork
+  const { fork, edit } = (useLocation().state as ForkState | null) ?? {}
   const [forkedFrom, setForkedFrom] = useState(fork?.id ?? '')
+  const [editing, setEditing] = useState(edit?.id ?? '')
+  const start = fork ?? edit
   const [result, setResult] = useState<Result | null>(
-    fork ? { layout: fork.layout ?? { parts: [] }, notes: fork.notes, prompt: '' } : null,
+    start ? { layout: start.layout ?? { parts: [] }, notes: start.notes, prompt: edit?.prompt } : null,
   )
   const [working, setWorking] = useState(false)
   // Set while a prompt is with the model, as opposed to publishing.
@@ -82,7 +85,7 @@ export function Design() {
       .createLayout({ prompt, baseLayout: result?.layout })
       .then((res) => {
         setInvalid([])
-        setResult({ layout: res.layout ?? { parts: [] }, notes: res.validation?.notes ?? [], prompt: result?.prompt || prompt })
+        setResult({ layout: res.layout ?? { parts: [] }, notes: res.validation?.notes ?? [], prompt: result?.prompt ?? prompt })
         setPrompt('')
       })
       .catch((e: unknown) => {
@@ -115,16 +118,16 @@ export function Design() {
   }
 
   const publish = () => {
-    if (!result) return
+    if (!result?.prompt) return
     setWorking(true)
     setError(null)
     setProblems([])
-    api
-      .createDesign({ prompt: result.prompt, layout: result.layout, forkedFrom })
+    const req = { prompt: result.prompt, layout: result.layout }
+    ;(editing ? api.updateDesign(editing, req) : api.createDesign({ ...req, forkedFrom }))
       .then((design) => navigate(designPath(design.id)))
       .catch((e: unknown) => {
         setProblems(problemsOf(e))
-        setError(errorMessage(e, 'Failed to publish'))
+        setError(errorMessage(e, editing ? 'Failed to save' : 'Failed to publish'))
         setWorking(false)
       })
   }
@@ -132,7 +135,7 @@ export function Design() {
   return (
     <div className="page page-wide">
       <header className="page-header">
-        <span className="page-kicker text-muted">{forkedFrom ? 'Fork' : 'Design'}</span>
+        <span className="page-kicker text-muted">{editing ? 'Edit' : forkedFrom ? 'Fork' : 'Design'}</span>
         <h1 className="title-editor">{result ? 'Refine your design' : 'Describe your shelving'}</h1>
       </header>
 
@@ -155,11 +158,25 @@ export function Design() {
         </div>
         {result && (
           <div className="prompt-actions">
-            {/* A fork needs a change before it is a new design, and a design needs a prompt. */}
-            {result.prompt && (
-              <button type="button" className="btn btn-accent" onClick={publish} disabled={working || invalid.length > 0}>
-                Publish
-              </button>
+            {/* A fork needs a change before it is a new design, and a design needs a title. */}
+            {result.prompt !== undefined && (
+              <>
+                <input
+                  className="input title-input"
+                  aria-label="Title"
+                  placeholder="Title"
+                  value={result.prompt}
+                  onChange={(e) => setResult({ ...result, prompt: e.target.value })}
+                />
+                <button
+                  type="button"
+                  className="btn btn-accent"
+                  onClick={publish}
+                  disabled={working || invalid.length > 0 || !result.prompt.trim()}
+                >
+                  {editing ? 'Save' : 'Publish'}
+                </button>
+              </>
             )}
             <button
               type="button"
@@ -167,6 +184,7 @@ export function Design() {
               onClick={() => {
                 setResult(null)
                 setForkedFrom('')
+                setEditing('')
                 setInvalid([])
               }}
               disabled={working}
