@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* Showroom: a cool off-white room, white cards, graphite text and one cobalt accent. The 3D preview
    (components/Preview.tsx) takes its scene colours from the same values. */
@@ -16,9 +16,9 @@
   --color-accent-soft: #e8eefc;
   --color-on-text: #ffffff;
 
-  --font-heading: 'Instrument Sans', system-ui, sans-serif;
-  --font-body: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-heading: "Instrument Sans", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -40,7 +40,7 @@
   --shadow-lg: 0 18px 48px -20px rgba(20, 30, 60, 0.4);
 }
 
-:root[data-theme='dark'] {
+:root[data-theme="dark"] {
   color-scheme: dark;
 
   --color-bg: #121417;
@@ -73,10 +73,17 @@ body {
   font-size: 15px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 150ms ease, color 150ms ease;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.15;
@@ -134,7 +141,10 @@ a {
   border: 1px solid transparent;
   padding: 9px 18px;
   border-radius: var(--radius-pill);
-  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
 }
 .btn svg {
   display: block;
@@ -198,7 +208,7 @@ a {
   padding: 5px 12px;
   cursor: pointer;
 }
-.chip[aria-pressed='true'] {
+.chip[aria-pressed="true"] {
   background: var(--color-text);
   border-color: var(--color-text);
   color: var(--color-on-text);
@@ -273,7 +283,11 @@ a {
   width: 18px;
   height: 18px;
   border-radius: 5px;
-  background: linear-gradient(135deg, var(--color-accent) 50%, color-mix(in srgb, var(--color-accent) 45%, var(--color-card)) 50%);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 50%,
+    color-mix(in srgb, var(--color-accent) 45%, var(--color-card)) 50%
+  );
 }
 .nav-brand-main {
   font-weight: 700;
@@ -590,7 +604,9 @@ a {
   border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   animation: cardIn 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  transition: box-shadow 150ms ease, transform 150ms ease;
+  transition:
+    box-shadow 150ms ease,
+    transform 150ms ease;
 }
 .gallery-card:hover {
   box-shadow: var(--shadow-md);
@@ -625,7 +641,7 @@ a {
   font-size: 12px;
 }
 .gallery-meta span + span::before {
-  content: '·';
+  content: "·";
   margin-right: var(--space-2);
 }
 .feed-load-more {
@@ -717,6 +733,25 @@ a {
 .preview-frame {
   position: relative;
 }
+.finish-picker {
+  display: inline-flex;
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px;
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+}
+.finish-picker .swatch {
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+.finish-picker .swatch[aria-pressed="true"] {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
 .preview-veil {
   position: absolute;
   inset: 0;
@@ -746,7 +781,11 @@ a {
   height: 56px;
   border-radius: 50%;
   background: conic-gradient(from 0deg, transparent, var(--color-accent));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 6px),
+    #000 calc(100% - 5px)
+  );
   animation: swirl 1s linear infinite;
 }
 @keyframes ellipsis {
@@ -830,7 +869,7 @@ a {
   font-variant-numeric: tabular-nums;
 }
 .parts-qty::before {
-  content: '×';
+  content: "×";
 }
 .swatch {
   width: 28px;
