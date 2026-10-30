@@ -1,4 +1,4 @@
-import { Mesh, type MeshStandardMaterial } from 'three'
+import { ExtrudeGeometry, Mesh, type MeshStandardMaterial } from 'three'
 import { CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js'
 import type { Catalogue, Layout } from './api'
 import { buildBlueprint, finishColour, type Palette } from './blueprint'
@@ -65,12 +65,13 @@ function labels(layout: Layout): string[] {
 
 describe('buildBlueprint', () => {
   it("hangs a door on its bookcase's front face and leaves it out of the measures", () => {
-    const { object } = buildBlueprint(
+    const { object, fronts } = buildBlueprint(
       { parts: [{ article: 'door', x: 0, y: 0 }, { article: 'bookcase', x: 0, y: 0 }] },
       catalogue,
       palette,
     )
-    expect(object.children.map((g) => g.position.z)).toEqual([20, 0])
+    expect(fronts.children.map((g) => [g.userData.name, g.position.z])).toEqual([['OXBERG door', 20]])
+    expect(object.children.map((g) => g.position.z)).toEqual([0, 0])
     expect(labels({ parts: [{ article: 'bookcase', x: 0, y: 0 }, { article: 'door', x: 0, y: 0 }] })).toEqual(['106 cm', '40 cm'])
   })
 
@@ -91,9 +92,17 @@ describe('buildBlueprint', () => {
     expect(labels({ parts: [{ article: 'frame', x: 0, y: 0 }] })).toEqual(['41 cm', '77 cm'])
   })
 
+  it('recesses a bookcase that takes a front, with shelves about 35 cm apart', () => {
+    const { object } = buildBlueprint({ parts: [{ article: 'bookcase', x: 0, y: 0 }] }, catalogue, palette)
+    const body = object.children[1].children.find((o) => o instanceof Mesh && o.geometry instanceof ExtrudeGeometry) as Mesh<ExtrudeGeometry>
+    // 106 cm tall: three compartments, so two shelves.
+    expect(body.geometry.parameters.shapes).toHaveProperty('holes.length', 3)
+  })
+
   it('skips articles missing from the catalogue', () => {
-    const { object } = buildBlueprint({ parts: [{ article: 'gone', x: 0, y: 0 }] }, catalogue, palette)
-    expect(object.children).toHaveLength(0)
+    const { object, fronts } = buildBlueprint({ parts: [{ article: 'gone', x: 0, y: 0 }] }, catalogue, palette)
+    expect(object.children).toEqual([fronts])
+    expect(fronts.children).toHaveLength(0)
   })
 
   it('colours each part by its finish, with a recessed back behind a frame', () => {
