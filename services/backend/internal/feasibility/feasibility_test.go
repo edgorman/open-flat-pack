@@ -32,6 +32,7 @@ var catalogue = &appv1.Catalogue{Parts: []*appv1.Part{
 	{Article: "pax", Name: "PAX wardrobe frame", Size: &appv1.Size{W: 500, H: 2010}, RestsOn: []string{"floor"},
 		Offers: []*appv1.Slot{{Name: "pax_front", Kind: "front", W: 500, H: 2010}, {Name: "pax_inside", Kind: "inside", X: 20, Y: 20, W: 460, H: 1970}}},
 	{Article: "paxdoor", Name: "FORSAND door", Size: &appv1.Size{W: 500, H: 1950}, RestsOn: []string{"pax_front"}},
+	{Article: "tallpaxdoor", Name: "FORSAND door", Size: &appv1.Size{W: 500, H: 2290}, RestsOn: []string{"pax_front"}},
 	{Article: "drawer", Name: "KOMPLEMENT drawer", Size: &appv1.Size{W: 460, H: 160}, RestsOn: []string{"pax_inside"}},
 }}
 
@@ -82,7 +83,9 @@ func TestValidate(t *testing.T) {
 		{name: "doors overlap", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 0, 0), at("door", 300, 0)},
 			want: []string{"part 2 (OXBERG door) overlaps part 1 (OXBERG door)"}},
 		{name: "door past its front", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 500, 0)},
-			want: []string{"part 1 (OXBERG door) does not lie wholly inside a billy_front"}},
+			want: []string{"part 1 (OXBERG door) does not lie wholly inside a billy_front; it is 400x1920 mm at x=500, y=0, and the nearest billy_front is 800x2020 mm at x=0, y=0"}},
+		{name: "door taller than its front", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("tallpaxdoor", 0, 0)},
+			want: []string{"part 1 (FORSAND door) does not lie wholly inside a pax_front; it is 500x2290 mm at x=0, y=0, and the nearest pax_front is 500x2010 mm at x=0, y=0"}},
 		{name: "extension on a bookcase", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("extension", 0, 2020)}, stacked: true},
 		{name: "door in front of drawers", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 20, 20), at("drawer", 20, 180), at("paxdoor", 0, 30)}},
 		{name: "drawers overlap", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 20, 20), at("drawer", 20, 100)},

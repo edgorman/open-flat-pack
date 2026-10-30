@@ -1,6 +1,7 @@
 package catalogue
 
 import (
+	"slices"
 	"strings"
 	"testing"
 )
@@ -13,6 +14,33 @@ func TestLoad(t *testing.T) {
 	}
 	if len(catalogue.Parts) == 0 {
 		t.Error("catalogue has no parts")
+	}
+}
+
+// A door or an interior part must fit at least one front or inside it names, or no layout can hold it.
+func TestLoad_AreaPartsFit(t *testing.T) {
+	catalogue, err := Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	type area struct{ w, h int32 }
+	areas := map[string][]area{}
+	for _, part := range catalogue.Parts {
+		for _, s := range part.Offers {
+			if s.Kind == "front" || s.Kind == "inside" {
+				areas[s.Name] = append(areas[s.Name], area{s.W, s.H})
+			}
+		}
+	}
+	for _, part := range catalogue.Parts {
+		for _, name := range part.RestsOn {
+			if areas[name] == nil {
+				continue
+			}
+			if !slices.ContainsFunc(areas[name], func(a area) bool { return part.Size.W <= a.w && part.Size.H <= a.h }) {
+				t.Errorf("%s (%s) is %dx%d mm and fits no %s", part.Article, part.Name, part.Size.W, part.Size.H, name)
+			}
+		}
 	}
 }
 

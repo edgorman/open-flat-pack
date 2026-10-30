@@ -221,14 +221,18 @@ func surfaceUnder(slots []slot, restsOn []string, r rect, self int) string {
 }
 
 // unsupported says why a part rests on nothing, pointing a part that goes in a cell at the nearest
-// free one so the model has a concrete fix.
+// free one, and one that goes in a front or an inside at the nearest of those, so the model has a
+// concrete fix.
 func unsupported(slots []slot, occupant map[int]int, part *appv1.Part, r rect, self int) string {
-	nearest := -1
-	var best int64
-	cellName, areaName := "", ""
+	nearest, area := -1, -1
+	var best, bestArea int64
+	cellName := ""
 	for c, s := range slots {
-		if (s.kind == "front" || s.kind == "inside") && slices.Contains(part.RestsOn, s.name) {
-			areaName = s.name
+		if (s.kind == "front" || s.kind == "inside") && s.owner != self && slices.Contains(part.RestsOn, s.name) {
+			dx, dy := int64(s.x-r.x), int64(s.y-r.y)
+			if d := dx*dx + dy*dy; area < 0 || d < bestArea {
+				area, bestArea = c, d
+			}
 		}
 		if s.kind != "cell" || s.owner == self || !slices.Contains(part.RestsOn, s.name) {
 			continue
@@ -248,8 +252,10 @@ func unsupported(slots []slot, occupant map[int]int, part *appv1.Part, r rect, s
 		return fmt.Sprintf("%s does not fill a %s; nearest free %s is at x=%d, y=%d", describe(self, part), s.name, s.name, s.x, s.y)
 	case cellName != "":
 		return fmt.Sprintf("%s does not fill a %s, and every %s is taken", describe(self, part), cellName, cellName)
-	case areaName != "":
-		return fmt.Sprintf("%s does not lie wholly inside a %s", describe(self, part), areaName)
+	case area >= 0:
+		s := slots[area]
+		return fmt.Sprintf("%s does not lie wholly inside a %s; it is %dx%d mm at x=%d, y=%d, and the nearest %s is %dx%d mm at x=%d, y=%d",
+			describe(self, part), s.name, r.w, r.h, r.x, r.y, s.name, s.w, s.h, s.x, s.y)
 	default:
 		return fmt.Sprintf("%s is not supported: its whole width must rest on %s", describe(self, part), strings.Join(part.RestsOn, " or "))
 	}
