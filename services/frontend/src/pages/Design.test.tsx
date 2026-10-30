@@ -31,8 +31,9 @@ describe('Design', () => {
 
     await userEvent.type(screen.getByLabelText('What do you want?'), 'A 2x2 KALLAX')
     await userEvent.click(screen.getByRole('button', { name: 'Design' }))
-    expect(await screen.findByText('preview')).toBeInTheDocument()
-    expect(screen.getByText('Fix to the wall.')).toBeInTheDocument()
+    // The shuffling preview shows while designing, so wait for the real result's notes.
+    expect(await screen.findByText('Fix to the wall.')).toBeInTheDocument()
+    expect(screen.getByText('preview')).toBeInTheDocument()
     expect(createLayout).toHaveBeenCalledWith({ prompt: 'A 2x2 KALLAX', baseLayout: undefined })
 
     await userEvent.type(screen.getByLabelText('What should change?'), 'Taller')
