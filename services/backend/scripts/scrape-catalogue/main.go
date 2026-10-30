@@ -25,6 +25,7 @@ import (
 	"net/url"
 	"os"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -57,12 +58,16 @@ type product struct {
 }
 
 func main() {
-	filter := flag.String("filter", "^(KALLAX|DRÖNA|KUGGIS|BILLY|OXBERG|HÖGBO|EKET|IVAR|BESTÅ|LAPPVIKEN|SELSVIKEN|HANVIKEN|SINDVIK)$", "keep products whose name matches this regexp")
+	filter := flag.String("filter", "^(KALLAX|DRÖNA|KUGGIS|BILLY|OXBERG|HÖGBO|EKET|IVAR|BESTÅ|LAPPVIKEN|SELSVIKEN|HANVIKEN|SINDVIK|PAX|KOMPLEMENT|"+
+		strings.Join(paxDoors, "|")+")$", "keep products whose name matches this regexp")
 	flag.Parse()
 	queries := flag.Args()
 	if len(queries) == 0 {
 		queries = []string{"kallax", "dröna", "kuggis", "billy", "oxberg", "högbo", "eket", "ivar", "bestå",
-			"lappviken", "selsviken", "hanviken", "sindvik"}
+			"lappviken", "selsviken", "hanviken", "sindvik", "pax", "komplement"}
+		for _, name := range paxDoors {
+			queries = append(queries, strings.ToLower(name))
+		}
 	}
 	if err := run(queries, regexp.MustCompile(*filter)); err != nil {
 		fmt.Fprintln(os.Stderr, "scrape-catalogue:", err)
@@ -169,6 +174,19 @@ func entry(p product) *appv1.Part {
 		Finish:  p.ValidDesignText,
 		Size:    size(p.Measure),
 	}
+	// A KOMPLEMENT measure is the width of the PAX frame it fits by its depth (a clothes rail's is
+	// the width only). It goes inside the frame, so it is as wide as the frame's inside, and search
+	// gives no height, so that is an estimate per type. Only those for 58 cm deep frames are kept.
+	if h, ok := komplementMM[strings.ToLower(p.TypeName)]; ok && p.Name == "KOMPLEMENT" {
+		measure := p.Measure
+		if !strings.Contains(measure, "x") {
+			measure = strings.Replace(measure, " cm", "x58 cm", 1)
+		}
+		part.Size = nil
+		if s := size(measure); s != nil && s.H == 580 {
+			part.Size = &appv1.Size{W: s.W - 2*paxPanelMM, D: 580, H: h}
+		}
+	}
 	// A top panel's measure is w x d, and it lies flat; 20 mm is near enough its thickness.
 	if strings.HasPrefix(part.Name, "BESTÅ top panel") && part.Size != nil && part.Size.D == 0 {
 		part.Size.D, part.Size.H = part.Size.H, 20
@@ -251,8 +269,43 @@ func slots(name string, size *appv1.Size) ([]string, []*appv1.Slot) {
 	case strings.HasPrefix(name, "LAPPVIKEN") || strings.HasPrefix(name, "SELSVIKEN") ||
 		strings.HasPrefix(name, "HANVIKEN") || strings.HasPrefix(name, "SINDVIK"):
 		return []string{"besta_front"}, nil
+	case name == "PAX wardrobe frame":
+		return []string{"floor"}, []*appv1.Slot{
+			{Name: "pax_front", Kind: "front", W: size.W, H: size.H},
+			{Name: "pax_inside", Kind: "inside", X: paxPanelMM, Y: paxPanelMM, W: size.W - 2*paxPanelMM, H: size.H - 2*paxPanelMM},
+		}
+	case name == "PAX add-on end-unit" || name == "PAX add-on mid-unit":
+		return []string{"floor"}, nil
+	case strings.HasPrefix(name, "KOMPLEMENT ") && komplementMM[strings.TrimPrefix(name, "KOMPLEMENT ")] > 0:
+		return []string{"pax_inside"}, nil
+	case slices.ContainsFunc(paxDoors, func(door string) bool { return strings.HasPrefix(name, door+" ") }) &&
+		strings.HasSuffix(name, "door"):
+		return []string{"pax_front"}, nil
 	}
 	return nil, nil
+}
+
+// paxDoors are the ranges of hinged doors made for PAX frames. Sliding doors, which span several
+// frames, are left out.
+var paxDoors = []string{"FORSAND", "BERGSBO", "GRIMO", "TONSTAD", "GULLABERG", "STORKLINTA", "TYSSEDAL",
+	"FLISBERGET", "FYRUDDEN", "FARDAL", "ÅHEIM", "BJÖRNESKOGEN", "KAMMARTORP"}
+
+// paxPanelMM is roughly how thick a PAX frame's sides, top and bottom are, so what fits inside.
+const paxPanelMM = 20
+
+// komplementMM is the height of each kind of KOMPLEMENT part that goes inside a PAX frame, in mm.
+// Search gives none, so these are estimates, near enough for spacing parts and the preview.
+var komplementMM = map[string]int32{
+	"shelf":                          20,
+	"glass shelf":                    20,
+	"drawer":                         160,
+	"drawer with framed front":       160,
+	"drawer with framed glass front": 160,
+	"drawer with glass front":        160,
+	"pull-out tray":                  60,
+	"mesh basket":                    160,
+	"clothes rail":                   30,
+	"pull-out trouser hanger":        100,
 }
 
 // cells gives the offsets of the cells along one side of a frame that long, in mm.

@@ -46,7 +46,7 @@ func parse(data []byte) (*appv1.Catalogue, error) {
 
 		size := part.GetSize()
 		for _, slot := range part.Offers {
-			if slot.Kind != "cell" && slot.Kind != "surface" && slot.Kind != "front" {
+			if slot.Kind != "cell" && slot.Kind != "surface" && slot.Kind != "front" && slot.Kind != "inside" {
 				return nil, fmt.Errorf("catalogue: %s slot %q has unknown kind %q", part.Article, slot.Name, slot.Kind)
 			}
 			if slot.X < 0 || slot.Y < 0 || slot.W < 0 || slot.H < 0 ||

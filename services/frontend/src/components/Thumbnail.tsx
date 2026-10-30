@@ -3,7 +3,7 @@ import { finishColour } from '../lib/finishes'
 
 /**
  * A flat front view of a layout for the gallery: each part a rectangle in its finish colour, with a
- * frame's cells cut out and doors on top. SVG rather than the 3D preview, so a page of them costs nothing.
+ * frame's cells and insides cut out and doors on top. SVG rather than the 3D preview, so a page of them costs nothing.
  */
 export function Thumbnail({ layout, catalogue }: { layout: Layout; catalogue: Catalogue }) {
   const parts = new Map(catalogue.parts.map((p) => [p.article, p]))
@@ -28,7 +28,7 @@ export function Thumbnail({ layout, catalogue }: { layout: Layout; catalogue: Ca
   return (
     <svg className="thumbnail" viewBox={`${left - pad} ${-pad} ${right - left + pad * 2} ${top + pad * 2}`} aria-hidden="true">
       {placed.map(({ part, x, y, w, h }, i) => {
-        const cells = part.offers.filter((s) => s.kind === 'cell').map((c) => rect(x + c.x, y + c.y, c.w, c.h))
+        const cells = part.offers.filter((s) => s.kind === 'cell' || s.kind === 'inside').map((c) => rect(x + c.x, y + c.y, c.w, c.h))
         return (
           <path
             key={i}

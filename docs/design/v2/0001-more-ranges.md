@@ -15,6 +15,10 @@ v2 widens the catalogue from KALLAX to IKEA UK's other modular storage ranges. E
 | BESTÅ frames and TV benches | 60, 120 and 180 cm wide | `floor`, `besta_top` | a `besta_front` and a `besta_top` surface |
 | BESTÅ top panels | 120, 180 and 240 cm wide | `besta_top` | - |
 | LAPPVIKEN, SELSVIKEN, HANVIKEN and SINDVIK doors and fronts | 60 cm wide, 26, 38 and 64 cm high | `besta_front` | - |
+| PAX wardrobe frame | 50, 75 and 100 cm wide, 201 and 236 cm high | `floor` | a `pax_front` and a `pax_inside` |
+| PAX add-on end and mid units | 20 and 35 cm wide | `floor` | - |
+| PAX hinged doors: FORSAND, BERGSBO, GRIMO, TONSTAD, GULLABERG, STORKLINTA, TYSSEDAL, FLISBERGET, FYRUDDEN, FARDAL, ÅHEIM, BJÖRNESKOGEN, KAMMARTORP | 25 and 50 cm wide, 195 and 229 cm high | `pax_front` | - |
+| KOMPLEMENT shelves, drawers, pull-out trays, mesh baskets, clothes rails and trouser hangers | for 50, 75 and 100 cm frames | `pax_inside` | - |
 
 Anything else in these ranges fits none of these rules and is left out:
 
@@ -22,6 +26,9 @@ Anything else in these ranges fits none of these rules and is left out:
 - EKET and BESTÅ legs and suspension rails. Every design stands on the floor.
 - BESTÅ shelves, drawer frames, boxes, hinges and runners.
 - IVAR side units, shelves, posts and the parts that hang between them.
+- PAX corner units and sliding doors, which span several frames, and KOMPLEMENT dividers, fittings, small inserts and the parts for 35 cm deep frames.
+
+Search lists a KOMPLEMENT part by the width of the frame it fits and its depth, with no height. The scraper makes it as wide as that frame's inside, taking a PAX frame's panels as 20 mm thick, and gives it a height by type: 20 mm for a shelf, 30 mm for a clothes rail, 60 mm for a pull-out tray, 100 mm for a trouser hanger and 160 mm for a drawer or basket.
 
 Search lists a BESTÅ top panel as width by depth, so the scraper gives it a 20 mm thickness. It lists IVAR cabinets with doors as width by height, so they get IVAR's 30 cm depth.
 
@@ -33,10 +40,16 @@ A third slot kind joins cell and surface:
 
 - **front** - the face of a bookcase or cabinet, which doors cover. A part resting here must lie wholly inside it. Any number of parts may share a front, as long as they don't overlap each other, so an 80 cm BILLY takes two 40 cm doors side by side, or a 97 cm door below a gap of open shelves.
 
-A part may overlap the part whose front it sits in, as it may the part whose cell it sits in.
+- **inside** - the space inside a wardrobe frame, for shelves, drawers and rails. It works like a front, and a PAX frame's inside is its front less 20 mm all round.
 
-Search lists doors as width by height only, so the scraper gives each a 20 mm depth for the preview, where a door is drawn on its bookcase's front face rather than behind it.
+A part may overlap the part whose slot it sits in, and parts in different slots of one part may overlap each other, so a door may cover the drawers behind it.
+
+Search lists doors as width by height only, so the scraper gives each a 20 mm depth for the preview, where a door is drawn on its part's front face rather than behind it. A part with an inside is drawn open, like a frame with cells.
 
 ## Stacking
 
 A design is stacked, and gets the "fix to the wall" note, when any part stands on a surface other than the floor or a `base`. A BILLY height extension counts.
+
+## What the model sees
+
+The catalogue has about 400 parts, so a model call doesn't send it all. It sends the ranges the prompt names, such as "PAX", and the ranges of the parts in the design being changed, plus every part that rests in or on a slot those parts offer, or offers a slot they rest on, repeated until nothing new joins. That brings in a range's doors, inserts and underframes without naming them. A prompt that names no range, such as "a white wardrobe", gets the whole catalogue. Validation always uses the whole catalogue.

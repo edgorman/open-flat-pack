@@ -29,6 +29,10 @@ var catalogue = &appv1.Catalogue{Parts: []*appv1.Part{
 		Offers: []*appv1.Slot{{Name: "billy_front", Kind: "front", W: 800, H: 2020}, {Name: "billy_top", Kind: "surface", Y: 2020, W: 800}}},
 	{Article: "extension", Name: "BILLY height extension unit", Size: &appv1.Size{W: 800, H: 350}, RestsOn: []string{"billy_top"}},
 	{Article: "door", Name: "OXBERG door", Size: &appv1.Size{W: 400, H: 1920}, RestsOn: []string{"billy_front"}},
+	{Article: "pax", Name: "PAX wardrobe frame", Size: &appv1.Size{W: 500, H: 2010}, RestsOn: []string{"floor"},
+		Offers: []*appv1.Slot{{Name: "pax_front", Kind: "front", W: 500, H: 2010}, {Name: "pax_inside", Kind: "inside", X: 20, Y: 20, W: 460, H: 1970}}},
+	{Article: "paxdoor", Name: "FORSAND door", Size: &appv1.Size{W: 500, H: 1950}, RestsOn: []string{"pax_front"}},
+	{Article: "drawer", Name: "KOMPLEMENT drawer", Size: &appv1.Size{W: 460, H: 160}, RestsOn: []string{"pax_inside"}},
 }}
 
 func at(article string, x, y int32) *appv1.LayoutPart {
@@ -80,6 +84,11 @@ func TestValidate(t *testing.T) {
 		{name: "door past its front", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 500, 0)},
 			want: []string{"part 1 (OXBERG door) does not lie wholly inside a billy_front"}},
 		{name: "extension on a bookcase", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("extension", 0, 2020)}, stacked: true},
+		{name: "door in front of drawers", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 20, 20), at("drawer", 20, 180), at("paxdoor", 0, 30)}},
+		{name: "drawers overlap", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 20, 20), at("drawer", 20, 100)},
+			want: []string{"part 2 (KOMPLEMENT drawer) overlaps part 1 (KOMPLEMENT drawer)"}},
+		{name: "drawer outside the frame's inside", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 0, 20)},
+			want: []string{"part 1 (KOMPLEMENT drawer) does not lie wholly inside a pax_inside"}},
 		{name: "taller than 2.5 m", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 0, 770), at("2x2", 0, 1540), at("2x2", 0, 2310)},
 			want: []string{"the design is 3080 mm tall; the limit is 2500 mm"}, stacked: true},
 		{name: "prompt limit above 2.5 m", limits: &appv1.Limits{MaxHeight: proto.Int32(4000)},
