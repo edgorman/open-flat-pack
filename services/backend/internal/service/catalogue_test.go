@@ -23,7 +23,7 @@ func TestGetCatalogue(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status = %d, want %d", rec.Code, http.StatusOK)
 	}
-	if got := rec.Result().Header.Get("Cache-Control"); got != "public, max-age=3600" {
+	if got := rec.Result().Header.Get("Cache-Control"); got != "no-cache" {
 		t.Errorf("Cache-Control = %q", got)
 	}
 	// Spelled out rather than decoded into appv1.Catalogue, so a renamed wire field fails here.

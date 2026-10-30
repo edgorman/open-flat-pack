@@ -40,6 +40,15 @@ func at(article string, x, y int32) *appv1.LayoutPart {
 	return &appv1.LayoutPart{Article: article, X: x, Y: y}
 }
 
+// tower is n 2x2 frames stacked from the floor.
+func tower(n int32) []*appv1.LayoutPart {
+	var parts []*appv1.LayoutPart
+	for i := range n {
+		parts = append(parts, at("2x2", 0, i*770))
+	}
+	return parts
+}
+
 func TestValidate(t *testing.T) {
 	for _, tt := range []struct {
 		name   string
@@ -78,10 +87,10 @@ func TestValidate(t *testing.T) {
 		{name: "legs on a frame", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("legs", 0, 770)},
 			want: []string{"part 1 (KALLAX legs) is not supported"}},
 		{name: "frames collide", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 500, 0), at("insert", 42, 42)},
-			want: []string{"part 1 (KALLAX shelving unit) overlaps part 0 (KALLAX shelving unit)"}},
+			want: []string{"part 1 (KALLAX shelving unit) is 770x770 mm at x=500, y=0 and overlaps part 0 (KALLAX shelving unit), which is 770x770 mm at x=0, y=0"}},
 		{name: "two doors share a front", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 0, 0), at("door", 400, 0)}},
 		{name: "doors overlap", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 0, 0), at("door", 300, 0)},
-			want: []string{"part 2 (OXBERG door) overlaps part 1 (OXBERG door)"}},
+			want: []string{"part 2 (OXBERG door) is 400x1920 mm at x=300, y=0 and overlaps part 1 (OXBERG door)"}},
 		{name: "door past its front", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("door", 500, 0)},
 			want: []string{"part 1 (OXBERG door) does not lie wholly inside a billy_front; it is 400x1920 mm at x=500, y=0, and the nearest billy_front is 800x2020 mm at x=0, y=0"}},
 		{name: "door taller than its front", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("tallpaxdoor", 0, 0)},
@@ -89,14 +98,13 @@ func TestValidate(t *testing.T) {
 		{name: "extension on a bookcase", parts: []*appv1.LayoutPart{at("billy", 0, 0), at("extension", 0, 2020)}, stacked: true},
 		{name: "door in front of drawers", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 20, 20), at("drawer", 20, 180), at("paxdoor", 0, 30)}},
 		{name: "drawers overlap", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 20, 20), at("drawer", 20, 100)},
-			want: []string{"part 2 (KOMPLEMENT drawer) overlaps part 1 (KOMPLEMENT drawer)"}},
+			want: []string{"overlaps part 1 (KOMPLEMENT drawer)"}},
 		{name: "drawer outside the frame's inside", parts: []*appv1.LayoutPart{at("pax", 0, 0), at("drawer", 0, 20)},
 			want: []string{"part 1 (KOMPLEMENT drawer) does not lie wholly inside a pax_inside"}},
-		{name: "taller than 2.5 m", parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 0, 770), at("2x2", 0, 1540), at("2x2", 0, 2310)},
-			want: []string{"the design is 3080 mm tall; the limit is 2500 mm"}, stacked: true},
-		{name: "prompt limit above 2.5 m", limits: &appv1.Limits{MaxHeight: proto.Int32(4000)},
-			parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 0, 770), at("2x2", 0, 1540), at("2x2", 0, 2310)},
-			want:  []string{"the limit is 2500 mm"}, stacked: true},
+		{name: "taller than 5 m", parts: tower(7),
+			want: []string{"the design is 5390 mm tall; the limit is 5000 mm"}, stacked: true},
+		{name: "prompt limit above 5 m", limits: &appv1.Limits{MaxHeight: proto.Int32(6000)}, parts: tower(7),
+			want: []string{"the limit is 5000 mm"}, stacked: true},
 		{name: "prompt height limit", limits: &appv1.Limits{MaxHeight: proto.Int32(700)}, parts: []*appv1.LayoutPart{at("2x2", 0, 0)},
 			want: []string{"the design is 770 mm tall; the limit is 700 mm"}},
 		{name: "prompt width limit", limits: &appv1.Limits{MaxWidth: proto.Int32(1000)}, parts: []*appv1.LayoutPart{at("2x2", 0, 0), at("2x2", 770, 0)},

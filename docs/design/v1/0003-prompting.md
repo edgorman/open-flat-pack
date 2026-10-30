@@ -26,7 +26,7 @@ DeepSeek V4.1 Flash on Vertex AI (Model Garden, pay per token, served from the `
 }
 ```
 
-- `limits` are any size limits the model read from the prompt, in mm, or `null` where the prompt gave none. They can only tighten the fixed limits in [feasibility](0004-feasibility.md#rules), never relax them: a prompt asking for 3 m is still held to 2.5 m.
+- `limits` are any size limits the model read from the prompt, in mm, or `null` where the prompt gave none. They can only tighten the fixed limits in [feasibility](0004-feasibility.md#rules), never relax them: a prompt asking for 6 m is still held to 5 m.
 - Each part is an article number and the position of its bottom-left corner in mm, seen from the front. Every part stands against the same wall, so there is no depth coordinate.
 
 The layout is the whole design. Prices, sizes and colours are always read from the catalogue.

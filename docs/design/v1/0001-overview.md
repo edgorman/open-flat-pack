@@ -19,7 +19,7 @@ The guiding rule is to keep everything as simple as possible: what v1 does is ex
 - **KALLAX**, with every KALLAX part (frames, inserts, doors, drawers, legs, underframes and other add-ons), plus the DRÖNA and KUGGIS boxes that fit its cubes. How parts fit together is catalogue data, so another range is added by adding entries.
 - **IKEA UK.** Prices in GBP, links to `ikea.com/gb/en`.
 - **Furniture only.** A design is the furniture itself, within optional limits from the prompt such as "no wider than 180 cm".
-- **Stacking**, up to 2.5 m in total height.
+- **Stacking**, up to 5 m in total height.
 
 ## How a request flows
 

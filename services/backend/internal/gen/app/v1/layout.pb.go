@@ -76,7 +76,7 @@ func (x *Layout) GetParts() []*LayoutPart {
 }
 
 // Limits are size limits read from the prompt, in mm. They only ever tighten the fixed limits
-// feasibility enforces (2500 mm high), never relax them. Unset where the prompt gave none.
+// feasibility enforces (5000 mm high), never relax them. Unset where the prompt gave none.
 type Limits struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MaxWidth      *int32                 `protobuf:"varint,1,opt,name=max_width,json=maxWidth,proto3,oneof" json:"max_width,omitempty"`
