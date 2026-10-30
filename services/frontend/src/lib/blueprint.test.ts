@@ -82,8 +82,9 @@ describe('buildBlueprint', () => {
         { article: 'insert', x: 42, y: 217 },
       ],
     }
-    // Widths: frame 77, underframe 76, overall 77. Heights: underframe 18, frame 41, overall 59.
-    expect(labels(layout)).toEqual(['18 cm', '41 cm', '59 cm', '76 cm', '77 cm', '77 cm'])
+    // Widths: underframe 76, overall 77 (the frame's width is the overall one). Heights: underframe
+    // 18, frame 41, overall 59.
+    expect(labels(layout)).toEqual(['18 cm', '41 cm', '59 cm', '76 cm', '77 cm'])
   })
 
   it('leaves out a lone part measured by the overall dimensions', () => {

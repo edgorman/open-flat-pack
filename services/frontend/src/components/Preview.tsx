@@ -36,6 +36,22 @@ const FRONT = new Vector3(0, 0, 1)
  * 10 cm grid and a scale bar. It starts at a three-quarter angle and orbits on drag. Rendering
  * happens only when the view changes.
  */
+/**
+ * Hides each dimension label that would cover one already shown, since overlapping labels can't be
+ * read; orbiting or zooming in brings them back. The scale bar's labels always show, and the
+ * overall dimensions, drawn last, are placed first.
+ */
+function declutter(root: HTMLElement) {
+  const shown = [...root.querySelectorAll('.blueprint-scale')].map((el) => el.getBoundingClientRect())
+  for (const el of [...root.querySelectorAll<HTMLElement>('.blueprint-label')].reverse()) {
+    el.style.visibility = ''
+    const r = el.getBoundingClientRect()
+    if (r.width === 0) continue
+    if (shown.some((s) => r.left < s.right && s.left < r.right && r.top < s.bottom && s.top < r.bottom)) el.style.visibility = 'hidden'
+    else shown.push(r)
+  }
+}
+
 export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Catalogue }) {
   const { theme } = useApp()
   const ref = useRef<HTMLDivElement>(null)
@@ -85,6 +101,7 @@ export function Preview({ layout, catalogue }: { layout: Layout; catalogue: Cata
     const render = () => {
       renderer.render(scene, camera)
       labels.render(scene, camera)
+      declutter(labels.domElement)
     }
     // Far enough back along `from` to fit the whole drawing, with a margin, in the narrower field.
     const look = (from: Vector3) => {
