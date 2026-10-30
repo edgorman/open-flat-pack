@@ -832,11 +832,25 @@ a {
 .parts-qty::before {
   content: '×';
 }
-.swatch {
-  width: 28px;
-  height: 28px;
+.part-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
   flex: none;
   border-radius: 8px;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.swatch {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   border: 1px solid var(--color-line);
 }
 .notes {
