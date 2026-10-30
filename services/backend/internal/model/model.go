@@ -31,14 +31,16 @@ type Message struct {
 // pass a func.
 type Chat func(ctx context.Context, messages []Message) (string, error)
 
-// ErrUnparseable marks a reply that isn't a layout. It counts as a failed attempt, like a layout
-// that fails validation, rather than as the model being unreachable.
-var ErrUnparseable = errors.New("the answer is not a layout")
+// ErrUnparseable marks a reply that can't be made into a layout: not JSON, or parts place can't
+// position. It counts as a failed attempt, like a layout that fails validation, rather than as the
+// model being unreachable.
+var ErrUnparseable = errors.New("the answer can't be laid out")
 
 // Conversation is one prompt's exchange with the model.
 type Conversation struct {
-	chat     Chat
-	messages []Message
+	chat      Chat
+	catalogue *appv1.Catalogue
+	messages  []Message
 }
 
 // Start opens a conversation for prompt. base is the layout of the design being changed, or nil
@@ -58,7 +60,7 @@ func Start(chat Chat, catalogue *appv1.Catalogue, prompt string, base *appv1.Lay
 		}
 		request = "Change this layout:\n" + string(layout) + "\n\n" + request
 	}
-	return &Conversation{chat: chat, messages: []Message{
+	return &Conversation{chat: chat, catalogue: catalogue, messages: []Message{
 		{Role: "system", Content: systemPrompt + "\n\nThe catalogue:\n" + string(parts)},
 		{Role: "user", Content: request},
 	}}, nil
@@ -151,18 +153,22 @@ func (c *Conversation) Next(ctx context.Context) (*appv1.Layout, error) {
 	if start < 0 || end < start {
 		return nil, fmt.Errorf("%w: no JSON object", ErrUnparseable)
 	}
-	var layout appv1.Layout
-	if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal([]byte(reply[start:end+1]), &layout); err != nil {
+	var a answer
+	if err := json.Unmarshal([]byte(reply[start:end+1]), &a); err != nil {
 		return nil, fmt.Errorf("%w: %v", ErrUnparseable, err)
 	}
-	return &layout, nil
+	layout, problems := place(a, c.catalogue)
+	if len(problems) > 0 {
+		return nil, fmt.Errorf("%w: %s", ErrUnparseable, strings.Join(problems, "; "))
+	}
+	return layout, nil
 }
 
 // Reject tells the model what is wrong with its last answer, for the next call to Next.
 func (c *Conversation) Reject(problems []string) {
 	c.messages = append(c.messages, Message{Role: "user", Content: "That layout is not buildable:\n- " +
-		strings.Join(problems, "\n- ") + "\n\nAnswer with the whole corrected layout. Fix positions rather than " +
-		"removing parts: keep every part the request asks for."})
+		strings.Join(problems, "\n- ") + "\n\nAnswer with the whole corrected layout. Keep every part the plan " +
+		"needs: move or replace a part rather than removing it."})
 }
 
 // Vertex is a Chat that calls model (publisher/model, e.g. deepseek-ai/deepseek-v4.1-flash-maas)
